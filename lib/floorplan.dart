@@ -105,8 +105,8 @@ class _FloorplanState extends State<Floorplan> {
 
     return InteractiveViewer(
       onInteractionStart: (details) {
-        print(details.localFocalPoint.dx);
-        print(details.localFocalPoint.dy);
+        print("x: "+details.localFocalPoint.dx.toString());
+        print("y: "+details.localFocalPoint.dy.toString());
       },
       transformationController: controller,
       maxScale: 300,
