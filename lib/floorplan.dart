@@ -35,9 +35,7 @@ class _FloorplanState extends State<Floorplan> {
   }
 
   Widget buildRectElement(BuildContext context, RectElement element) {
-
     return Positioned(
-
       top: element.y,
       left: element.x,
       child: Container(
@@ -106,6 +104,10 @@ class _FloorplanState extends State<Floorplan> {
         .toList();
 
     return InteractiveViewer(
+      onInteractionStart: (details) {
+        print(details.localFocalPoint.dx);
+        print(details.localFocalPoint.dy);
+      },
       transformationController: controller,
       maxScale: 300,
       constrained: false,
