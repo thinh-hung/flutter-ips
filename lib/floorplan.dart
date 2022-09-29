@@ -125,17 +125,19 @@ class _FloorplanState extends State<Floorplan> {
         .toList();
 
     return InteractiveViewer(
-        onInteractionStart: (details) {
-          print("x: " + details.localFocalPoint.dx.toString());
-          print("y: " + details.localFocalPoint.dy.toString());
-        },
         transformationController: controller,
         maxScale: 300,
         constrained: false,
-        child: CustomPaint(
-          painter: GridPainter(),
-          child: Stack(
-            children: layers,
+        child: GestureDetector(
+          onTapDown: (details) {
+            print("x: " + details.localPosition.dx.toString());
+            print("y: " + details.localPosition.dy.toString());
+          },
+          child: CustomPaint(
+            painter: GridPainter(),
+            child: Stack(
+              children: layers,
+            ),
           ),
         ));
   }
