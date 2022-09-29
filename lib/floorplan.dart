@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:floorplans/gird/gird_painter.dart';
+
 import 'baseelement.dart';
 import 'layerelement.dart';
 import 'rectelement.dart';
@@ -104,16 +106,18 @@ class _FloorplanState extends State<Floorplan> {
         .toList();
 
     return InteractiveViewer(
-      onInteractionStart: (details) {
-        print("x: "+details.localFocalPoint.dx.toString());
-        print("y: "+details.localFocalPoint.dy.toString());
-      },
-      transformationController: controller,
-      maxScale: 300,
-      constrained: false,
-      child: Stack(
-        children: layers,
-      ),
-    );
+        onInteractionStart: (details) {
+          print("x: " + details.localFocalPoint.dx.toString());
+          print("y: " + details.localFocalPoint.dy.toString());
+        },
+        transformationController: controller,
+        maxScale: 300,
+        constrained: false,
+        child: CustomPaint(
+          painter: GridPainter(),
+          child: Stack(
+            children: layers,
+          ),
+        ));
   }
 }
