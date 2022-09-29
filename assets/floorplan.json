@@ -759,6 +759,13 @@
           "deskId": "1",
           "x": 456,
           "y": 570
+        },
+        {
+          "type": "beacon",
+          "beaconId": 1,
+          "x": 0,
+          "y": 0,
+          "macAddress": "A2:E3:4F:36"
         }
       ]
     }

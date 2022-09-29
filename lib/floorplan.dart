@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:floorplans/gird/gird_painter.dart';
 
 import 'baseelement.dart';
+import 'beaconelement.dart';
 import 'layerelement.dart';
 import 'rectelement.dart';
 import 'package:flutter/material.dart';
@@ -70,6 +71,21 @@ class _FloorplanState extends State<Floorplan> {
     );
   }
 
+  Widget buildBeaconElement(BuildContext context, BeaconElement element) {
+    return Positioned(
+      top: element.y - element.radius,
+      left: element.x - element.radius,
+      child: Container(
+        height: element.radius * 2,
+        width: element.radius * 2,
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 72, 171, 228),
+          shape: BoxShape.circle,
+        ),
+      ),
+    );
+  }
+
   Widget buildElement(BuildContext context, BaseElement element) {
     switch (element.runtimeType) {
       case DeskElement:
@@ -77,6 +93,9 @@ class _FloorplanState extends State<Floorplan> {
 
       case RectElement:
         return buildRectElement(context, element as RectElement);
+
+      case BeaconElement:
+        return buildBeaconElement(context, element as BeaconElement);
 
       default:
         throw Exception('Invalid element type: ${element.runtimeType}');

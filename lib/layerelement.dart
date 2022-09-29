@@ -1,4 +1,5 @@
 import 'baseelement.dart';
+import 'beaconelement.dart';
 import 'deskelement.dart';
 import 'elementwithchildren.dart';
 import 'rectelement.dart';
@@ -13,6 +14,8 @@ class LayerElement extends ElementWithChildren<BaseElement> {
           return DeskElement.fromJson(child);
         case 'rect':
           return RectElement.fromJson(child);
+        case 'beacon':
+          return BeaconElement.fromJson(child);
         default:
           throw Exception('Invalid layer child: $child');
       }
