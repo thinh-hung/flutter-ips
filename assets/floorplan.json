@@ -763,8 +763,8 @@
         {
           "type": "beacon",
           "beaconId": 1,
-          "x": 0,
-          "y": 0,
+          "x": 158,
+          "y": 10,
           "macAddress": "A2:E3:4F:36"
         }
       ]
