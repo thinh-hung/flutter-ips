@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:floorplans/gird/gird_painter.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'baseelement.dart';
 import 'beaconelement.dart';
@@ -23,7 +24,11 @@ class Floorplan extends StatefulWidget {
 class _FloorplanState extends State<Floorplan> {
   late RootElement root;
   late TransformationController controller;
+  FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
 
+  List<BeaconElement> beacons = [];
+  List<ScanResult> scanResults = [];
+  List<String> macAddressList = [];
   void load(String jsonString) {
     final data = json.decode(jsonString);
     root = RootElement.fromJson(data);
@@ -34,7 +39,11 @@ class _FloorplanState extends State<Floorplan> {
     debugPrint(widget.jsonFloorplan);
     load(widget.jsonFloorplan);
     controller = TransformationController();
+
     super.initState();
+    flutterBlue.startScan(scanMode: ScanMode(1), allowDuplicates: true);
+    scan();
+    setState(() {});
   }
 
   Widget buildRectElement(BuildContext context, RectElement element) {
@@ -95,6 +104,7 @@ class _FloorplanState extends State<Floorplan> {
         return buildRectElement(context, element as RectElement);
 
       case BeaconElement:
+        beacons.add(element as BeaconElement);
         return buildBeaconElement(context, element as BeaconElement);
 
       default:
@@ -119,17 +129,16 @@ class _FloorplanState extends State<Floorplan> {
   @override
   Widget build(BuildContext context) {
     final size = root.getExtent();
-
     final layers = root.layers
         .map<Widget>((layer) => buildLayer(context, layer, size))
         .toList();
-
     return InteractiveViewer(
         transformationController: controller,
         maxScale: 300,
         constrained: false,
         child: GestureDetector(
           onTapDown: (details) {
+            checkmac();
             print("x: " + details.localPosition.dx.toString());
             print("y: " + details.localPosition.dy.toString());
           },
@@ -140,5 +149,34 @@ class _FloorplanState extends State<Floorplan> {
             ),
           ),
         ));
+  }
+
+  void scan() async {
+    flutterBlue.scanResults.listen((results) {
+      // do something with scan results
+      this.scanResults = results;
+      setState(() {});
+    });
+  }
+
+  void checkmac() {
+    // for (int i = 0; i < scanResults.length; i++) {
+    //   if (!macAddressList.contains(beacons[i].macAddress)) {
+    //     macAddressList.add(beacons[i].macAddress.toString());
+    //   } else {
+    //     print("có rồi");
+    //     print(macAddressList);
+    //   }
+    // }
+    for (ScanResult r in scanResults) {
+      String address = r.device.id.id.toString();
+      if (!macAddressList.contains(address)) {
+        macAddressList.add(r.device.id.id.toString());
+      }
+    }
+
+    BeaconElement b = beacons.firstWhere(
+        (element) => macAddressList.contains(element.macAddress.toString()));
+    print("tao da co toa do: " + b.x.toString() + ":" + b.y.toString());
   }
 }

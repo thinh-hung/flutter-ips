@@ -1,6 +1,6 @@
 {
   "$schema": "https://evoko.app/schema/floorplan.schema.json",
-  "locationId": "hejhej",
+  "locationId": "cntt",
   "children": [
     {
       "type": "layer",
@@ -765,7 +765,7 @@
           "beaconId": 1,
           "x": 158,
           "y": 10,
-          "macAddress": "A2:E3:4F:36"
+          "macAddress": "5B:EB:4F:C3:84:DB"
         }
       ]
     }
