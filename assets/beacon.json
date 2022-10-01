@@ -1,0 +1,40 @@
+{
+  "$schema": "https://evoko.app/schema/floorplan.schema.json",
+  "locationId": "hejhej",
+  "children": [
+    {
+      "type": "layer",
+      "id": "floorplan-layer",
+      "children": [
+        {
+          "type": "beacon",
+          "beaconId": 1,
+          "x": 158,
+          "y": 10,
+          "macAddress": "5B:EB:4F:C3:84:DB"
+        },
+        {
+          "type": "beacon",
+          "beaconId": 2,
+          "x": 188,
+          "y": 60,
+          "macAddress": "FF:FF:10:0C:4E:EF"
+        },
+        {
+          "type": "beacon",
+          "beaconId": 3,
+          "x": 160,
+          "y": 110,
+          "macAddress": "5B:28:68:BB:26:60"
+        },
+        {
+          "type": "beacon",
+          "beaconId": 4,
+          "x": 190,
+          "y": 160,
+          "macAddress": "5B:99:B0:B8:11:4E"
+        }
+      ]
+    }
+  ]
+}

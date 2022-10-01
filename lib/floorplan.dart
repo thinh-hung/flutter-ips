@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:floorplans/gird/circle_painter.dart';
 import 'package:floorplans/gird/gird_painter.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'baseelement.dart';
@@ -29,6 +31,11 @@ class _FloorplanState extends State<Floorplan> {
   List<BeaconElement> beacons = [];
   List<ScanResult> scanResults = [];
   List<String> macAddressList = [];
+  List<double> selectedCenterXList = [];
+  List<double> selectedCenterYList = [];
+  List<String> rssiList = [];
+  List<num> radiusList = [];
+
   void load(String jsonString) {
     final data = json.decode(jsonString);
     root = RootElement.fromJson(data);
@@ -38,12 +45,12 @@ class _FloorplanState extends State<Floorplan> {
   void initState() {
     debugPrint(widget.jsonFloorplan);
     load(widget.jsonFloorplan);
+    _readJsonBeacon();
     controller = TransformationController();
 
     super.initState();
     flutterBlue.startScan(scanMode: ScanMode(1), allowDuplicates: true);
     scan();
-    setState(() {});
   }
 
   Widget buildRectElement(BuildContext context, RectElement element) {
@@ -104,7 +111,6 @@ class _FloorplanState extends State<Floorplan> {
         return buildRectElement(context, element as RectElement);
 
       case BeaconElement:
-        beacons.add(element as BeaconElement);
         return buildBeaconElement(context, element as BeaconElement);
 
       default:
@@ -138,11 +144,29 @@ class _FloorplanState extends State<Floorplan> {
         constrained: false,
         child: GestureDetector(
           onTapDown: (details) {
-            checkmac();
-            print("x: " + details.localPosition.dx.toString());
-            print("y: " + details.localPosition.dy.toString());
+            print("beacon in local database: " + beacons.length.toString());
+            print("beacon in enviroment: " + scanResults.length.toString());
+            for (ScanResult r in scanResults) {
+              for (int i = 0; i < beacons.length; i++) {
+                if (r.device.id.id == beacons[i].macAddress) {
+                  print(r.rssi.toString());
+                  rssiList.add(r.rssi.toString());
+                  print(
+                      beacons[i].x.toString() + ":" + beacons[i].y.toString());
+                  selectedCenterXList.add(beacons[i].x);
+                  selectedCenterYList.add(beacons[i].y);
+                  radiusList.add(0.0);
+                  setState(() {});
+                }
+              }
+            }
+            // print("x: " + details.localPosition.dx.toString());
+
+            // print("y: " + details.localPosition.dy.toString());
           },
           child: CustomPaint(
+            foregroundPainter: CirclePainter(
+                selectedCenterXList, selectedCenterYList, radiusList),
             painter: GridPainter(),
             child: Stack(
               children: layers,
@@ -153,30 +177,17 @@ class _FloorplanState extends State<Floorplan> {
 
   void scan() async {
     flutterBlue.scanResults.listen((results) {
-      // do something with scan results
       this.scanResults = results;
-      setState(() {});
     });
   }
 
-  void checkmac() {
-    // for (int i = 0; i < scanResults.length; i++) {
-    //   if (!macAddressList.contains(beacons[i].macAddress)) {
-    //     macAddressList.add(beacons[i].macAddress.toString());
-    //   } else {
-    //     print("có rồi");
-    //     print(macAddressList);
-    //   }
-    // }
-    for (ScanResult r in scanResults) {
-      String address = r.device.id.id.toString();
-      if (!macAddressList.contains(address)) {
-        macAddressList.add(r.device.id.id.toString());
-      }
+  Future<void> _readJsonBeacon() async {
+    final String response = await rootBundle.loadString('assets/beacon.json');
+    final Map<String, dynamic> database = await json.decode(response);
+    List<dynamic> data = database["children"][0]["children"];
+    for (dynamic it in data) {
+      final BeaconElement b = BeaconElement.fromJson(it); // Parse data
+      beacons.add(b); // and organization to List
     }
-
-    BeaconElement b = beacons.firstWhere(
-        (element) => macAddressList.contains(element.macAddress.toString()));
-    print("tao da co toa do: " + b.x.toString() + ":" + b.y.toString());
   }
 }
