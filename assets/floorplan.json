@@ -428,49 +428,43 @@
           "type": "desk",
           "deskId": "1",
           "x": 175,
-          "y": 30
+          "y": 35
         },
         {
           "type": "desk",
           "deskId": "1",
           "x": 175,
-          "y": 80
+          "y": 85
         },
         {
           "type": "desk",
           "deskId": "1",
           "x": 175,
-          "y": 167
+          "y": 135
         },
         {
           "type": "desk",
           "deskId": "1",
           "x": 175,
-          "y": 258
+          "y": 185
         },
         {
           "type": "desk",
           "deskId": "1",
-          "x": 95,
-          "y": 189
+          "x": 175,
+          "y": 235
         },
         {
           "type": "desk",
           "deskId": "1",
-          "x": 95,
-          "y": 233
+          "x": 175,
+          "y": 285
         },
         {
           "type": "desk",
           "deskId": "1",
-          "x": 95,
-          "y": 283
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 95,
-          "y": 332
+          "x": 175,
+          "y": 385
         },
         {
           "type": "desk",
@@ -493,86 +487,74 @@
         {
           "type": "desk",
           "deskId": "1",
-          "x": 315,
-          "y": 332
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 390,
+          "x": 300,
           "y": 332
         },
         {
           "type": "desk",
           "deskId": "1",
           "x": 325,
-          "y": 118
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 325,
-          "y": 278
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 366,
-          "y": 278
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 416,
-          "y": 278
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 456,
-          "y": 278
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 456,
-          "y": 218
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 456,
-          "y": 118
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 456,
           "y": 332
         },
         {
           "type": "desk",
           "deskId": "1",
+          "x": 325,
+          "y": 85
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 325,
+          "y": 135
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 325,
+          "y": 185
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 325,
+          "y": 235
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 325,
+          "y": 285
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 325,
+          "y": 385
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 325,
+          "y": 435
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 325,
+          "y": 485
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
           "x": 456,
-          "y": 392
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 415,
-          "y": 392
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 366,
-          "y": 392
+          "y": 278
         },
         {
           "type": "desk",
           "deskId": "1",
           "x": 175,
-          "y": 437
+          "y": 435
         },
         {
           "type": "desk",
@@ -584,19 +566,13 @@
           "type": "desk",
           "deskId": "1",
           "x": 175,
-          "y": 654
+          "y": 610
         },
         {
           "type": "desk",
           "deskId": "1",
-          "x": 215,
-          "y": 635
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 235,
-          "y": 654
+          "x": 175,
+          "y": 650
         },
         {
           "type": "desk",
@@ -613,26 +589,20 @@
         {
           "type": "desk",
           "deskId": "1",
-          "x": 355,
-          "y": 664
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 355,
-          "y": 644
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 380,
-          "y": 664
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
           "x": 380,
           "y": 570
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 380,
+          "y": 610
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 380,
+          "y": 650
         },
         {
           "type": "desk",
