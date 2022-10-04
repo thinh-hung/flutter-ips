@@ -6,6 +6,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 
 import 'bledata.dart';
+import 'bleselected.dart';
 
 void main() async {
   runApp(MyApp());
@@ -100,6 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
     List<Widget> _widgetOptions = <Widget>[
       Floorplan(jsonFloorplan: widget.json),
       NearbyScreen(),
+      BleSelected(),
     ];
     return Scaffold(
         appBar: AppBar(
@@ -129,7 +131,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.bluetooth_searching),
-              label: "Beacon",
+              label: "BeaconList",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bluetooth_connected),
+              label: "BeaconSelected",
             ),
           ],
           currentIndex: _selectedIndex,
