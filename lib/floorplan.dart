@@ -27,7 +27,6 @@ class _FloorplanState extends State<Floorplan>
   late final bleController;
   late RootElement root;
   late AnimationController controller;
-  List<BeaconElement> beacons = [];
   var centerXList = [];
   var centerYList = [];
   List<num> radiusList = [];
@@ -40,7 +39,6 @@ class _FloorplanState extends State<Floorplan>
   void initState() {
     debugPrint(widget.jsonFloorplan);
     load(widget.jsonFloorplan);
-    _readJsonBeacon();
     super.initState();
 
     bleController = Get.put(BLEResult());
@@ -168,9 +166,9 @@ class _FloorplanState extends State<Floorplan>
         constrained: false,
         child: GestureDetector(
           onTapDown: (details) {
-            print("beacon in local database: " + beacons.length.toString());
-            print("beacon in enviroment: " +
-                bleController.scanResultList.length.toString());
+            // print("beacon in local database: " + beacons.length.toString());
+            // print("beacon in enviroment: " +
+            //     bleController.scanResultList.length.toString());
 
             // print("x: " + details.localPosition.dx.toString());
 
@@ -191,15 +189,5 @@ class _FloorplanState extends State<Floorplan>
   void dispose() {
     controller.dispose();
     super.dispose();
-  }
-
-  Future<void> _readJsonBeacon() async {
-    final String response = await rootBundle.loadString('assets/beacon.json');
-    final Map<String, dynamic> database = await json.decode(response);
-    List<dynamic> data = database["children"][0]["children"];
-    for (dynamic it in data) {
-      final BeaconElement b = BeaconElement.fromJson(it); // Parse data
-      beacons.add(b); // and organization to List
-    }
   }
 }

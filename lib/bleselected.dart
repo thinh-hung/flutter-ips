@@ -53,7 +53,7 @@ class _BleSelectedState extends State<BleSelected> {
         tp: tp);
     double constantN = bleController.selectedConstNList[currentIdx].toDouble();
     double alpha = bleController.selectedRSSI_1mList[currentIdx].toDouble();
-    num distance = logDistancePathLoss(parseNumber(rssi), alpha, constantN);
+    num distance = logDistancePathLoss(double.parse(rssi), alpha, constantN);
     bleController.selectedDistanceList[currentIdx] = distance;
     String constN = bleController.selectedConstNList[currentIdx].toString();
     String rssi1m = bleController.selectedRSSI_1mList[currentIdx].toString();

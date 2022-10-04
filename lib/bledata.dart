@@ -33,9 +33,10 @@ class BLEResult extends GetxController {
 
   // distance value
   List<double> distanceList = [];
-
-  late List<BeaconElement> beaconsDB;
-  void parseBeaconFromResult(List<ScanResult> scanResultList) {
+  List<BeaconElement> beaconsDB = [];
+  void parseBeaconFromResult(List<ScanResult> scanResultList,
+      Future<List<BeaconElement>> beacons) async {
+    beaconsDB = await beacons;
     for (ScanResult r in scanResultList) {
       for (int i = 0; i < beaconsDB.length; i++) {
         if (r.device.id.id == beaconsDB[i].macAddress) {

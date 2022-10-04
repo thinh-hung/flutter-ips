@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:floorplans/floorplan.dart';
 import 'package:floorplans/nearbyscreen.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 
+import 'beaconelement.dart';
 import 'bledata.dart';
 import 'bleselected.dart';
 
@@ -65,6 +68,18 @@ class _MyHomePageState extends State<MyHomePage> {
   var _selectedIndex = 0;
   var bleController = Get.put(BLEResult());
 
+  Future<List<BeaconElement>> getJsonBeacon() async {
+    List<BeaconElement> beacons = [];
+    final String response = await rootBundle.loadString('assets/beacon.json');
+    final Map<String, dynamic> database = await json.decode(response);
+    List<dynamic> data = database["children"][0]["children"];
+    for (dynamic it in data) {
+      final BeaconElement b = BeaconElement.fromJson(it); // Parse data
+      beacons.add(b); // and organization to List
+    }
+    return beacons;
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -87,10 +102,12 @@ class _MyHomePageState extends State<MyHomePage> {
   /* Scan */
   void scan() async {
     // Listen to scan results
-    flutterBlue.scanResults.listen((results) {
+    flutterBlue.scanResults.listen((results) async {
       // do something with scan results
       bleController.scanResultList = results;
-      bleController.parseBeaconFromResult(results); // chac ko chay dau
+      bleController.parseBeaconFromResult(
+          results, getJsonBeacon()); // chac ko chay dau
+      print(results);
       // update state
       setState(() {});
     });
