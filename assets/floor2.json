@@ -1,6 +1,6 @@
 {
   "$schema": "https://evoko.app/schema/floorplan.schema.json",
-  "locationId": "cntt",
+  "locationId": "hejhej",
   "children": [
     {
       "type": "layer",
@@ -29,48 +29,66 @@
           "fill": "ff0000ff"
         },
         {
-          "roomName": "BM. THUD",
+          "roomName": "221",
           "type": "rect",
-          "x": 0,
+          "x": 10,
           "y": 110,
-          "w": 160,
+          "w": 100,
           "h": 50,
           "fill": "ff0000ff"
         },
         {
-          "roomName": "BM. MMT&TT",
+          "roomName": "214",
           "type": "rect",
-          "x": 0,
+          "x": 110,
+          "y": 110,
+          "w": 50,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "220",
+          "type": "rect",
+          "x": 10,
           "y": 160,
-          "w": 160,
+          "w": 70,
           "h": 50,
           "fill": "ff0000ff"
         },
         {
-          "roomName": "BM. KHMT",
+          "roomName": "219",
           "type": "rect",
-          "x": 0,
+          "x": 10,
           "y": 210,
-          "w": 160,
+          "w": 70,
           "h": 50,
           "fill": "ff0000ff"
         },
         {
-          "roomName": "BM. CNPM",
+          "roomName": "218",
           "type": "rect",
-          "x": 0,
+          "x": 10,
           "y": 260,
-          "w": 160,
+          "w": 70,
           "h": 50,
           "fill": "ff0000ff"
         },
         {
-          "roomName": "BM. HTTT",
+          "roomName": "217",
           "type": "rect",
-          "x": 0,
+          "x": 10,
           "y": 310,
-          "w": 160,
+          "w": 70,
           "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "213",
+          "type": "rect",
+          "x": 110,
+          "y": 210,
+          "w": 50,
+          "h": 100,
           "fill": "ff0000ff"
         },
         {
@@ -83,7 +101,7 @@
           "fill": "ff0000ff"
         },
         {
-          "roomName": "111",
+          "roomName": "212",
           "type": "rect",
           "x": 190,
           "y": 360,
@@ -92,7 +110,7 @@
           "fill": "ff0000ff"
         },
         {
-          "roomName": "110",
+          "roomName": "211",
           "type": "rect",
           "x": 240,
           "y": 360,
@@ -101,124 +119,106 @@
           "fill": "ff0000ff"
         },
         {
-          "roomName": "TT. ĐTTH",
+          "roomName": "210",
           "type": "rect",
           "x": 290,
           "y": 360,
-          "w": 25,
+          "w": 50,
           "h": 100,
           "fill": "ff0000ff"
         },
         {
-          "roomName": "109",
+          "roomName": "209",
           "type": "rect",
           "x": 340,
           "y": 60,
-          "w": 100,
-          "h": 50,
+          "w": 50,
+          "h": 100,
           "fill": "ff0000ff"
         },
         {
-          "roomName": "108",
-          "type": "rect",
-          "x": 340,
-          "y": 110,
-          "w": 100,
-          "h": 50,
-          "fill": "ff0000ff"
-        },
-        {
-          "roomName": "107",
+          "roomName": "208",
           "type": "rect",
           "x": 340,
           "y": 160,
-          "w": 100,
-          "h": 50,
+          "w": 50,
+          "h": 100,
           "fill": "ff0000ff"
         },
         {
-          "roomName": "106",
+          "roomName": "207",
           "type": "rect",
-          "x": 340,
-          "y": 210,
-          "w": 100,
-          "h": 50,
+          "x": 390,
+          "y": 60,
+          "w": 50,
+          "h": 100,
           "fill": "ff0000ff"
         },
         {
-          "roomName": "105",
+          "roomName": "206",
           "type": "rect",
-          "x": 340,
-          "y": 260,
-          "w": 100,
-          "h": 50,
+          "x": 390,
+          "y": 160,
+          "w": 50,
+          "h": 100,
           "fill": "ff0000ff"
         },
         {
-          "roomName": "104",
-          "type": "rect",
-          "x": 340,
-          "y": 310,
-          "w": 100,
-          "h": 50,
-          "fill": "ff0000ff"
-        },
-        {
-          "roomName": "103",
-          "type": "rect",
-          "x": 340,
-          "y": 360,
-          "w": 100,
-          "h": 50,
-          "fill": "ff0000ff"
-        },
-        {
-          "roomName": "102",
-          "type": "rect",
-          "x": 340,
-          "y": 410,
-          "w": 100,
-          "h": 50,
-          "fill": "ff0000ff"
-        },
-        {
-          "roomName": "101",
-          "type": "rect",
-          "x": 340,
-          "y": 460,
-          "w": 100,
-          "h": 50,
-          "fill": "ff0000ff"
-        },
-        {
-          "roomName": "",
-          "type": "rect",
-          "x": 340,
-          "y": 510,
-          "w": 100,
-          "h": 50,
-          "fill": "ff0000ff"
-        },
-        {
-          "roomName": "DOAN TRUONG DHCT",
+          "roomName": "205",
           "type": "rect",
           "x": 470,
           "y": 60,
           "w": 50,
-          "h": 200,
-          "fill": "ff0000ff"
-        },
-        {
-          "roomName": "SAN CO NHAN TAO",
-          "type": "rect",
-          "x": 190,
-          "y": 460,
-          "w": 126,
           "h": 100,
           "fill": "ff0000ff"
         },
         {
-          "roomName": "WC4",
+          "roomName": "204",
+          "type": "rect",
+          "x": 470,
+          "y": 160,
+          "w": 50,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "203",
+          "type": "rect",
+          "x": 340,
+          "y": 410,
+          "w": 50,
+          "h": 150,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "202",
+          "type": "rect",
+          "x": 390,
+          "y": 410,
+          "w": 50,
+          "h": 150,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "201",
+          "type": "rect",
+          "x": 240,
+          "y": 580,
+          "w": 100,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "MAI VOM",
+          "type": "rect",
+          "x": 190,
+          "y": 460,
+          "w": 130,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "WC8",
           "type": "rect",
           "x": 110,
           "y": 460,
@@ -227,7 +227,7 @@
           "fill": "ff0000ff"
         },
         {
-          "roomName": "WC3",
+          "roomName": "WC7",
           "type": "rect",
           "x": 110,
           "y": 490,
@@ -236,7 +236,7 @@
           "fill": "ff0000ff"
         },
         {
-          "roomName": "WC2",
+          "roomName": "WC6",
           "type": "rect",
           "x": 110,
           "y": 520,
@@ -245,7 +245,7 @@
           "fill": "ff0000ff"
         },
         {
-          "roomName": "WC1",
+          "roomName": "WC5",
           "type": "rect",
           "x": 110,
           "y": 550,
@@ -254,7 +254,7 @@
           "fill": "ff0000ff"
         },
         {
-          "roomName": "VP. ĐTN P.TV SV",
+          "roomName": "PH 2",
           "type": "rect",
           "x": 110,
           "y": 580,
@@ -263,16 +263,88 @@
           "fill": "ff0000ff"
         },
         {
-          "roomName": "\nKHONG GIAN SANG CHE",
+          "roomName": "PH 1",
           "type": "rect",
-          "x": 60,
-          "y": 580,
+          "x": 240,
+          "y": 630,
           "w": 100,
-          "h": 122,
+          "h": 50,
           "fill": "ff0000ff"
         },
         {
-          "roomName": "THU VIEN",
+          "roomName": "",
+          "type": "rect",
+          "x": 60,
+          "y": 580,
+          "w": 50,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 60,
+          "y": 630,
+          "w": 30,
+          "h": 25,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 60,
+          "y": 655,
+          "w": 30,
+          "h": 25,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 60,
+          "y": 680,
+          "w": 30,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "VP BCN KHOA",
+          "type": "rect",
+          "x": 90,
+          "y": 630,
+          "w": 70,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 90,
+          "y": 680,
+          "w": 40,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 130,
+          "y": 680,
+          "w": 30,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "P GC TG",
+          "type": "rect",
+          "x": 190,
+          "y": 580,
+          "w": 50,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "HOI TRUONG KHOA",
           "type": "rect",
           "x": 390,
           "y": 580,
@@ -281,12 +353,48 @@
           "fill": "ff0000ff"
         },
         {
-          "roomName": "VAN PHONG KHOA",
+          "roomName": "",
           "type": "rect",
-          "x": 390,
-          "y": 630,
+          "x": 0,
+          "y": 100,
+          "w": 0,
+          "h": 260,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 0,
+          "y": 100,
           "w": 50,
-          "h": 100,
+          "h": 0,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 50,
+          "y": 50,
+          "w": 0,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 50,
+          "y": 50,
+          "w": 50,
+          "h": 0,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 100,
+          "y": 0,
+          "w": 0,
+          "h": 50,
           "fill": "ff0000ff"
         },
         {
@@ -303,7 +411,7 @@
           "type": "rect",
           "x": 190,
           "y": 310,
-          "w": 120,
+          "w": 150,
           "h": 0,
           "fill": "ff0000ff"
         },
@@ -326,12 +434,12 @@
           "fill": "ff0000ff"
         },
         {
-          "roomName": "VP Ghi Danh TT. ĐT-TH",
+          "roomName": "",
           "type": "rect",
           "x": 470,
-          "y": 310,
+          "y": 360,
           "w": 50,
-          "h": 50,
+          "h": 0,
           "fill": "ff0000ff"
         },
         {
@@ -428,43 +536,61 @@
           "type": "desk",
           "deskId": "1",
           "x": 175,
-          "y": 35
+          "y": 30
         },
         {
           "type": "desk",
           "deskId": "1",
           "x": 175,
-          "y": 85
+          "y": 80
         },
         {
           "type": "desk",
           "deskId": "1",
           "x": 175,
-          "y": 135
+          "y": 80
         },
         {
           "type": "desk",
           "deskId": "1",
           "x": 175,
-          "y": 185
+          "y": 80
         },
         {
           "type": "desk",
           "deskId": "1",
           "x": 175,
-          "y": 235
+          "y": 167
         },
         {
           "type": "desk",
           "deskId": "1",
           "x": 175,
-          "y": 285
+          "y": 258
         },
         {
           "type": "desk",
           "deskId": "1",
-          "x": 175,
-          "y": 385
+          "x": 95,
+          "y": 189
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 95,
+          "y": 233
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 95,
+          "y": 283
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 95,
+          "y": 332
         },
         {
           "type": "desk",
@@ -487,62 +613,38 @@
         {
           "type": "desk",
           "deskId": "1",
-          "x": 300,
+          "x": 315,
+          "y": 332
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 390,
           "y": 332
         },
         {
           "type": "desk",
           "deskId": "1",
           "x": 325,
-          "y": 332
+          "y": 118
         },
         {
           "type": "desk",
           "deskId": "1",
           "x": 325,
-          "y": 85
+          "y": 278
         },
         {
           "type": "desk",
           "deskId": "1",
-          "x": 325,
-          "y": 135
+          "x": 366,
+          "y": 278
         },
         {
           "type": "desk",
           "deskId": "1",
-          "x": 325,
-          "y": 185
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 325,
-          "y": 235
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 325,
-          "y": 285
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 325,
-          "y": 385
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 325,
-          "y": 435
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 325,
-          "y": 485
+          "x": 416,
+          "y": 278
         },
         {
           "type": "desk",
@@ -553,8 +655,44 @@
         {
           "type": "desk",
           "deskId": "1",
+          "x": 456,
+          "y": 218
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 456,
+          "y": 118
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 456,
+          "y": 332
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 456,
+          "y": 392
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 415,
+          "y": 392
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 366,
+          "y": 392
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
           "x": 175,
-          "y": 435
+          "y": 437
         },
         {
           "type": "desk",
@@ -566,13 +704,19 @@
           "type": "desk",
           "deskId": "1",
           "x": 175,
-          "y": 610
+          "y": 654
         },
         {
           "type": "desk",
           "deskId": "1",
-          "x": 175,
-          "y": 650
+          "x": 215,
+          "y": 635
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 235,
+          "y": 654
         },
         {
           "type": "desk",
@@ -589,26 +733,39 @@
         {
           "type": "desk",
           "deskId": "1",
+          "x": 355,
+          "y": 664
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 355,
+          "y": 644
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 380,
+          "y": 664
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
           "x": 380,
           "y": 570
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 380,
-          "y": 610
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 380,
-          "y": 650
         },
         {
           "type": "desk",
           "deskId": "1",
           "x": 456,
           "y": 570
+        },
+        {
+          "type": "beacon",
+          "beaconId": 1,
+          "x": 0,
+          "y": 0,
+          "macAddress": "A2:E3:4F:36"
         }
       ]
     }
