@@ -1,0 +1,773 @@
+{
+  "$schema": "https://evoko.app/schema/floorplan.schema.json",
+  "locationId": "hejhej",
+  "children": [
+    {
+      "type": "layer",
+      "id": "floorplan-layer"
+    },
+    {
+      "type": "layer",
+      "id": "floorplan-layer",
+      "children": [
+        {
+          "roomName": "216",
+          "type": "rect",
+          "x": 110,
+          "y": 10,
+          "w": 50,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "215",
+          "type": "rect",
+          "x": 60,
+          "y": 60,
+          "w": 100,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "221",
+          "type": "rect",
+          "x": 10,
+          "y": 110,
+          "w": 100,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "214",
+          "type": "rect",
+          "x": 110,
+          "y": 110,
+          "w": 50,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "220",
+          "type": "rect",
+          "x": 10,
+          "y": 160,
+          "w": 70,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "219",
+          "type": "rect",
+          "x": 10,
+          "y": 210,
+          "w": 70,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "218",
+          "type": "rect",
+          "x": 10,
+          "y": 260,
+          "w": 70,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "217",
+          "type": "rect",
+          "x": 10,
+          "y": 310,
+          "w": 70,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "213",
+          "type": "rect",
+          "x": 110,
+          "y": 210,
+          "w": 50,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "PKT",
+          "type": "rect",
+          "x": 110,
+          "y": 360,
+          "w": 50,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "212",
+          "type": "rect",
+          "x": 190,
+          "y": 360,
+          "w": 50,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "211",
+          "type": "rect",
+          "x": 240,
+          "y": 360,
+          "w": 50,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "210",
+          "type": "rect",
+          "x": 290,
+          "y": 360,
+          "w": 50,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "209",
+          "type": "rect",
+          "x": 340,
+          "y": 60,
+          "w": 50,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "208",
+          "type": "rect",
+          "x": 340,
+          "y": 160,
+          "w": 50,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "207",
+          "type": "rect",
+          "x": 390,
+          "y": 60,
+          "w": 50,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "206",
+          "type": "rect",
+          "x": 390,
+          "y": 160,
+          "w": 50,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "205",
+          "type": "rect",
+          "x": 470,
+          "y": 60,
+          "w": 50,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "204",
+          "type": "rect",
+          "x": 470,
+          "y": 160,
+          "w": 50,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "203",
+          "type": "rect",
+          "x": 340,
+          "y": 410,
+          "w": 50,
+          "h": 150,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "202",
+          "type": "rect",
+          "x": 390,
+          "y": 410,
+          "w": 50,
+          "h": 150,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "201",
+          "type": "rect",
+          "x": 240,
+          "y": 580,
+          "w": 100,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "MAI VOM",
+          "type": "rect",
+          "x": 190,
+          "y": 460,
+          "w": 130,
+          "h": 100,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "WC8",
+          "type": "rect",
+          "x": 110,
+          "y": 460,
+          "w": 50,
+          "h": 30,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "WC7",
+          "type": "rect",
+          "x": 110,
+          "y": 490,
+          "w": 50,
+          "h": 30,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "WC6",
+          "type": "rect",
+          "x": 110,
+          "y": 520,
+          "w": 50,
+          "h": 30,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "WC5",
+          "type": "rect",
+          "x": 110,
+          "y": 550,
+          "w": 50,
+          "h": 30,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "PH 2",
+          "type": "rect",
+          "x": 110,
+          "y": 580,
+          "w": 50,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "PH 1",
+          "type": "rect",
+          "x": 240,
+          "y": 630,
+          "w": 100,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 60,
+          "y": 580,
+          "w": 50,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 60,
+          "y": 630,
+          "w": 30,
+          "h": 25,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 60,
+          "y": 655,
+          "w": 30,
+          "h": 25,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 60,
+          "y": 680,
+          "w": 30,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "VP BCN KHOA",
+          "type": "rect",
+          "x": 90,
+          "y": 630,
+          "w": 70,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 90,
+          "y": 680,
+          "w": 40,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 130,
+          "y": 680,
+          "w": 30,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "P GC TG",
+          "type": "rect",
+          "x": 190,
+          "y": 580,
+          "w": 50,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "HOI TRUONG KHOA",
+          "type": "rect",
+          "x": 390,
+          "y": 580,
+          "w": 100,
+          "h": 150,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 0,
+          "y": 100,
+          "w": 0,
+          "h": 260,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 0,
+          "y": 100,
+          "w": 50,
+          "h": 0,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 50,
+          "y": 50,
+          "w": 0,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 50,
+          "y": 50,
+          "w": 50,
+          "h": 0,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 100,
+          "y": 0,
+          "w": 0,
+          "h": 50,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 190,
+          "y": 0,
+          "w": 0,
+          "h": 310,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 190,
+          "y": 310,
+          "w": 150,
+          "h": 0,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 310,
+          "y": 60,
+          "w": 0,
+          "h": 250,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 310,
+          "y": 60,
+          "w": 210,
+          "h": 0,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 470,
+          "y": 360,
+          "w": 50,
+          "h": 0,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 470,
+          "y": 360,
+          "w": 0,
+          "h": 200,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 470,
+          "y": 560,
+          "w": 50,
+          "h": 0,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 520,
+          "y": 560,
+          "w": 0,
+          "h": 200,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 370,
+          "y": 680,
+          "w": 0,
+          "h": 80,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 370,
+          "y": 680,
+          "w": 20,
+          "h": 0,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 490,
+          "y": 680,
+          "w": 30,
+          "h": 0,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 240,
+          "y": 700,
+          "w": 130,
+          "h": 0,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 160,
+          "y": 700,
+          "w": 40,
+          "h": 0,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 0,
+          "y": 360,
+          "w": 110,
+          "h": 0,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 110,
+          "y": 360,
+          "w": 0,
+          "h": 220,
+          "fill": "ff0000ff"
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 175,
+          "y": 30
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 175,
+          "y": 80
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 175,
+          "y": 80
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 175,
+          "y": 80
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 175,
+          "y": 167
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 175,
+          "y": 258
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 95,
+          "y": 189
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 95,
+          "y": 233
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 95,
+          "y": 283
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 95,
+          "y": 332
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 175,
+          "y": 332
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 215,
+          "y": 332
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 265,
+          "y": 332
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 315,
+          "y": 332
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 390,
+          "y": 332
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 325,
+          "y": 118
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 325,
+          "y": 278
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 366,
+          "y": 278
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 416,
+          "y": 278
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 456,
+          "y": 278
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 456,
+          "y": 218
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 456,
+          "y": 118
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 456,
+          "y": 332
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 456,
+          "y": 392
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 415,
+          "y": 392
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 366,
+          "y": 392
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 175,
+          "y": 437
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 175,
+          "y": 570
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 175,
+          "y": 654
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 215,
+          "y": 635
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 235,
+          "y": 654
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 215,
+          "y": 684
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 355,
+          "y": 684
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 355,
+          "y": 664
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 355,
+          "y": 644
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 380,
+          "y": 664
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 380,
+          "y": 570
+        },
+        {
+          "type": "desk",
+          "deskId": "1",
+          "x": 456,
+          "y": 570
+        },
+        {
+          "type": "beacon",
+          "beaconId": 1,
+          "x": 0,
+          "y": 0,
+          "macAddress": "A2:E3:4F:36"
+        }
+      ]
+    }
+  ]
+}
