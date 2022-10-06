@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:floorplans/bledata.dart';
+import 'package:floorplans/dijkstra.dart';
 import 'package:floorplans/gird/circle_painter.dart';
 import 'package:floorplans/gird/gird_painter.dart';
 import 'package:floorplans/utils.dart';
@@ -40,7 +41,8 @@ class _FloorplanState extends State<Floorplan>
     debugPrint(widget.jsonFloorplan);
     load(widget.jsonFloorplan);
     super.initState();
-
+    Dijkstra a = Dijkstra();
+    a.dijkstraCaculate();
     bleController = Get.put(BLEResult());
     //animation duration 1 seconds
     controller = AnimationController(
