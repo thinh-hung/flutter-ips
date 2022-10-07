@@ -27,6 +27,7 @@ class _FloorplanState extends State<Floorplan>
     with SingleTickerProviderStateMixin {
   late final bleController;
   late RootElement root;
+  late TransformationController controllerTF;
   late AnimationController controller;
   var centerXList = [];
   var centerYList = [];
@@ -41,9 +42,10 @@ class _FloorplanState extends State<Floorplan>
     debugPrint(widget.jsonFloorplan);
     load(widget.jsonFloorplan);
     super.initState();
-    Dijkstra a = Dijkstra();
-    a.dijkstraCaculate();
+    // Dijkstra a = Dijkstra();
+    // a.dijkstraCaculate();
     bleController = Get.put(BLEResult());
+    controllerTF = TransformationController();
     //animation duration 1 seconds
     controller = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this)
@@ -163,7 +165,7 @@ class _FloorplanState extends State<Floorplan>
         .map<Widget>((layer) => buildLayer(context, layer, size))
         .toList();
     return InteractiveViewer(
-        transformationController: TransformationController(),
+        transformationController: controllerTF,
         maxScale: 300,
         constrained: false,
         child: GestureDetector(

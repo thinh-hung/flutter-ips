@@ -62,7 +62,7 @@ class Dijkstra {
     addEdge(adj, 2, 1, 9);
     print(adj);
 
-    print(dijkstra(adj, 2));
+    print(dijkstra(adj, 2)); // tìm đường ngắn nhất từ nút số 2 đến tất cả
   }
 
 // tao ma tran
