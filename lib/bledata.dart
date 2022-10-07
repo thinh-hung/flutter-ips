@@ -34,21 +34,38 @@ class BLEResult extends GetxController {
   // distance value
   List<double> distanceList = [];
   List<BeaconElement> beaconsDB = [];
-  void parseBeaconFromResult(List<ScanResult> scanResultList,
-      Future<List<BeaconElement>> beacons) async {
+  void parseBeaconFromResult(Future<List<BeaconElement>> beacons) async {
     beaconsDB = await beacons;
+    List<int> indexs = [];
     for (ScanResult r in scanResultList) {
       for (int i = 0; i < beaconsDB.length; i++) {
         if (r.device.id.id == beaconsDB[i].macAddress) {
-          print(r.rssi.toString());
-          rssiList.add(r.rssi.toString());
-          print(beaconsDB[i].x.toString() + ":" + beaconsDB[i].y.toString());
-          selectedCenterXList.add(beaconsDB[i].x);
-          selectedCenterYList.add(beaconsDB[i].y);
-          selectedDistanceList.add(0.0);
+          // if (!indexs.contains(i)) {
+          // indexs.add(i);
+          rssiList.addIf(
+              rssiList.contains(r.rssi.toString()), r.rssi.toString());
+          selectedCenterXList.addIf(
+              !selectedCenterXList.contains(beaconsDB[i].x), beaconsDB[i].x);
+          selectedCenterYList.addIf(
+              !selectedCenterYList.contains(beaconsDB[i].y), beaconsDB[i].y);
+          // }
+          // print(r.rssi.toString());
+          // rssiList.add(r.rssi.toString());
+          // print(beaconsDB[i].x.toString() + ":" + beaconsDB[i].y.toString());
+          // selectedCenterXList.add(beaconsDB[i].x);
+          // selectedCenterYList.add(beaconsDB[i].y);
+          // selectedDistanceList.add(0.0);
+
         }
       }
     }
+    // for (var i = 0; i < indexs.length; i++) {
+    //   // print(indexs.length);
+    //   selectedCenterXList.add(beaconsDB[indexs[i]].x);
+    //   selectedCenterYList.add(beaconsDB[indexs[i]].y);
+    // }
+    print("selectedCenterXList $selectedCenterXList");
+    print("selectedCenterYList $selectedCenterYList");
   }
 
   void initBLEList() {
@@ -104,8 +121,8 @@ class BLEResult extends GetxController {
           selectedDeviceNameList.add(deviceNameList[index]);
           selectedConstNList.add(2.0);
           selectedRSSI_1mList.add(-60);
-          selectedCenterXList.add(2.0);
-          selectedCenterYList.add(2.0);
+          // selectedCenterXList.add(2.0);
+          // selectedCenterYList.add(2.0);
           selectedDistanceList.add(0.0);
         }
       } else {

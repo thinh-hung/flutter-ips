@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   late Future<String?> _future;
   @override
   void initState() {
-    _future = rootBundle.loadString('assets/floorplan.json');
+    _future = rootBundle.loadString('assets/floor2.json');
 
     super.initState();
   }
@@ -68,18 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
   var _selectedIndex = 0;
   var bleController = Get.put(BLEResult());
 
-  Future<List<BeaconElement>> getJsonBeacon() async {
-    List<BeaconElement> beacons = [];
-    final String response = await rootBundle.loadString('assets/beacon.json');
-    final Map<String, dynamic> database = await json.decode(response);
-    List<dynamic> data = database["children"][0]["children"];
-    for (dynamic it in data) {
-      final BeaconElement b = BeaconElement.fromJson(it); // Parse data
-      beacons.add(b); // and organization to List
-    }
-    return beacons;
-  }
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -105,8 +93,6 @@ class _MyHomePageState extends State<MyHomePage> {
     flutterBlue.scanResults.listen((results) async {
       // do something with scan results
       bleController.scanResultList = results;
-      bleController.parseBeaconFromResult(
-          results, getJsonBeacon()); // chac ko chay dau
       print(results);
       // update state
       setState(() {});

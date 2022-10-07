@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:floorplans/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 import 'package:rolling_switch/rolling_switch.dart';
 
+import 'beaconelement.dart';
 import 'bledata.dart';
 
 class NearbyScreen extends StatefulWidget {
@@ -59,7 +63,7 @@ class _NearbyScreenState extends State<NearbyScreen> {
     manuFactureData.isEmpty ? manuFactureData = 'null' : manuFactureData;
     bool switchFlag = bleController.flagList[index];
     switchFlag ? deviceName = '$deviceName (active)' : deviceName;
-
+    bleController.parseBeaconFromResult(getJsonBeacon());
     bleController.updateselectedDeviceIdxList();
     return ExpansionTile(
       leading: leading(r),
@@ -127,5 +131,17 @@ class _NearbyScreenState extends State<NearbyScreen> {
         .replaceAll('{', '')
         .replaceAll('}', '');
     tp = r.advertisementData.txPowerLevel.toString();
+  }
+
+  Future<List<BeaconElement>> getJsonBeacon() async {
+    List<BeaconElement> beacons = [];
+    final String response = await rootBundle.loadString('assets/beacon.json');
+    final Map<String, dynamic> database = await json.decode(response);
+    List<dynamic> data = database["children"][0]["children"];
+    for (dynamic it in data) {
+      final BeaconElement b = BeaconElement.fromJson(it); // Parse data
+      beacons.add(b); // and organization to List
+    }
+    return beacons;
   }
 }

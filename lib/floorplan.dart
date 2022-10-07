@@ -47,6 +47,9 @@ class _FloorplanState extends State<Floorplan>
     bleController = Get.put(BLEResult());
     controllerTF = TransformationController();
     //animation duration 1 seconds
+
+    // print(".........................................");
+    // // bleController.parseBeaconFromResult(getJsonBeacon());
     controller = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this)
       ..addListener(() => setState(() {}))

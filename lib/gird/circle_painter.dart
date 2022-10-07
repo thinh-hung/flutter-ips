@@ -87,6 +87,7 @@ class CirclePainter extends CustomPainter {
       }
       // decision max distance
       if (anchorList.length >= 3) {
+        print("anchorList: ${anchorList.length}");
         for (int i = 0; i < anchorList.length - 1; i++) {
           pointDistance.add(sqrt(
               pow((anchorList[i + 1].centerX - anchorList[0].centerX), 2) +
@@ -94,7 +95,7 @@ class CirclePainter extends CustomPainter {
         }
         var maxDistance = pointDistance.reduce(max);
         bleController.maxDistance = maxDistance;
-        print(maxDistance);
+        // print(maxDistance);
         //
         var position =
             trilaterationMethod(anchorList, bleController.maxDistance);
