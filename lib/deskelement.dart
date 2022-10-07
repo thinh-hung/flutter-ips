@@ -13,10 +13,20 @@ class DeskElement implements BaseElement {
     required this.x,
     required this.y,
   });
+  String getID(){
+    return this.deskId;
+  }
+  double getX(){
+    return this.x;
+  }
+  double getY(){
+    return this.y;
+  }
 
   @override
   Rect getExtent() =>
       Rect.fromLTWH(x - radius, y - radius, radius * 2, radius * 2);
+
 
   factory DeskElement.fromJson(Map<String, dynamic> data) {
     return DeskElement(
