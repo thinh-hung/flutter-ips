@@ -162,7 +162,7 @@ class Dijkstra {
     addEdge(adj, 5, 4, distance(5, 4));
 
 
-    print(adj);
+
 
     dijkstra(adj,1, 5); // tu dinh so 2 di den tat ca
   }
