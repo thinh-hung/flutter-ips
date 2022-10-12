@@ -25,6 +25,7 @@ class Floorplan extends StatefulWidget {
 class _FloorplanState extends State<Floorplan>
     with SingleTickerProviderStateMixin {
   late final bleController;
+  late final TransformationController controllerTs;
   late RootElement root;
   late AnimationController controller;
   var centerXList = [];
@@ -40,7 +41,7 @@ class _FloorplanState extends State<Floorplan>
     debugPrint(widget.jsonFloorplan);
     load(widget.jsonFloorplan);
     super.initState();
-
+    controllerTs = TransformationController();
     bleController = Get.put(BLEResult());
     //animation duration 1 seconds
     controller = AnimationController(
@@ -161,7 +162,7 @@ class _FloorplanState extends State<Floorplan>
         .map<Widget>((layer) => buildLayer(context, layer, size))
         .toList();
     return InteractiveViewer(
-        transformationController: TransformationController(),
+        transformationController: controllerTs,
         maxScale: 300,
         constrained: false,
         child: GestureDetector(

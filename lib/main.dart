@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:floorplans/floorplan.dart';
 import 'package:floorplans/nearbyscreen.dart';
+import 'package:floorplans/rectelement.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -10,6 +11,7 @@ import 'package:get/get.dart';
 import 'beaconelement.dart';
 import 'bledata.dart';
 import 'bleselected.dart';
+import 'deskelement.dart';
 
 void main() async {
   runApp(MyApp());
@@ -113,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     List<Widget> _widgetOptions = <Widget>[
@@ -128,7 +131,11 @@ class _MyHomePageState extends State<MyHomePage> {
             IconButton(
               icon: Icon(isScanning ? Icons.stop : Icons.search),
               onPressed: () {
-                toggleState();
+               // toggleState();
+                showSearch(
+                    context: context,
+                    delegate: SearchRoom()
+                );
               },
             )
           ],
@@ -159,5 +166,96 @@ class _MyHomePageState extends State<MyHomePage> {
           selectedItemColor: Colors.black,
           onTap: _onItemTapped,
         ));
+  }
+}
+
+class SearchRoom extends SearchDelegate {
+
+  // dem so luong diem
+  Future<List<RectElement>> getRoomList() async {
+    List<RectElement> rect = [];
+      final String response =
+      await rootBundle.loadString('assets/floorplan.json');
+      final Map<String, dynamic> database = await json.decode(response);
+      List<dynamic> data = database["children"][1]["children"];
+
+      for (dynamic it in data) {
+        if (it["type"] == "desk") {
+          final RectElement d = RectElement.fromJson(it); // Parse data
+          rect.add(d); // and organization to List
+        }
+    }
+    return rect;
+  }
+  List<RectElement> list = [];
+  void convertRoomObjectToNameList() async {
+    Future<List<RectElement>> _futureOfList = getRoomList();
+    list = await _futureOfList ;
+  }
+
+  @override
+  List<Widget>? buildActions(BuildContext context) {
+    return [
+      IconButton(
+        onPressed: () {
+          query = '';
+        },
+        icon: Icon(Icons.clear),
+      ),
+    ];
+  }
+  @override
+  Widget? buildLeading(BuildContext context) {
+    return IconButton(
+      onPressed: () {
+        close(context, null);
+      },
+      icon: Icon(Icons.arrow_back),
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<String> matchQuery = [];
+    convertRoomObjectToNameList();
+    List<String> searchTerms= list.map((e) => e.roomName).toList();
+
+    for (var fruit in searchTerms) {
+      if (fruit.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(fruit);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
+    );
+  }
+
+// last overwrite to show the
+// querying process at the runtime
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<String> matchQuery = [];
+    List<String> searchTerms= list.map((e) => e.roomName).toList();
+
+    for (var fruit in searchTerms) {
+      if (fruit.toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add(fruit);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuery.length,
+      itemBuilder: (context, index) {
+        var result = matchQuery[index];
+        return ListTile(
+          title: Text(result),
+        );
+      },
+    );
   }
 }
