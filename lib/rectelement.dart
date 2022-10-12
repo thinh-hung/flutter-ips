@@ -7,6 +7,7 @@ class RectElement implements BaseElement {
   final Color? fill;
   final Color? stroke;
   final String? roomName;
+  final int? idLocation;
   final double x;
   final double y;
   final double width;
@@ -14,6 +15,7 @@ class RectElement implements BaseElement {
 
   RectElement({
     this.roomName,
+    this.idLocation,
     this.fill,
     this.stroke,
     required this.x,
@@ -29,6 +31,7 @@ class RectElement implements BaseElement {
     return RectElement(
       fill: parseColor(data['fill']),
       stroke: parseColor(data['stroke']),
+      idLocation: data['idLocation'],
       x: parseNumber(data['x']),
       y: parseNumber(data['y']),
       width: parseNumber(data['w']),

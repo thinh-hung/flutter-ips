@@ -14,6 +14,8 @@ class LayerElement extends ElementWithChildren<BaseElement> {
           return DeskElement.fromJson(child);
         case 'rect':
           return RectElement.fromJson(child);
+        case 'wall':
+          return RectElement.fromJson(child);
         case 'beacon':
           return BeaconElement.fromJson(child);
         default:

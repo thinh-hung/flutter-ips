@@ -28,6 +28,7 @@ class _FloorplanState extends State<Floorplan>
   late final bleController;
   late RootElement root;
   late AnimationController controller;
+  late TransformationController controllerTs;
   var centerXList = [];
   var centerYList = [];
   List<num> radiusList = [];
@@ -44,6 +45,7 @@ class _FloorplanState extends State<Floorplan>
     Dijkstra a = Dijkstra();
     a.dijkstraCaculate();
     bleController = Get.put(BLEResult());
+    controllerTs = TransformationController();
     //animation duration 1 seconds
     controller = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this)
@@ -163,7 +165,7 @@ class _FloorplanState extends State<Floorplan>
         .map<Widget>((layer) => buildLayer(context, layer, size))
         .toList();
     return InteractiveViewer(
-        transformationController: TransformationController(),
+        transformationController: controllerTs,
         maxScale: 300,
         constrained: false,
         child: GestureDetector(
@@ -172,9 +174,9 @@ class _FloorplanState extends State<Floorplan>
             // print("beacon in enviroment: " +
             //     bleController.scanResultList.length.toString());
 
-            // print("x: " + details.localPosition.dx.toString());
+            print("x: " + details.localPosition.dx.toString());
 
-            // print("y: " + details.localPosition.dy.toString());
+            print("y: " + details.localPosition.dy.toString());
           },
           child: CustomPaint(
             painter: GridPainter(),

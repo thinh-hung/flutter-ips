@@ -10,6 +10,7 @@ class Dijkstra {
 
   Matrix2d c = Matrix2d();
   List<DeskElement> positionList = [];
+  List<String> floorLisst= ['assets/floor2.json'];
   List<List<double>> adj = [];
   void addEdge(adj, int dinh1, int dinh2, double dodai) {
     adj[dinh1][dinh2] = dodai;
@@ -48,7 +49,7 @@ class Dijkstra {
     int connect;
     int start1=start;
     back[start] = 0;
-    weight[start] = 0.0;
+    weight[start] = 0;
     do{
       connect =-1;
       double min = double.infinity;
@@ -66,9 +67,10 @@ class Dijkstra {
       }
       start= connect;
       mark[start]=1;
-    }while(connect !=1 && start!=finsih);
+    }while(connect !=-1 && start!=finsih);
     print("trong so: "+weight[finsih].toString());
     print("duong đi: ");
+    print(back);
     printPath(start1, finsih, back);
 
   }
@@ -81,17 +83,15 @@ class Dijkstra {
   }
 
   double distance(int a, int b){
-    DeskElement A= positionList [a];
-    DeskElement B= positionList [b];
+    DeskElement A= positionList[0];
+    DeskElement B= positionList[1];
 
     for(int i=0;i<positionList .length;i++){
-      if(int.parse(positionList[i].getID()) == a){
+      if(positionList[i].getID() == a){
          A = positionList [i];
-
       }
-      if(int.parse(positionList[i].getID()) == b){
+      if(positionList[i].getID() == b){
          B = positionList [i];
-
       }
     }
     double x = (B.getX()-A.getX())*(B.getX()-A.getX());
@@ -102,10 +102,13 @@ class Dijkstra {
 
   Future<void> dijkstraCaculate() async {
     int positionLength = await getDeskLength();
+    print("..........................................................");
+    print(positionLength);
+
     // for test purpose
     // positionLength = 4;
     initAdj(adj, positionLength);
-
+    // de search nó
 
     addEdge(adj, 1, 2, distance(2, 1));
     addEdge(adj, 1, 2, distance(2, 1));
@@ -119,14 +122,20 @@ class Dijkstra {
     addEdge(adj, 1, 29, distance(29, 1));
     addEdge(adj, 29, 1, distance(29, 1));
 
+    addEdge(adj, 1, 32, distance(32, 1));
+    addEdge(adj, 32, 1, distance(32, 1));
+
+    addEdge(adj, 1, 33, distance(33, 1));
+    addEdge(adj, 33, 1, distance(33, 1));
+
+    addEdge(adj, 1, 34, distance(34, 1));
+    addEdge(adj, 34, 1, distance(34, 1));
+
     addEdge(adj, 1, 4, distance(4, 1));
     addEdge(adj, 4, 1, distance(4, 1));
 
     addEdge(adj, 1, 5, distance(5, 1));
     addEdge(adj, 5, 1, distance(5, 1));
-
-    addEdge(adj, 1, 25, distance(25, 1));
-    addEdge(adj, 25, 1, distance(25, 1));
 
     addEdge(adj, 2, 3, distance(3, 2));
     addEdge(adj, 3, 2, distance(3, 2));
@@ -136,6 +145,15 @@ class Dijkstra {
 
     addEdge(adj, 2, 29, distance(29, 2));
     addEdge(adj, 29, 2, distance(29, 2));
+
+    addEdge(adj, 2, 32, distance(32, 2));
+    addEdge(adj, 32, 2, distance(32, 2));
+
+    addEdge(adj, 2, 33, distance(33, 2));
+    addEdge(adj, 33, 2, distance(33, 2));
+
+    addEdge(adj, 2, 34, distance(34, 2));
+    addEdge(adj, 34, 2, distance(34, 2));
 
     addEdge(adj, 2, 4, distance(4, 2));
     addEdge(adj, 4, 2, distance(4, 2));
@@ -149,22 +167,140 @@ class Dijkstra {
     addEdge(adj, 3, 29, distance(29, 3));
     addEdge(adj, 29, 3, distance(29, 3));
 
+    addEdge(adj, 3, 32, distance(32, 3));
+    addEdge(adj, 32, 3, distance(32, 3));
+
+    addEdge(adj, 3, 33, distance(33, 3));
+    addEdge(adj, 33, 3, distance(33, 3));
+
+    addEdge(adj, 3, 34, distance(34, 3));
+    addEdge(adj, 34, 3, distance(34, 3));
+
     addEdge(adj, 3, 4, distance(4, 3));
     addEdge(adj, 4, 3, distance(4, 3));
 
-    addEdge(adj, 4, 30, distance(30, 4));
-    addEdge(adj, 30, 4, distance(30, 4));
-
     addEdge(adj, 4, 29, distance(29, 4));
     addEdge(adj, 29, 4, distance(29, 4));
+
+    addEdge(adj, 4, 32, distance(32, 4));
+    addEdge(adj, 32, 4, distance(32, 4));
+
+    addEdge(adj, 4, 34, distance(34, 4));
+    addEdge(adj, 34, 4, distance(34, 4));
 
     addEdge(adj, 4, 5, distance(5, 4));
     addEdge(adj, 5, 4, distance(5, 4));
 
 
+    addEdge(adj, 5, 6, distance(6, 5));
+    addEdge(adj, 6, 5, distance(6, 5));
 
+    addEdge(adj, 5, 30, distance(30, 5));
+    addEdge(adj, 30, 5, distance(30, 5));
 
-    dijkstra(adj,1, 5); // tu dinh so 2 di den tat ca
+    addEdge(adj, 5, 32, distance(32, 5));
+    addEdge(adj, 32, 5, distance(32, 5));
+
+    addEdge(adj, 5, 34, distance(34, 5));
+    addEdge(adj, 34, 5, distance(34, 5));
+
+    addEdge(adj, 6, 7, distance(7, 6));
+    addEdge(adj, 7, 6, distance(7, 6));
+
+    addEdge(adj, 7, 8, distance(8, 7));
+    addEdge(adj, 8, 7, distance(8, 7));
+
+    addEdge(adj, 8, 14, distance(14, 8));
+    addEdge(adj, 14, 8, distance(14, 8));
+
+    addEdge(adj, 8, 9, distance(9, 8));
+    addEdge(adj, 9, 8, distance(9, 8));
+
+    addEdge(adj, 9, 10, distance(10, 9));
+    addEdge(adj, 10, 9, distance(10, 9));
+
+    addEdge(adj, 10, 11, distance(11, 10));
+    addEdge(adj, 11, 10, distance(11, 10));
+
+    addEdge(adj, 11, 12, distance(12, 11));
+    addEdge(adj, 12, 11, distance(12, 11));
+
+    addEdge(adj, 12, 13, distance(13, 12));
+    addEdge(adj, 13, 12, distance(13, 12));
+
+    addEdge(adj, 14, 15, distance(15, 14));
+    addEdge(adj, 15, 14, distance(15, 14));
+
+    addEdge(adj, 15, 16, distance(16, 15));
+    addEdge(adj, 16, 15, distance(16, 15));
+
+    addEdge(adj, 16, 17, distance(17, 16));
+    addEdge(adj, 17, 16, distance(17, 16));
+
+    addEdge(adj, 17, 18, distance(18, 17));
+    addEdge(adj, 18, 17, distance(18, 17));
+
+    addEdge(adj, 17, 23, distance(23, 17));
+    addEdge(adj, 23, 17, distance(23, 17));
+
+    addEdge(adj, 18, 19, distance(19, 18));
+    addEdge(adj, 19, 18, distance(19, 18));
+
+    addEdge(adj, 19, 20, distance(20, 19));
+    addEdge(adj, 20, 19, distance(20, 19));
+
+    addEdge(adj, 20, 21, distance(21, 20));
+    addEdge(adj, 21, 20, distance(21, 20));
+
+    addEdge(adj, 20, 12, distance(12, 20));
+    addEdge(adj, 12, 20, distance(12, 20));
+
+    addEdge(adj, 20, 15, distance(15, 20));
+    addEdge(adj, 15, 20, distance(15, 20));
+
+    addEdge(adj, 21, 22, distance(22, 21));
+    addEdge(adj, 22, 21, distance(22, 21));
+
+    addEdge(adj, 23, 24, distance(24, 23));
+    addEdge(adj, 24, 23, distance(24, 23));
+
+    addEdge(adj, 24, 25, distance(25, 24));
+    addEdge(adj, 25, 24, distance(25, 24));
+
+    addEdge(adj, 25, 32, distance(32, 25));
+    addEdge(adj, 32, 25, distance(32, 25));
+
+    addEdge(adj, 32, 26, distance(26, 32));
+    addEdge(adj, 26, 32, distance(26, 32));
+
+    addEdge(adj, 32, 34, distance(34, 32));
+    addEdge(adj, 34, 32, distance(34, 32));
+
+    addEdge(adj, 26, 28, distance(28, 26));
+    addEdge(adj, 28, 26, distance(28, 26));
+
+    addEdge(adj, 26, 27, distance(27, 26));
+    addEdge(adj, 27, 26, distance(27, 26));
+
+    addEdge(adj, 27, 31, distance(31, 27));
+    addEdge(adj, 31, 27, distance(31, 27));
+
+    addEdge(adj, 28, 33, distance(33, 28));
+    addEdge(adj, 33, 28, distance(33, 28));
+
+    addEdge(adj, 33, 29, distance(29, 33));
+    addEdge(adj, 29, 33, distance(29, 33));
+
+    addEdge(adj, 29, 30, distance(30, 29));
+    addEdge(adj, 30, 29, distance(30, 29));
+
+    addEdge(adj, 29, 34, distance(34, 29));
+    addEdge(adj, 34, 29, distance(34, 29));
+
+    addEdge(adj, 30, 34, distance(34, 30));
+    addEdge(adj, 34, 30, distance(34, 30));
+
+    dijkstra(adj,1, 12); // 2 DIEM MOI THEM LA DIEM NAO//32 33 34// de t qua ben t coi. m coi tiep di
   }
 
 // tao ma tran
@@ -182,15 +318,17 @@ class Dijkstra {
 // dem so luong diem
   Future<int> getDeskLength() async {
     List<DeskElement> desk = [];
-    final String response =
-        await rootBundle.loadString('assets/floorplan.json');
-    final Map<String, dynamic> database = await json.decode(response);
-    List<dynamic> data = database["children"][1]["children"];
+    for(int i=0;i<floorLisst.length;i++){
+      final String response =
+      await rootBundle.loadString(floorLisst[i]);
+      final Map<String, dynamic> database = await json.decode(response);
+      List<dynamic> data = database["children"][1]["children"];
 
-    for (dynamic it in data) {
-      if (it["type"] == "desk") {
-        final DeskElement d = DeskElement.fromJson(it); // Parse data
-        desk.add(d); // and organization to List
+      for (dynamic it in data) {
+        if (it["type"] == "desk") {
+          final DeskElement d = DeskElement.fromJson(it); // Parse data
+          desk.add(d); // and organization to List
+        }
       }
     }
     positionList  = desk;

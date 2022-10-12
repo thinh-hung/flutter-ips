@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'utils.dart';
 
 class DeskElement implements BaseElement {
-  final String deskId;
+  final int deskId;
   final double x;
   final double y;
   final double radius = 5.0;
@@ -13,7 +13,7 @@ class DeskElement implements BaseElement {
     required this.x,
     required this.y,
   });
-  String getID(){
+  int getID(){
     return this.deskId;
   }
   double getX(){

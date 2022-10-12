@@ -13,6 +13,7 @@
         {
           "roomName": "216",
           "type": "rect",
+          "idLocation": 216,
           "x": 110,
           "y": 10,
           "w": 50,
@@ -22,6 +23,7 @@
         {
           "roomName": "215",
           "type": "rect",
+          "idLocation": 215,
           "x": 60,
           "y": 60,
           "w": 100,
@@ -31,6 +33,7 @@
         {
           "roomName": "221",
           "type": "rect",
+          "idLocation": 221,
           "x": 10,
           "y": 110,
           "w": 100,
@@ -40,6 +43,7 @@
         {
           "roomName": "214",
           "type": "rect",
+          "idLocation": 214,
           "x": 110,
           "y": 110,
           "w": 50,
@@ -49,6 +53,7 @@
         {
           "roomName": "220",
           "type": "rect",
+          "idLocation": 220,
           "x": 10,
           "y": 160,
           "w": 70,
@@ -58,6 +63,7 @@
         {
           "roomName": "219",
           "type": "rect",
+          "idLocation": 219,
           "x": 10,
           "y": 210,
           "w": 70,
@@ -67,6 +73,7 @@
         {
           "roomName": "218",
           "type": "rect",
+          "idLocation": 218,
           "x": 10,
           "y": 260,
           "w": 70,
@@ -76,6 +83,7 @@
         {
           "roomName": "217",
           "type": "rect",
+          "idLocation": 217,
           "x": 10,
           "y": 310,
           "w": 70,
@@ -85,6 +93,7 @@
         {
           "roomName": "213",
           "type": "rect",
+          "idLocation": 213,
           "x": 110,
           "y": 210,
           "w": 50,
@@ -112,6 +121,7 @@
         {
           "roomName": "211",
           "type": "rect",
+          "idLocation": 211,
           "x": 240,
           "y": 360,
           "w": 50,
@@ -121,6 +131,7 @@
         {
           "roomName": "210",
           "type": "rect",
+          "idLocation": 210,
           "x": 290,
           "y": 360,
           "w": 50,
@@ -130,6 +141,7 @@
         {
           "roomName": "209",
           "type": "rect",
+          "idLocation": 209,
           "x": 340,
           "y": 60,
           "w": 50,
@@ -139,6 +151,7 @@
         {
           "roomName": "208",
           "type": "rect",
+          "idLocation": 208,
           "x": 340,
           "y": 160,
           "w": 50,
@@ -148,6 +161,7 @@
         {
           "roomName": "207",
           "type": "rect",
+          "idLocation": 207,
           "x": 390,
           "y": 60,
           "w": 50,
@@ -157,6 +171,7 @@
         {
           "roomName": "206",
           "type": "rect",
+          "idLocation": 206,
           "x": 390,
           "y": 160,
           "w": 50,
@@ -166,6 +181,7 @@
         {
           "roomName": "205",
           "type": "rect",
+          "idLocation": 205,
           "x": 470,
           "y": 60,
           "w": 50,
@@ -175,6 +191,7 @@
         {
           "roomName": "204",
           "type": "rect",
+          "idLocation": 204,
           "x": 470,
           "y": 160,
           "w": 50,
@@ -184,6 +201,7 @@
         {
           "roomName": "203",
           "type": "rect",
+          "idLocation": 203,
           "x": 340,
           "y": 410,
           "w": 50,
@@ -193,6 +211,7 @@
         {
           "roomName": "202",
           "type": "rect",
+          "idLocation": 202,
           "x": 390,
           "y": 410,
           "w": 50,
@@ -202,6 +221,7 @@
         {
           "roomName": "201",
           "type": "rect",
+          "idLocation": 201,
           "x": 240,
           "y": 580,
           "w": 100,
@@ -247,6 +267,7 @@
         {
           "roomName": "WC5",
           "type": "rect",
+          "idLocation": 42,
           "x": 110,
           "y": 550,
           "w": 50,
@@ -265,6 +286,7 @@
         {
           "roomName": "PH 1",
           "type": "rect",
+          "idLocation": 45,
           "x": 240,
           "y": 630,
           "w": 100,
@@ -310,6 +332,7 @@
         {
           "roomName": "VP BCN KHOA",
           "type": "rect",
+          "idLocation": 43,
           "x": 90,
           "y": 630,
           "w": 70,
@@ -318,7 +341,7 @@
         },
         {
           "roomName": "",
-          "type": "rect",
+          "type": "wall",
           "x": 90,
           "y": 680,
           "w": 40,
@@ -337,6 +360,7 @@
         {
           "roomName": "P GC TG",
           "type": "rect",
+          "idLocation": 44,
           "x": 190,
           "y": 580,
           "w": 50,
@@ -346,6 +370,7 @@
         {
           "roomName": "HOI TRUONG KHOA",
           "type": "rect",
+          "idLocation": 50,
           "x": 390,
           "y": 580,
           "w": 100,
@@ -534,239 +559,228 @@
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 216,
           "x": 175,
           "y": 30
         },
+
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 215,
           "x": 175,
           "y": 80
         },
         {
           "type": "desk",
-          "deskId": "1",
-          "x": 175,
-          "y": 80
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
-          "x": 175,
-          "y": 80
-        },
-        {
-          "type": "desk",
-          "deskId": "1",
+          "deskId": 214,
           "x": 175,
           "y": 167
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 213,
           "x": 175,
           "y": 258
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 220,
           "x": 95,
           "y": 189
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 219,
           "x": 95,
           "y": 233
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 218,
           "x": 95,
           "y": 283
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 217,
           "x": 95,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 35,
           "x": 175,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 212,
           "x": 215,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 211,
           "x": 265,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 210,
           "x": 315,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 36,
           "x": 390,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 208,
           "x": 325,
           "y": 118
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 37,
           "x": 325,
           "y": 278
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 209,
           "x": 366,
           "y": 278
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 206,
           "x": 416,
           "y": 278
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 38,
           "x": 456,
           "y": 278
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 204,
           "x": 456,
           "y": 218
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 205,
           "x": 456,
           "y": 118
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 207,
+          "x": 456,
+          "y": 118
+        },
+        {
+          "type": "desk",
+          "deskId": 39,
           "x": 456,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 40,
           "x": 456,
           "y": 392
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 202,
           "x": 415,
           "y": 392
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 203,
           "x": 366,
           "y": 392
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 41,
           "x": 175,
           "y": 437
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 42,
           "x": 175,
           "y": 570
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 43,
           "x": 175,
           "y": 654
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 44,
           "x": 215,
           "y": 635
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 45,
           "x": 235,
           "y": 654
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 46,
           "x": 215,
           "y": 684
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 47,
           "x": 355,
           "y": 684
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 48,
           "x": 355,
           "y": 664
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 49,
           "x": 355,
           "y": 644
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 50,
           "x": 380,
           "y": 664
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 51,
           "x": 380,
           "y": 570
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 52,
           "x": 456,
           "y": 570
-        },
-        {
-          "type": "beacon",
-          "beaconId": 1,
-          "x": 0,
-          "y": 0,
-          "macAddress": "A2:E3:4F:36"
         }
+
       ]
     }
   ]

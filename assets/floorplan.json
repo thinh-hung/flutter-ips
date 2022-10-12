@@ -426,191 +426,216 @@
         },
         {
           "type": "desk",
-          "deskId": "13",
+          "deskId": 13,
           "x": 175,
           "y": 85
         },
         {
           "type": "desk",
-          "deskId": "12",
+          "deskId": 12,
           "x": 175,
           "y": 135
         },
         {
           "type": "desk",
-          "deskId": "11",
+          "deskId": 11,
           "x": 175,
           "y": 185
         },
         {
           "type": "desk",
-          "deskId": "10",
+          "deskId": 10,
           "x": 175,
           "y": 235
         },
         {
           "type": "desk",
-          "deskId": "9",
+          "deskId": 9,
           "x": 175,
           "y": 285
         },
 
         {
           "type": "desk",
-          "deskId": "8",
+          "deskId": 8,
           "x": 175,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": "7",
+          "deskId": 7,
           "x": 175,
           "y": 395
         },
         {
           "type": "desk",
-          "deskId": "14",
+          "deskId": 14,
           "x": 215,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": "15",
+          "deskId": 15,
           "x": 265,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": "16",
+          "deskId": 16,
           "x": 300,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": "17",
+          "deskId": 17,
           "x": 325,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": "22",
+          "deskId": 22,
           "x": 325,
           "y": 85
         },
         {
           "type": "desk",
-          "deskId": "21",
+          "deskId": 21,
           "x": 325,
           "y": 135
         },
         {
           "type": "desk",
-          "deskId": "20",
+          "deskId": 20,
           "x": 325,
           "y": 185
         },
         {
           "type": "desk",
-          "deskId": "19",
+          "deskId": 19,
           "x": 325,
           "y": 235
         },
         {
           "type": "desk",
-          "deskId": "18",
+          "deskId": 18,
           "x": 325,
           "y": 285
         },
         {
           "type": "desk",
-          "deskId": "23",
+          "deskId": 23,
           "x": 325,
           "y": 385
         },
         {
           "type": "desk",
-          "deskId": "24",
+          "deskId": 24,
           "x": 325,
           "y": 435
         },
         {
           "type": "desk",
-          "deskId": "25",
+          "deskId": 25,
           "x": 325,
           "y": 485
         },
         {
           "type": "desk",
-          "deskId": "31",
+          "deskId": 31,
           "x": 456,
           "y": 278
         },
         {
           "type": "desk",
-          "deskId": "6",
+          "deskId": 6,
           "x": 175,
           "y": 435
         },
         {
           "type": "desk",
-          "deskId": "5",
+          "deskId": 5,
           "x": 175,
           "y": 570
         },
         {
           "type": "desk",
-          "deskId": "4",
+          "deskId": 4,
           "x": 175,
           "y": 610
         },
         {
           "type": "desk",
-          "deskId": "3",
+          "deskId": 3,
           "x": 175,
           "y": 650
         },
         {
           "type": "desk",
-          "deskId": "2",
+          "deskId": 2,
           "x": 215,
           "y": 684
         },
         {
           "type": "desk",
-          "deskId": "1",
+          "deskId": 1,
           "x": 335,
           "y": 684
         },
         {
           "type": "desk",
-          "deskId": "26",
+          "deskId": 26,
           "x": 380,
           "y": 570
         },
         {
           "type": "desk",
-          "deskId": "28",
+          "deskId": 28,
           "x": 380,
           "y": 610
         },
         {
           "type": "desk",
-          "deskId": "29",
+          "deskId": 29,
           "x": 380,
           "y": 650
         },
         {
           "type": "desk",
-          "deskId": "30",
+          "deskId": 30,
           "x": 358,
           "y": 636
         },
         {
           "type": "desk",
-          "deskId": "27",
+          "deskId": 27,
           "x": 456,
           "y": 570
+        },
+        {
+          "type": "desk",
+          "deskId": 32,
+          "x": 325,
+          "y": 570
+        },
+        {
+          "type": "desk",
+          "deskId": 33,
+          "x": 380,
+          "y": 636
+        },
+        {
+          "type": "desk",
+          "deskId": 34,
+          "x": 325,
+          "y": 636
+        },
+        {
+          "type": "desk",
+          "deskId": 0,
+          "x": 0,
+          "y": 0
         }
+
       ]
     }
   ]
