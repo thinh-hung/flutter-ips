@@ -25,10 +25,10 @@ class Floorplan extends StatefulWidget {
 
 class _FloorplanState extends State<Floorplan>
     with SingleTickerProviderStateMixin {
-  late final bleController;
   late RootElement root;
   late TransformationController controllerTF;
   late AnimationController controller;
+  var bleController = Get.put(BLEResult());
   var centerXList = [];
   var centerYList = [];
   List<num> radiusList = [];
@@ -38,48 +38,37 @@ class _FloorplanState extends State<Floorplan>
   }
 
   @override
+  void didUpdateWidget(covariant Floorplan oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    print(
+        "musst run every 10s...........................................................");
+
+    centerXList = bleController.selectedCenterXList;
+    centerYList = bleController.selectedCenterYList;
+    print(centerXList);
+    print(centerYList);
+
+    // rssi to distance
+
+    for (int idx = 0; idx < bleController.sortedEntriesMap.length; idx++) {
+      var rssi = bleController.rssiList[idx];
+      var alpha = -75;
+      var constantN = 2;
+      var distance = logDistancePathLoss(
+          rssi.toDouble(), alpha.toDouble(), constantN.toDouble());
+      radiusList.add(distance);
+    }
+    print(radiusList);
+    // setState(() {});
+  }
+
+  @override
   void initState() {
-    debugPrint(widget.jsonFloorplan);
+    controllerTF = TransformationController();
+    // debugPrint(widget.jsonFloorplan);
     load(widget.jsonFloorplan);
     super.initState();
-    // Dijkstra a = Dijkstra();
-    // a.dijkstraCaculate();
-    bleController = Get.put(BLEResult());
-    controllerTF = TransformationController();
-    //animation duration 1 seconds
-
-    // print(".........................................");
-    // // bleController.parseBeaconFromResult(getJsonBeacon());
-    controller = AnimationController(
-        duration: const Duration(milliseconds: 500), vsync: this)
-      ..addListener(() => setState(() {}))
-      ..forward()
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          controller.reverse();
-        } else if (status == AnimationStatus.dismissed) {
-          controller.forward();
-          centerXList = bleController.selectedCenterXList;
-          centerYList = bleController.selectedCenterYList;
-          // initialize radius list tao r
-          radiusList = [];
-          for (int i = 0; i < bleController.selectedDistanceList.length; i++) {
-            radiusList.add(0.0);
-          }
-          // rssi to distance
-          for (int idx = 0;
-              idx < bleController.selectedDistanceList.length;
-              idx++) {
-            var rssi = bleController
-                .scanResultList[bleController.selectedDeviceIdxList[idx]].rssi;
-            var alpha = bleController.selectedRSSI_1mList[idx];
-            var constantN = bleController.selectedConstNList[idx];
-            var distance = logDistancePathLoss(
-                rssi.toDouble(), alpha.toDouble(), constantN.toDouble());
-            radiusList[idx] = distance;
-          }
-        }
-      });
   }
 
   Widget buildRectElement(BuildContext context, RectElement element) {

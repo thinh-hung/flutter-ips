@@ -38,6 +38,7 @@ dependencies:
   rolling_switch: ^0.0.2
   matrix2d: ^1.0.2
   flutter_spinbox: ^0.9.0
+  wakelock: ^0.6.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

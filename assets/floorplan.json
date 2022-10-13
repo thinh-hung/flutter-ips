@@ -427,6 +427,7 @@
         {
           "type": "desk",
           "deskId": "1",
+          "locationID": 2,
           "x": 175,
           "y": 35
         },
