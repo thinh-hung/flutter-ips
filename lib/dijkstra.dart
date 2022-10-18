@@ -10,7 +10,7 @@ class Dijkstra {
 
   Matrix2d c = Matrix2d();
   List<DeskElement> positionList = [];
-  List<String> floorLisst= ['assets/floor2.json'];
+  List<String> floorLisst= ['assets/floorplan.json','assets/floor2.json'];
   List<List<double>> adj = [];
   void addEdge(adj, int dinh1, int dinh2, double dodai) {
     adj[dinh1][dinh2] = dodai;
@@ -300,7 +300,193 @@ class Dijkstra {
     addEdge(adj, 30, 34, distance(34, 30));
     addEdge(adj, 34, 30, distance(34, 30));
 
-    dijkstra(adj,1, 12); // 2 DIEM MOI THEM LA DIEM NAO//32 33 34// de t qua ben t coi. m coi tiep di
+    //tầng trên
+    addEdge(adj, 35, 36, distance(36, 35));
+    addEdge(adj, 36, 35, distance(36, 35));
+
+    addEdge(adj, 35, 37, distance(37, 35));
+    addEdge(adj, 37, 35, distance(37, 35));
+
+    addEdge(adj, 35, 38, distance(38, 35));
+    addEdge(adj, 38, 35, distance(38, 35));
+
+    addEdge(adj, 35, 55, distance(55, 35));
+    addEdge(adj, 55, 35, distance(55, 35));
+
+    addEdge(adj, 36, 38, distance(38, 36));
+    addEdge(adj, 38, 36, distance(38, 36));
+
+    addEdge(adj, 36, 37, distance(37, 36));
+    addEdge(adj, 37, 36, distance(37, 36));
+
+    addEdge(adj, 36, 55, distance(55, 36));
+    addEdge(adj, 55, 36, distance(55, 36));
+
+    addEdge(adj, 37, 38, distance(38, 37));
+    addEdge(adj, 38, 37, distance(38, 37));
+
+    addEdge(adj, 37, 55, distance(55, 37));
+    addEdge(adj, 55, 37, distance(55, 37));
+
+    addEdge(adj, 38, 55, distance(55, 38));
+    addEdge(adj, 55, 38, distance(55, 38));
+
+    addEdge(adj, 55, 39, distance(39, 55));
+    addEdge(adj, 39, 55, distance(39, 55));
+
+    addEdge(adj, 39, 40, distance(40, 39));
+    addEdge(adj, 40, 39, distance(40, 39));
+
+    addEdge(adj, 39, 68, distance(68, 39));
+    addEdge(adj, 68, 39, distance(68, 39));
+
+    addEdge(adj, 40, 41, distance(41, 40));
+    addEdge(adj, 41, 40, distance(41, 40));
+
+    addEdge(adj, 41, 42, distance(42, 41));
+    addEdge(adj, 42, 41, distance(42, 41));
+
+    addEdge(adj, 41, 46, distance(46, 41));
+    addEdge(adj, 46, 41, distance(46, 41));
+
+    addEdge(adj, 41, 50, distance(50, 41));
+    addEdge(adj, 50, 41, distance(50, 41));
+
+    addEdge(adj, 42, 43, distance(43, 42));
+    addEdge(adj, 43, 42, distance(43, 42));
+
+    addEdge(adj, 43, 44, distance(44, 43));
+    addEdge(adj, 44, 43, distance(44, 43));
+
+    addEdge(adj, 44, 45, distance(45, 44));
+    addEdge(adj, 45, 44, distance(45, 44));
+
+    addEdge(adj, 46, 47, distance(47, 46));
+    addEdge(adj, 47, 46, distance(47, 46));
+
+    addEdge(adj, 47, 48, distance(48, 47));
+    addEdge(adj, 48, 47, distance(48, 47));
+
+    addEdge(adj, 48, 49, distance(49, 48));
+    addEdge(adj, 49, 48, distance(49, 48));
+
+    addEdge(adj, 50, 51, distance(51, 50));
+    addEdge(adj, 51, 50, distance(51, 50));
+
+    addEdge(adj, 51, 52, distance(52, 51));
+    addEdge(adj, 52, 51, distance(52, 51));
+
+    addEdge(adj, 52, 53, distance(53, 52));
+    addEdge(adj, 53, 52, distance(53, 52));
+
+    addEdge(adj, 53, 57, distance(57, 53));
+    addEdge(adj, 57, 53, distance(57, 53));
+
+    addEdge(adj, 53, 63, distance(63, 53));
+    addEdge(adj, 63, 53, distance(63, 53));
+
+    addEdge(adj, 53, 58, distance(58, 53));
+    addEdge(adj, 58, 53, distance(58, 53));
+
+    addEdge(adj, 53, 66, distance(66, 53));
+    addEdge(adj, 66, 53, distance(66, 53));
+
+    addEdge(adj, 66, 65, distance(65, 66));
+    addEdge(adj, 65, 66, distance(65, 66));
+
+    addEdge(adj, 66, 64, distance(64, 66));
+    addEdge(adj, 64, 66, distance(64, 66));
+
+    addEdge(adj, 66, 63, distance(63, 66));
+    addEdge(adj, 63, 66, distance(63, 66));
+
+    addEdge(adj, 66, 58, distance(58, 66));
+    addEdge(adj, 58, 66, distance(58, 66));
+
+    addEdge(adj, 66, 57, distance(57, 66));
+    addEdge(adj, 57, 66, distance(57, 66));
+
+    addEdge(adj, 66, 59, distance(59, 66));
+    addEdge(adj, 59, 66, distance(59, 66));
+
+    addEdge(adj, 66, 62, distance(62, 66));
+    addEdge(adj, 62, 66, distance(62, 66));
+
+    addEdge(adj, 62, 64, distance(64, 62));
+    addEdge(adj, 64, 62, distance(64, 62));
+
+    addEdge(adj, 62, 65, distance(65, 62));
+    addEdge(adj, 65, 62, distance(65, 62));
+
+    addEdge(adj, 62, 58, distance(58, 62));
+    addEdge(adj, 58, 62, distance(58, 62));
+
+    addEdge(adj, 62, 59, distance(59, 62));
+    addEdge(adj, 59, 62, distance(59, 62));
+
+    addEdge(adj, 57, 54, distance(54, 57));
+    addEdge(adj, 54, 57, distance(54, 57));
+
+    addEdge(adj, 57, 58, distance(58, 57));
+    addEdge(adj, 58, 57, distance(58, 57));
+
+    addEdge(adj, 54, 56, distance(56, 54));
+    addEdge(adj, 56, 54, distance(56, 54));
+
+    addEdge(adj, 58, 59, distance(59, 58));
+    addEdge(adj, 59, 58, distance(59, 58));
+
+    addEdge(adj, 59, 60, distance(60, 59));
+    addEdge(adj, 60, 59, distance(60, 59));
+
+    addEdge(adj, 60, 61, distance(61, 60));
+    addEdge(adj, 61, 60, distance(61, 60));
+
+    addEdge(adj, 63, 64, distance(64, 63));
+    addEdge(adj, 64, 63, distance(64, 63));
+
+    addEdge(adj, 64, 65, distance(65, 64));
+    addEdge(adj, 65, 64, distance(65, 64));
+
+    addEdge(adj, 65, 67, distance(67, 65));
+    addEdge(adj, 67, 65, distance(67, 65));
+
+    addEdge(adj, 67, 68, distance(68, 67));
+    addEdge(adj, 68, 67, distance(68, 67));
+
+    addEdge(adj, 67, 69, distance(69, 67));
+    addEdge(adj, 69, 67, distance(69, 67));
+
+    addEdge(adj, 69, 70, distance(70, 69));
+    addEdge(adj, 70, 69, distance(70, 69));
+
+    addEdge(adj, 69, 71, distance(71, 69));
+    addEdge(adj, 71, 69, distance(71, 69));
+
+    addEdge(adj, 70, 71, distance(71, 70));
+    addEdge(adj, 71, 70, distance(71, 70));
+
+    addEdge(adj, 71, 72, distance(72, 71));
+    addEdge(adj, 72, 71, distance(72, 71));
+
+    addEdge(adj, 72, 35, distance(35, 72));
+    addEdge(adj, 35, 72, distance(35, 72));
+
+    //cau thang 1
+    addEdge(adj, 2, 35, 5);
+    addEdge(adj, 35, 2, 5);
+    //cau thang 2
+    addEdge(adj, 30, 70, 5);
+    addEdge(adj, 70, 30, 5);
+    //cau thang 3
+    addEdge(adj, 31, 62, 5);
+    addEdge(adj, 62, 31, 5);
+    //cau thang 4
+    addEdge(adj, 6, 40, 5);
+    addEdge(adj, 40, 6, 5);
+
+
+    dijkstra(adj,1, 55); // 2 DIEM MOI THEM LA DIEM NAO//32 33 34// de t qua ben t coi. m coi tiep di
   }
 
 // tao ma tran

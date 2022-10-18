@@ -13,7 +13,7 @@
         {
           "roomName": "216",
           "type": "rect",
-          "idLocation": 216,
+          "idLocation": 49,
           "x": 110,
           "y": 10,
           "w": 50,
@@ -23,7 +23,7 @@
         {
           "roomName": "215",
           "type": "rect",
-          "idLocation": 215,
+          "idLocation": 48,
           "x": 60,
           "y": 60,
           "w": 100,
@@ -33,7 +33,7 @@
         {
           "roomName": "221",
           "type": "rect",
-          "idLocation": 221,
+          "idLocation": 45,
           "x": 10,
           "y": 110,
           "w": 100,
@@ -43,7 +43,7 @@
         {
           "roomName": "214",
           "type": "rect",
-          "idLocation": 214,
+          "idLocation": 47,
           "x": 110,
           "y": 110,
           "w": 50,
@@ -53,7 +53,7 @@
         {
           "roomName": "220",
           "type": "rect",
-          "idLocation": 220,
+          "idLocation": 45,
           "x": 10,
           "y": 160,
           "w": 70,
@@ -63,7 +63,7 @@
         {
           "roomName": "219",
           "type": "rect",
-          "idLocation": 219,
+          "idLocation": 44,
           "x": 10,
           "y": 210,
           "w": 70,
@@ -73,7 +73,7 @@
         {
           "roomName": "218",
           "type": "rect",
-          "idLocation": 218,
+          "idLocation": 43,
           "x": 10,
           "y": 260,
           "w": 70,
@@ -83,7 +83,7 @@
         {
           "roomName": "217",
           "type": "rect",
-          "idLocation": 217,
+          "idLocation": 42,
           "x": 10,
           "y": 310,
           "w": 70,
@@ -93,7 +93,7 @@
         {
           "roomName": "213",
           "type": "rect",
-          "idLocation": 213,
+          "idLocation": 46,
           "x": 110,
           "y": 210,
           "w": 50,
@@ -112,6 +112,7 @@
         {
           "roomName": "212",
           "type": "rect",
+          "idLocation": 50,
           "x": 190,
           "y": 360,
           "w": 50,
@@ -121,7 +122,7 @@
         {
           "roomName": "211",
           "type": "rect",
-          "idLocation": 211,
+          "idLocation": 51,
           "x": 240,
           "y": 360,
           "w": 50,
@@ -131,7 +132,7 @@
         {
           "roomName": "210",
           "type": "rect",
-          "idLocation": 210,
+          "idLocation": 52,
           "x": 290,
           "y": 360,
           "w": 50,
@@ -141,7 +142,7 @@
         {
           "roomName": "209",
           "type": "rect",
-          "idLocation": 209,
+          "idLocation": 56,
           "x": 340,
           "y": 60,
           "w": 50,
@@ -151,7 +152,7 @@
         {
           "roomName": "208",
           "type": "rect",
-          "idLocation": 208,
+          "idLocation": 57,
           "x": 340,
           "y": 160,
           "w": 50,
@@ -161,7 +162,7 @@
         {
           "roomName": "207",
           "type": "rect",
-          "idLocation": 207,
+          "idLocation": 61,
           "x": 390,
           "y": 60,
           "w": 50,
@@ -171,7 +172,7 @@
         {
           "roomName": "206",
           "type": "rect",
-          "idLocation": 206,
+          "idLocation": 58,
           "x": 390,
           "y": 160,
           "w": 50,
@@ -181,7 +182,7 @@
         {
           "roomName": "205",
           "type": "rect",
-          "idLocation": 205,
+          "idLocation": 61,
           "x": 470,
           "y": 60,
           "w": 50,
@@ -191,7 +192,7 @@
         {
           "roomName": "204",
           "type": "rect",
-          "idLocation": 204,
+          "idLocation": 60,
           "x": 470,
           "y": 160,
           "w": 50,
@@ -201,7 +202,7 @@
         {
           "roomName": "203",
           "type": "rect",
-          "idLocation": 203,
+          "idLocation": 63,
           "x": 340,
           "y": 410,
           "w": 50,
@@ -211,7 +212,7 @@
         {
           "roomName": "202",
           "type": "rect",
-          "idLocation": 202,
+          "idLocation": 64,
           "x": 390,
           "y": 410,
           "w": 50,
@@ -221,7 +222,6 @@
         {
           "roomName": "201",
           "type": "rect",
-          "idLocation": 201,
           "x": 240,
           "y": 580,
           "w": 100,
@@ -267,7 +267,7 @@
         {
           "roomName": "WC5",
           "type": "rect",
-          "idLocation": 42,
+          "idLocation": 39,
           "x": 110,
           "y": 550,
           "w": 50,
@@ -286,7 +286,7 @@
         {
           "roomName": "PH 1",
           "type": "rect",
-          "idLocation": 45,
+          "idLocation": 36,
           "x": 240,
           "y": 630,
           "w": 100,
@@ -332,7 +332,7 @@
         {
           "roomName": "VP BCN KHOA",
           "type": "rect",
-          "idLocation": 43,
+          "idLocation": 38,
           "x": 90,
           "y": 630,
           "w": 70,
@@ -360,7 +360,7 @@
         {
           "roomName": "P GC TG",
           "type": "rect",
-          "idLocation": 44,
+          "idLocation": 37,
           "x": 190,
           "y": 580,
           "w": 50,
@@ -370,7 +370,7 @@
         {
           "roomName": "HOI TRUONG KHOA",
           "type": "rect",
-          "idLocation": 50,
+          "idLocation": 69,
           "x": 390,
           "y": 580,
           "w": 100,
@@ -559,224 +559,230 @@
         },
         {
           "type": "desk",
-          "deskId": 216,
+          "deskId": 49,
           "x": 175,
           "y": 30
         },
 
         {
           "type": "desk",
-          "deskId": 215,
+          "deskId": 48,
           "x": 175,
           "y": 80
         },
         {
           "type": "desk",
-          "deskId": 214,
+          "deskId": 47,
           "x": 175,
           "y": 167
         },
         {
           "type": "desk",
-          "deskId": 213,
+          "deskId": 46,
           "x": 175,
           "y": 258
         },
         {
           "type": "desk",
-          "deskId": 220,
+          "deskId": 45,
           "x": 95,
           "y": 189
         },
         {
           "type": "desk",
-          "deskId": 219,
+          "deskId": 44,
           "x": 95,
           "y": 233
         },
         {
           "type": "desk",
-          "deskId": 218,
+          "deskId": 43,
           "x": 95,
           "y": 283
         },
         {
           "type": "desk",
-          "deskId": 217,
+          "deskId": 42,
           "x": 95,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": 35,
+          "deskId": 41,
           "x": 175,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": 212,
+          "deskId": 50,
           "x": 215,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": 211,
+          "deskId": 51,
           "x": 265,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": 210,
+          "deskId": 52,
           "x": 315,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": 36,
-          "x": 390,
+          "deskId": 53,
+          "x": 366,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": 208,
+          "deskId": 66,
+          "x": 416,
+          "y": 332
+        },
+        {
+          "type": "desk",
+          "deskId": 56,
           "x": 325,
           "y": 118
         },
         {
           "type": "desk",
-          "deskId": 37,
+          "deskId": 54,
           "x": 325,
           "y": 278
         },
         {
           "type": "desk",
-          "deskId": 209,
+          "deskId": 57,
           "x": 366,
           "y": 278
         },
         {
           "type": "desk",
-          "deskId": 206,
+          "deskId": 58,
           "x": 416,
           "y": 278
         },
         {
           "type": "desk",
-          "deskId": 38,
+          "deskId": 59,
           "x": 456,
           "y": 278
         },
         {
           "type": "desk",
-          "deskId": 204,
+          "deskId": 60,
           "x": 456,
           "y": 218
         },
         {
           "type": "desk",
-          "deskId": 205,
+          "deskId": 61,
           "x": 456,
           "y": 118
         },
         {
           "type": "desk",
-          "deskId": 207,
-          "x": 456,
-          "y": 118
-        },
-        {
-          "type": "desk",
-          "deskId": 39,
+          "deskId": 62,
           "x": 456,
           "y": 332
         },
         {
           "type": "desk",
-          "deskId": 40,
+          "deskId": 65,
           "x": 456,
           "y": 392
         },
         {
           "type": "desk",
-          "deskId": 202,
+          "deskId": 64,
           "x": 415,
           "y": 392
         },
         {
           "type": "desk",
-          "deskId": 203,
+          "deskId": 63,
           "x": 366,
           "y": 392
         },
         {
           "type": "desk",
-          "deskId": 41,
+          "deskId": 40,
           "x": 175,
           "y": 437
         },
         {
           "type": "desk",
-          "deskId": 42,
+          "deskId": 39,
           "x": 175,
           "y": 570
         },
         {
           "type": "desk",
-          "deskId": 43,
+          "deskId": 55,
+          "x": 175,
+          "y": 635
+        },
+        {
+          "type": "desk",
+          "deskId": 38,
           "x": 175,
           "y": 654
         },
         {
           "type": "desk",
-          "deskId": 44,
+          "deskId": 37,
           "x": 215,
           "y": 635
         },
         {
           "type": "desk",
-          "deskId": 45,
+          "deskId": 36,
           "x": 235,
           "y": 654
         },
         {
           "type": "desk",
-          "deskId": 46,
+          "deskId": 35,
           "x": 215,
           "y": 684
         },
         {
           "type": "desk",
-          "deskId": 47,
+          "deskId": 72,
           "x": 355,
           "y": 684
         },
         {
           "type": "desk",
-          "deskId": 48,
+          "deskId": 71,
           "x": 355,
           "y": 664
         },
         {
           "type": "desk",
-          "deskId": 49,
+          "deskId": 70,
           "x": 355,
           "y": 644
         },
         {
           "type": "desk",
-          "deskId": 50,
+          "deskId": 69,
           "x": 380,
           "y": 664
         },
         {
           "type": "desk",
-          "deskId": 51,
+          "deskId": 68,
           "x": 380,
           "y": 570
         },
         {
           "type": "desk",
-          "deskId": 52,
+          "deskId": 69,
           "x": 456,
           "y": 570
         }
