@@ -26,7 +26,7 @@ class _MyAppState extends State<MyApp> {
   late Future<String?> _future;
   @override
   void initState() {
-    _future = rootBundle.loadString('assets/floor2.json');
+    _future = rootBundle.loadString('assets/floorplan.json');
 
     super.initState();
   }

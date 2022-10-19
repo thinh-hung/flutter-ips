@@ -1,19 +1,31 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:matrix2d/matrix2d.dart';
 
 import 'deskelement.dart';
 
-class Dijkstra {
+class Dijkstra{
 
   Matrix2d c = Matrix2d();
+  double totalPathValue = 0.0;
   List<DeskElement> positionList = [];
+  List<DeskElement> wayPoint = [];
   List<String> floorLisst= ['assets/floorplan.json','assets/floor2.json'];
   List<List<double>> adj = [];
   void addEdge(adj, int dinh1, int dinh2, double dodai) {
     adj[dinh1][dinh2] = dodai;
+  }
+  //láy danh sách đih đường đi
+  List<DeskElement> getWayPoint(){
+    return wayPoint;
+  }
+  //lấy đọ dài đường thằng
+  double getTotalPathValue(){
+    return totalPathValue;
   }
 
 /**
@@ -68,17 +80,32 @@ class Dijkstra {
       start= connect;
       mark[start]=1;
     }while(connect !=-1 && start!=finsih);
+    totalPathValue = weight[finsih];
     print("trong so: "+weight[finsih].toString());
     print("duong đi: ");
-    print(back);
     printPath(start1, finsih, back);
+    for(int i=0;i<positionList.length;i++){
+      if(positionList[i].getID() == finsih){
+        wayPoint.add(positionList[i]);
+      }
+    }
+    for(int i=0;i<wayPoint .length;i++){
+      print(wayPoint[i].deskId.toString());
+    }
+
+
 
   }
   void printPath(int start,int finish,List<int> back){
     if(start != finish)
       {
         printPath(start, back[finish], back);
-        print(back[finish].toString()+"->"+finish.toString());
+        // print(back[finish].toString()+"->"+finish.toString());
+        for(int i=0;i<positionList .length;i++){
+            if(positionList[i].getID() == back[finish]){
+              wayPoint.add(positionList[i]);
+            }
+        }
       }
   }
 
@@ -486,7 +513,37 @@ class Dijkstra {
     addEdge(adj, 40, 6, 5);
 
 
-    dijkstra(adj,1, 55); // 2 DIEM MOI THEM LA DIEM NAO//32 33 34// de t qua ben t coi. m coi tiep di
+    Timer.periodic(Duration(seconds: 2), (timer) {
+      for(int i=0;i<positionList.length;i++){
+        if(positionList[i].deskId == 0){
+          positionList[i].x += 5;
+          positionList[i].y += 5;
+          // print("X0: "+positionList[i].x.toString());
+          // print("Y0: "+positionList[i].y.toString());
+        }
+      }
+      // for(int i=0;i<positionList.length;i++){
+      //   if(positionList[i].deskId == 0){
+      //     print("start: "+positionList[i].deskId.toString()+"-"+positionList[i].x.toString()+"-"+positionList[i].y.toString());
+      //   }
+      // }
+      double min=99999;
+      int vitri=0;
+      for (int i=1;i<=35;i++){
+        if(min > distance(i, 0)){
+          min = distance(i, 0);
+          vitri = i;
+        }
+      }
+      //print(vitri);
+      addEdge(adj, 0, vitri, min);
+      addEdge(adj, vitri, 0, min);
+      dijkstra(adj,0, 2);
+
+
+
+    });
+
   }
 
 // tao ma tran
@@ -518,6 +575,9 @@ class Dijkstra {
       }
     }
     positionList  = desk;
+
+
+
     return desk.length;
   }
 

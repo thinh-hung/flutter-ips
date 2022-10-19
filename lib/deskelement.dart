@@ -4,8 +4,8 @@ import 'utils.dart';
 
 class DeskElement implements BaseElement {
   final int deskId;
-  final double x;
-  final double y;
+    double x;
+    double y;
   final double radius = 5.0;
 
   DeskElement({

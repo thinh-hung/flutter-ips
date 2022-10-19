@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 
 import 'baseelement.dart';
 import 'beaconelement.dart';
+import 'drawAPath.dart';
 import 'layerelement.dart';
 import 'rectelement.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,10 @@ class _FloorplanState extends State<Floorplan>
   late TransformationController controllerTs;
   var centerXList = [];
   var centerYList = [];
+  Dijkstra a = Dijkstra();
+  List<DeskElement> listPosition = [];
   List<num> radiusList = [];
+  bool openFloor = false;
   void load(String jsonString) {
     final data = json.decode(jsonString);
     root = RootElement.fromJson(data);
@@ -39,11 +43,12 @@ class _FloorplanState extends State<Floorplan>
 
   @override
   void initState() {
-    debugPrint(widget.jsonFloorplan);
+    // debugPrint(widget.jsonFloorplan);
     load(widget.jsonFloorplan);
     super.initState();
-    Dijkstra a = Dijkstra();
+
     a.dijkstraCaculate();
+
     bleController = Get.put(BLEResult());
     controllerTs = TransformationController();
     //animation duration 1 seconds
@@ -77,7 +82,20 @@ class _FloorplanState extends State<Floorplan>
           }
         }
       });
+
+    listPosition = a.wayPoint;
+    print(a.getWayPoint().length);
+    listPosition.forEach((element) {
+      if(element.deskId >=35){
+
+        setState(() {
+          print("######################################");
+          openFloor = true;
+        });
+      }
+    });
   }
+
 
   Widget buildRectElement(BuildContext context, RectElement element) {
     return Positioned(
@@ -106,7 +124,7 @@ class _FloorplanState extends State<Floorplan>
         height: element.radius * 2,
         width: element.radius * 2,
         decoration: const BoxDecoration(
-          color: Colors.orange,
+          color: Colors.yellow,
           shape: BoxShape.circle,
         ),
       ),
@@ -168,24 +186,28 @@ class _FloorplanState extends State<Floorplan>
         transformationController: controllerTs,
         maxScale: 300,
         constrained: false,
-        child: GestureDetector(
-          onTapDown: (details) {
-            // print("beacon in local database: " + beacons.length.toString());
-            // print("beacon in enviroment: " +
-            //     bleController.scanResultList.length.toString());
+        child: Stack(
+          children: [ openFloor ? ElevatedButton(onPressed: () {
 
-            print("x: " + details.localPosition.dx.toString());
+          }, child: Text("Lên tầng trên"),) : Center(),GestureDetector(
+            onTapDown: (details) {
+              // print("beacon in local database: " + beacons.length.toString());
+              // print("beacon in enviroment: " +
+              //     bleController.scanResultList.length.toString());
 
-            print("y: " + details.localPosition.dy.toString());
-          },
-          child: CustomPaint(
-            painter: GridPainter(),
-            foregroundPainter:
-                CirclePainter(centerXList, centerYList, radiusList),
-            child: Stack(
-              children: layers,
+              print("x: " + details.localPosition.dx.toString());
+
+              print("y: " + details.localPosition.dy.toString());
+            },
+            child: CustomPaint(
+              painter: LinePainter(listPosition: listPosition),
+              foregroundPainter:
+                  CirclePainter(centerXList, centerYList, radiusList),
+              child: Stack(
+                children: layers,
+              ),
             ),
-          ),
+          )],
         ));
   }
 
