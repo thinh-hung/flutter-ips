@@ -28,7 +28,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _future = rootBundle.loadString('assets/floorplan.json');
+    _future = rootBundle.loadString('assets/nhatren.json');
 
     super.initState();
   }
@@ -78,12 +78,14 @@ class _MyHomePageState extends State<MyHomePage> {
       await FlutterBluePlus.instance.stopScan();
       print(resultList.length);
       resultList.forEach((key, r) {
-        List<double> rssiEachItem = [];
-        rssiEachItem.add(r.rssi.toDouble());
-        if (dictMacRSSI.containsKey(r.device.id.id)) {
-          dictMacRSSI[r.device.id.id]!.addAll(rssiEachItem);
-        } else {
-          dictMacRSSI[r.device.id.id] = rssiEachItem;
+        if (getMacAddressBeaconDB().contains(r.device.id.id)) {
+          List<double> rssiEachItem = [];
+          rssiEachItem.add(r.rssi.toDouble());
+          if (dictMacRSSI.containsKey(r.device.id.id)) {
+            dictMacRSSI[r.device.id.id]!.addAll(rssiEachItem);
+          } else {
+            dictMacRSSI[r.device.id.id] = rssiEachItem;
+          }
         }
       });
       resultList.clear();
@@ -160,6 +162,10 @@ class _MyHomePageState extends State<MyHomePage> {
       beacons.add(b); // and organization to List
     }
     return beacons;
+  }
+
+  List<String> getMacAddressBeaconDB() {
+    return beaconsDB.map((e) => e.macAddress!).toList();
   }
 
   void fromFutureToListBeacon(Future<List<BeaconElement>> beacons) async {

@@ -57,6 +57,7 @@ class _FloorplanState extends State<Floorplan>
           rssi.toDouble(), alpha.toDouble(), constantN.toDouble());
       radiusList.add(distance);
     }
+    print(bleController.sortedEntriesMap);
     // setState(() {});
   }
 
@@ -168,6 +169,7 @@ class _FloorplanState extends State<Floorplan>
             // print("y: " + details.localPosition.dy.toString());
           },
           child: CustomPaint(
+            painter: GridPainter(),
             foregroundPainter:
                 CirclePainter(centerXList, centerYList, radiusList),
             child: Stack(

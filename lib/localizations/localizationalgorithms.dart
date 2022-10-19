@@ -20,14 +20,13 @@ class Localization {
   addAnchorNode(List<Anchor> anchorList) {
     if (anchorList.length >= 3) {
       conditionMet = true;
-      // sort if list more than
-      if (anchorList.length > 3) {
-        anchorList.sort((a, b) => a.radius.compareTo(b.radius));
-      }
+      anchorList.sort(
+        (a, b) => a.radius.compareTo(b.radius),
+      );
+
       anchor1 = anchorList.elementAt(0);
       anchor2 = anchorList.elementAt(1);
       anchor3 = anchorList.elementAt(2);
-
       distance1 = anchorList.elementAt(0).radius;
       distance2 = anchorList.elementAt(1).radius;
       distance3 = anchorList.elementAt(2).radius;
@@ -46,7 +45,7 @@ class Localization {
       anchor1.centerX + distance1,
       anchor2.centerX + distance2,
       anchor3.centerX + distance3
-    ]).max();
+    ]).min();
     var yMin = Matrix.row([
       anchor1.centerY - distance1,
       anchor2.centerY - distance2,
@@ -56,7 +55,7 @@ class Localization {
       anchor1.centerY + distance1,
       anchor2.centerY + distance2,
       anchor3.centerY + distance3
-    ]).max();
+    ]).min();
 
     var x = (xMin + xMax) / 2;
     var y = (yMin + yMax) / 2;
