@@ -29,37 +29,49 @@ class CirclePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    List<Anchor> anchorList = []; // da sap xep theo rssi
+    List<Anchor> anchorList = [];
     if (radiusList.isNotEmpty) {
+      for (int i = 0; i < radiusList.length - 1; i++) {
+        for (int j = i + 1; j < radiusList.length; j++) {
+          if (radiusList[i] > radiusList[j]) {
+            double tmp;
+            tmp = radiusList[i];
+            radiusList[i] = radiusList[j];
+            radiusList[j] = tmp;
+            double tmp2;
+            tmp2 = centerXList[i];
+            centerXList[i] = centerXList[j];
+            centerXList[j] = tmp2;
+            double tmp3;
+            tmp3 = centerYList[i];
+            centerYList[i] = centerYList[j];
+            centerYList[j] = tmp3;
+          }
+        }
+      }
+
       for (int i = 0; i < radiusList.length; i++) {
+        // danh dau mau tim 3 diem theo rssi gan nhat
+        if (i < 3) {
+          canvas.drawCircle(Offset(centerXList[i], centerYList[i]),
+              radiusList[i] * 20, Paint()..color = Colors.purple);
+        }
+        // radius
         var radius = radiusList[i];
         anchorList.add(Anchor(
             centerX: centerXList[i], centerY: centerYList[i], radius: radius));
-      }
-      anchorList.sort(
-        (a, b) => a.radius.compareTo(b.radius),
-      );
-      for (int i = 0; i < anchorList.length; i++) {
-        // danh dau mau tim 3 diem theo rssi gan nhat
-        if (i < 3) {
-          canvas.drawCircle(
-              Offset(anchorList[i].centerX, anchorList[i].centerY),
-              anchorList[i].radius * 20,
-              Paint()..color = Colors.purple);
-        }
-
-        canvas.drawCircle(Offset(anchorList[i].centerX, anchorList[i].centerY),
-            anchorList[i].radius * 10, anchorePaint); // m to cm
-
-        canvas.drawCircle(Offset(anchorList[i].centerX, anchorList[i].centerY),
-            2, anchorePaint);
-        // anchor text paint etc Anchor0 (,,,,,)
+        canvas.drawCircle(
+            Offset(centerXList[i], centerYList[i]), radius * 10, anchorePaint);
+        // centerX, centerY
+        canvas.drawCircle(
+            Offset(centerXList[i], centerYList[i]), 2, anchorePaint);
+        // anchor text paint
         var anchorTextPainter = TextPainter(
           text: TextSpan(
             text: 'Anchor$i\n(${centerXList[i]}, ${centerYList[i]})',
             style: const TextStyle(
               color: Colors.black,
-              fontSize: 9,
+              fontSize: 12,
             ),
           ),
           textDirection: TextDirection.ltr,
@@ -68,12 +80,12 @@ class CirclePainter extends CustomPainter {
           minWidth: 0,
           maxWidth: size.width,
         );
-        anchorTextPainter.paint(canvas,
-            Offset(anchorList[i].centerX - 27, anchorList[i].centerY + 20));
-        // radius text paint etc 7.08m
+        anchorTextPainter.paint(
+            canvas, Offset(centerXList[i] - 27, centerYList[i]));
+        // radius text paint
         var radiusTextPainter = TextPainter(
           text: TextSpan(
-            text: '  ${radiusList[i].toStringAsFixed(2)}m',
+            text: '  ${radius.toStringAsFixed(2)}m',
             style: const TextStyle(
               color: Colors.black,
               fontSize: 10,
@@ -86,11 +98,15 @@ class CirclePainter extends CustomPainter {
           maxWidth: size.width,
         );
         radiusTextPainter.paint(
-            canvas,
-            Offset(anchorList[i].centerX,
-                anchorList[i].centerY - (anchorList[i].radius) / 2 - 5));
-        drawDashedLine(canvas, anchorePaint, anchorList[i].centerX,
-            anchorList[i].centerY, anchorList[i].radius);
+            canvas, Offset(centerXList[i], centerYList[i] - (radius) / 2 - 5));
+        // draw a line
+        //var p1 = Offset(centerXList[i], centerYList[i]);
+        //var p2 = Offset(
+        //    centerXList[i], centerYList[i] - radiusList[i]);
+
+        //canvas.drawLine(p1, p2, anchorePaint);
+        drawDashedLine(
+            canvas, anchorePaint, centerXList[i], centerYList[i], radius);
       }
       // decision max distance if more or equal 3 beacon
       localization.addAnchorNode(anchorList);

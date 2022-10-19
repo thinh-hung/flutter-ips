@@ -27,6 +27,8 @@ class Localization {
       anchor1 = anchorList.elementAt(0);
       anchor2 = anchorList.elementAt(1);
       anchor3 = anchorList.elementAt(2);
+      print(
+          "${anchor1.centerX}:${anchor1.centerY}, ${anchor2.centerX}:${anchor2.centerY}, ${anchor3.centerX}:${anchor3.centerY}");
       distance1 = anchorList.elementAt(0).radius;
       distance2 = anchorList.elementAt(1).radius;
       distance3 = anchorList.elementAt(2).radius;
