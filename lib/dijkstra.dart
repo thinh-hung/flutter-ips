@@ -8,23 +8,24 @@ import 'package:matrix2d/matrix2d.dart';
 
 import 'deskelement.dart';
 
-class Dijkstra{
-
+class Dijkstra {
   Matrix2d c = Matrix2d();
   double totalPathValue = 0.0;
   List<DeskElement> positionList = [];
   List<DeskElement> wayPoint = [];
-  List<String> floorLisst= ['assets/floorplan.json','assets/floor2.json'];
+  List<String> floorLisst = ['assets/floorplan.json', 'assets/floor2.json'];
   List<List<double>> adj = [];
   void addEdge(adj, int dinh1, int dinh2, double dodai) {
     adj[dinh1][dinh2] = dodai;
   }
+
   //láy danh sách đih đường đi
-  List<DeskElement> getWayPoint(){
+  List<DeskElement> getWayPoint() {
     return wayPoint;
   }
+
   //lấy đọ dài đường thằng
-  double getTotalPathValue(){
+  double getTotalPathValue() {
     return totalPathValue;
   }
 
@@ -53,79 +54,82 @@ class Dijkstra{
   //   }
   //   return dist; // in ra la do cai nay
   // }
-  void dijkstra(List<List<double>> graph,int start, int finsih){
-    List<int> back=  List<int>.filled(graph.length, -1, growable: true);//luu dinh cha
-    List<double> weight = List<double>.filled(graph.length, double.infinity, growable: true);// luu trong so
-    List<int> mark= List<int>.filled(graph.length, 0, growable: true);//danh dau dinh
+  void dijkstra(List<List<double>> graph, int start, int finsih) {
+    List<int> back =
+        List<int>.filled(graph.length, -1, growable: true); //luu dinh cha
+    List<double> weight = List<double>.filled(graph.length, double.infinity,
+        growable: true); // luu trong so
+    List<int> mark =
+        List<int>.filled(graph.length, 0, growable: true); //danh dau dinh
     print("----------------------");
     int connect;
-    int start1=start;
+    int start1 = start;
     back[start] = 0;
     weight[start] = 0;
-    do{
-      connect =-1;
+    do {
+      connect = -1;
       double min = double.infinity;
-      for(int j=0;j<graph.length;j++){
-        if(mark[j]==0){
-          if(graph[start][j] != -1 && weight[j]>weight[start]+graph[start][j]){
-            weight[j] = weight[start]+graph[start][j];
-            back[j]=start;
+      for (int j = 0; j < graph.length; j++) {
+        if (mark[j] == 0) {
+          if (graph[start][j] != -1 &&
+              weight[j] > weight[start] + graph[start][j]) {
+            weight[j] = weight[start] + graph[start][j];
+            back[j] = start;
           }
-          if(min > weight[j]){
+          if (min > weight[j]) {
             min = weight[j];
-            connect=j;
+            connect = j;
           }
         }
       }
-      start= connect;
-      mark[start]=1;
-    }while(connect !=-1 && start!=finsih);
+      start = connect;
+      mark[start] = 1;
+    } while (connect != -1 && start != finsih);
     totalPathValue = weight[finsih];
-    print("trong so: "+weight[finsih].toString());
+    print("trong so: " + weight[finsih].toString());
     print("duong đi: ");
     printPath(start1, finsih, back);
-    for(int i=0;i<positionList.length;i++){
-      if(positionList[i].getID() == finsih){
+    for (int i = 0; i < positionList.length; i++) {
+      if (positionList[i].getID() == finsih) {
         wayPoint.add(positionList[i]);
       }
     }
-    for(int i=0;i<wayPoint .length;i++){
+    print("len: " + wayPoint.length.toString());
+    for (int i = 0; i < wayPoint.length; i++) {
       print(wayPoint[i].deskId.toString());
     }
-
-
-
+    print("++++++++++++++++++++++++++++++++S+++");
   }
-  void printPath(int start,int finish,List<int> back){
-    if(start != finish)
-      {
-        printPath(start, back[finish], back);
-        // print(back[finish].toString()+"->"+finish.toString());
-        for(int i=0;i<positionList .length;i++){
-            if(positionList[i].getID() == back[finish]){
-              wayPoint.add(positionList[i]);
-            }
+
+  void printPath(int start, int finish, List<int> back) {
+    wayPoint.clear();
+    if (start != finish) {
+      printPath(start, back[finish], back);
+      // print(back[finish].toString()+"->"+finish.toString());
+      for (int i = 0; i < positionList.length; i++) {
+        if (positionList[i].getID() == back[finish]) {
+          wayPoint.add(positionList[i]);
         }
       }
+    }
   }
 
-  double distance(int a, int b){
-    DeskElement A= positionList[0];
-    DeskElement B= positionList[1];
+  double distance(int a, int b) {
+    DeskElement A = positionList[0];
+    DeskElement B = positionList[1];
 
-    for(int i=0;i<positionList .length;i++){
-      if(positionList[i].getID() == a){
-         A = positionList [i];
+    for (int i = 0; i < positionList.length; i++) {
+      if (positionList[i].getID() == a) {
+        A = positionList[i];
       }
-      if(positionList[i].getID() == b){
-         B = positionList [i];
+      if (positionList[i].getID() == b) {
+        B = positionList[i];
       }
     }
-    double x = (B.getX()-A.getX())*(B.getX()-A.getX());
-    double y = (B.getY()-A.getY())*(B.getY()-A.getY());
-    return double.parse(sqrt(x+y).toStringAsFixed(2));
+    double x = (B.getX() - A.getX()) * (B.getX() - A.getX());
+    double y = (B.getY() - A.getY()) * (B.getY() - A.getY());
+    return double.parse(sqrt(x + y).toStringAsFixed(2));
   }
-
 
   Future<void> dijkstraCaculate() async {
     int positionLength = await getDeskLength();
@@ -217,7 +221,6 @@ class Dijkstra{
 
     addEdge(adj, 4, 5, distance(5, 4));
     addEdge(adj, 5, 4, distance(5, 4));
-
 
     addEdge(adj, 5, 6, distance(6, 5));
     addEdge(adj, 6, 5, distance(6, 5));
@@ -512,10 +515,9 @@ class Dijkstra{
     addEdge(adj, 6, 40, 5);
     addEdge(adj, 40, 6, 5);
 
-
     Timer.periodic(Duration(seconds: 2), (timer) {
-      for(int i=0;i<positionList.length;i++){
-        if(positionList[i].deskId == 0){
+      for (int i = 0; i < positionList.length; i++) {
+        if (positionList[i].deskId == 0) {
           positionList[i].x += 5;
           positionList[i].y += 5;
           // print("X0: "+positionList[i].x.toString());
@@ -527,10 +529,10 @@ class Dijkstra{
       //     print("start: "+positionList[i].deskId.toString()+"-"+positionList[i].x.toString()+"-"+positionList[i].y.toString());
       //   }
       // }
-      double min=99999;
-      int vitri=0;
-      for (int i=1;i<=35;i++){
-        if(min > distance(i, 0)){
+      double min = 99999;
+      int vitri = 0;
+      for (int i = 1; i <= 35; i++) {
+        if (min > distance(i, 0)) {
           min = distance(i, 0);
           vitri = i;
         }
@@ -538,12 +540,8 @@ class Dijkstra{
       //print(vitri);
       addEdge(adj, 0, vitri, min);
       addEdge(adj, vitri, 0, min);
-      dijkstra(adj,0, 2);
-
-
-
+      dijkstra(adj, 0, 2);
     });
-
   }
 
 // tao ma tran
@@ -561,9 +559,8 @@ class Dijkstra{
 // dem so luong diem
   Future<int> getDeskLength() async {
     List<DeskElement> desk = [];
-    for(int i=0;i<floorLisst.length;i++){
-      final String response =
-      await rootBundle.loadString(floorLisst[i]);
+    for (int i = 0; i < floorLisst.length; i++) {
+      final String response = await rootBundle.loadString(floorLisst[i]);
       final Map<String, dynamic> database = await json.decode(response);
       List<dynamic> data = database["children"][1]["children"];
 
@@ -574,9 +571,7 @@ class Dijkstra{
         }
       }
     }
-    positionList  = desk;
-
-
+    positionList = desk;
 
     return desk.length;
   }
