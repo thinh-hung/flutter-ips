@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../bledata.dart';
+import '../localizations/localizationalgorithms.dart';
 import '../trilateration.dart';
 
 class CirclePainter extends CustomPainter {
@@ -24,11 +25,11 @@ class CirclePainter extends CustomPainter {
   final bleController = Get.put(BLEResult());
 
   CirclePainter(this.centerXList, this.centerYList, this.radiusList);
+  Localization localization = Localization();
 
   @override
   void paint(Canvas canvas, Size size) {
     List<Anchor> anchorList = [];
-    List<double> pointDistance = [];
     if (radiusList.isNotEmpty) {
       for (int i = 0; i < radiusList.length; i++) {
         // radius
@@ -84,49 +85,12 @@ class CirclePainter extends CustomPainter {
             canvas, anchorePaint, centerXList[i], centerYList[i], radius);
       }
       // decision max distance if more or equal 3 beacon
-      if (anchorList.length >= 3) {
-        for (int i = 0; i < anchorList.length - 1; i++) {
-          pointDistance.add(sqrt(
-              pow((anchorList[i + 1].centerX - anchorList[0].centerX), 2) +
-                  pow((anchorList[i + 1].centerY - anchorList[0].centerY), 2)));
-        }
-        var maxDistance = pointDistance.reduce(max);
-
-        // ve diem cua toi
-        var position = trilaterationMethod(anchorList, maxDistance);
-
-        if ((position[0][0] >= 0.0) && (position[1][0] >= 0.0)) {
-          canvas.drawCircle(Offset(position[0][0], position[1][0]), 3,
-              positionPaint); // vong tron do
-
-          var positionTextPainter = TextPainter(
-            text: TextSpan(
-              text:
-                  '(${position[0][0].toStringAsFixed(2)}, ${position[1][0].toStringAsFixed(2)})',
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 10,
-              ),
-            ),
-            textDirection: TextDirection.ltr,
-          );
-          positionTextPainter.layout(
-            minWidth: 0,
-            maxWidth: size.width,
-          );
-
-          positionTextPainter.paint(
-              canvas,
-              Offset(position[0][0] - 25,
-                  position[1][0] + 10)); // vi tri cua vong tron example (x,y)
-        }
+      localization.addAnchorNode(anchorList);
+      if (localization.conditionMet) {
+        Offset xyMinMax = localization.minMaxPosition();
+        canvas.drawCircle(xyMinMax, 20, Paint()..color = Colors.red);
       }
     }
-    centerXList.clear();
-    centerYList.clear();
-    radiusList.clear();
-    anchorList.clear();
-    pointDistance.clear();
   }
 
   void drawDashedLine(Canvas canvas, Paint paint, double centerX,

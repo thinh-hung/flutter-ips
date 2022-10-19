@@ -8,6 +8,7 @@ class BLEResult extends GetxController {
   Map<String, double> sortedEntriesMap = {};
 
   List<double> rssiList = [];
+  List<String> macAddressList = [];
 
   // selected beacon param for distance
   List<double> selectedCenterXList = [];
@@ -21,6 +22,7 @@ class BLEResult extends GetxController {
   List<BeaconElement> beaconsDB = [];
   void clearEntries() {
     rssiList.clear();
+    macAddressList.clear();
     selectedCenterXList.clear();
     selectedCenterYList.clear();
     update();
@@ -30,9 +32,19 @@ class BLEResult extends GetxController {
     clearEntries();
     sortedEntriesMap.forEach((key, value) {
       rssiList.add(value);
+      macAddressList.add(key);
       selectedCenterXList.add(getXFromMac(beaconsDB, key));
       selectedCenterYList.add(getYFromMac(beaconsDB, key));
     });
+  }
+
+  num getRssiAt1mFromMac(List<BeaconElement> beaconsDB, String key) {
+    for (BeaconElement b in beaconsDB) {
+      if (b.macAddress == key) {
+        return b.rssiAt1m;
+      }
+    }
+    return 0;
   }
 
   double getYFromMac(List<BeaconElement> beaconsDB, String key) {

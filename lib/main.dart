@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:floorplans/floorplan.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _future = rootBundle.loadString('assets/floor2.json');
+    _future = rootBundle.loadString('assets/floorplan.json');
 
     super.initState();
   }
@@ -63,50 +64,58 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var bleController = Get.put(BLEResult());
-  HashMap<String, List<int>> dictMacRSSI = HashMap<String, List<int>>();
+  HashMap<String, List<double>> dictMacRSSI = HashMap<String, List<double>>();
   HashMap<String, double> averageRSSIByMac = HashMap<String, double>();
   List<BeaconElement> beaconsDB = [];
+  Map<String, ScanResult> resultList = HashMap<String, ScanResult>();
   Map<String, double> sortedEntriesMap = HashMap<String, double>();
   void setStream(Stream<ScanResult> stream) async {
     stream.listen((r) {
-      print("data received");
-
-      List<int> rssiEachItem = [];
-      rssiEachItem.add(r.rssi);
-      if (dictMacRSSI.containsKey(r.device.id.id)) {
-        dictMacRSSI[r.device.id.id]!.addAll(rssiEachItem);
-      } else {
-        dictMacRSSI.putIfAbsent(r.device.id.id, () => rssiEachItem);
-      }
-      rssiEachItem.clear();
+      resultList[r.timeStamp.millisecond.toString()] = r;
       // print('${r.device.name} found! rssi: ${r.rssi}');
     }, onDone: () async {
       // Scan is finished ****************
       await FlutterBluePlus.instance.stopScan();
+      print(resultList.length);
+      resultList.forEach((key, r) {
+        List<double> rssiEachItem = [];
+        rssiEachItem.add(r.rssi.toDouble());
+        if (dictMacRSSI.containsKey(r.device.id.id)) {
+          dictMacRSSI[r.device.id.id]!.addAll(rssiEachItem);
+        } else {
+          dictMacRSSI[r.device.id.id] = rssiEachItem;
+        }
+      });
+      resultList.clear();
       print("Task Done");
-      print(dictMacRSSI);
 
-      print("dictNacRSSi filtered beacon");
-      List<String?> macInsideList = beaconsDB.map((e) => e.macAddress).toList();
-      dictMacRSSI.removeWhere((key, value) => !macInsideList.contains(key));
+      // print("dictNacRSSi filtered beacon");
 
+      // print(dictMacRSSI);
+      // mean
       dictMacRSSI.forEach((key, value) {
+        print("$key : $value");
         if (!value.isEmpty) {
-          // print('$key : $value');
           var aver =
               value.reduce((value, element) => value + element) / value.length;
-          averageRSSIByMac.putIfAbsent(key, () => aver);
+
+          var dolechchuan = calculateSD(value);
+          value.removeWhere((rssi) => rssi > (aver + (1.2 * dolechchuan)));
+
+          var aver2 =
+              value.reduce((value, element) => value + element) / value.length;
+          // print('average of $key is ${aver2}');
+
           if (averageRSSIByMac.containsKey(key)) {
-            averageRSSIByMac.update(key, (value) => aver);
+            averageRSSIByMac.update(key, (value) => aver2);
           } else {
-            averageRSSIByMac[key] = aver;
+            averageRSSIByMac[key] = aver2;
           }
         }
         // print('average of $key is ${aver}');
       });
-      print("before sort");
+      // standard deviation
 
-      print(averageRSSIByMac);
       var sortedEntries = averageRSSIByMac.entries.toList()
         ..sort((e2, e1) {
           var diff = e1.value.compareTo(e2.value);
@@ -114,8 +123,9 @@ class _MyHomePageState extends State<MyHomePage> {
         });
       sortedEntriesMap = Map<String, double>.fromEntries(sortedEntries);
 
-      print("after sort");
-      print(sortedEntriesMap);
+      // print("after sort");
+      // print(sortedEntriesMap);
+
       bleController.sortedEntriesMap =
           sortedEntriesMap; // gan map vao bleresult
 
@@ -141,7 +151,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<List<BeaconElement>> getJsonBeacon() async {
     List<BeaconElement> beacons = [];
-    final String response = await rootBundle.loadString('assets/beacon.json');
+    final String response =
+        await rootBundle.loadString('assets/beaconnhatren.json');
     final Map<String, dynamic> database = await json.decode(response);
     List<dynamic> data = database["children"][0]["children"];
     for (dynamic it in data) {
@@ -190,5 +201,22 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ));
+  }
+
+  double calculateSD(List<double> numArray) {
+    double sum = 0.0, standardDeviation = 0.0;
+    int length = numArray.length;
+
+    for (double num in numArray) {
+      sum += num;
+    }
+
+    double mean = sum / length;
+
+    for (double num in numArray) {
+      standardDeviation += pow(num - mean, 2);
+    }
+
+    return sqrt(standardDeviation / length);
   }
 }

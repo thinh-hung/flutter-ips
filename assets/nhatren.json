@@ -1,0 +1,25 @@
+{
+  "$schema": "https://evoko.app/schema/floorplan.schema.json",
+  "locationId": "cntt",
+  "children": [
+    {
+      "type": "layer",
+      "id": "floorplan-layer"
+    },
+    {
+      "type": "layer",
+      "id": "floorplan-layer",
+      "children": [
+        {
+          "roomName": "PK",
+          "type": "rect",
+          "x": 0,
+          "y": 0,
+          "w": 1000,
+          "h": 1000,
+          "fill": "ff0000ff"
+        }
+      ]
+    }
+  ]
+}

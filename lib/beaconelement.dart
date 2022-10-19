@@ -8,9 +8,11 @@ class BeaconElement implements BaseElement {
   final double y;
   final double radius = 5.0;
   final String? macAddress;
+  final int rssiAt1m;
 
   BeaconElement({
     required this.beaconId,
+    required this.rssiAt1m,
     required this.x,
     required this.y,
     this.macAddress,
@@ -25,6 +27,7 @@ class BeaconElement implements BaseElement {
         beaconId: data['beaconId'],
         x: parseNumber(data['x']),
         y: parseNumber(data['y']),
+        rssiAt1m: data['rssiAt1m'],
         macAddress: data['macAddress']);
   }
 }

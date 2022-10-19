@@ -1,0 +1,76 @@
+{
+  "$schema": "https://evoko.app/schema/floorplan.schema.json",
+  "locationId": "hejhej",
+  "children": [
+    {
+      "type": "layer",
+      "id": "floorplan-layer",
+      "children": [
+        {
+          "type": "beacon",
+          "beaconId": 2,
+          "x": 0,
+          "y": 500,
+          "rssiAt1m": -64,
+          "macAddress": "FF:FF:10:0C:4E:EF"
+        },
+        {
+          "type": "beacon",
+          "beaconId": 3,
+          "x": 120,
+          "y": 0,
+          "rssiAt1m": -60,
+          "macAddress": "20:22:07:01:02:0B"
+        },
+        {
+          "type": "beacon",
+          "beaconId": 4,
+          "x": 520,
+          "y": 0,
+          "rssiAt1m": -78,
+          "macAddress": "5B:99:B0:B8:11:4E"
+        },
+        {
+          "type": "beacon",
+          "beaconId": 5,
+          "x": 480,
+          "y": 900,
+          "rssiAt1m": -66,
+          "macAddress": "FF:FF:10:2E:71:6F"
+        },
+        {
+          "type": "beacon",
+          "beaconId": 6,
+          "x": 480,
+          "y": 280,
+          "rssiAt1m": -73,
+          "macAddress": "FF:FF:77:7C:FA:47"
+        },
+        {
+          "type": "beacon",
+          "beaconId": 6,
+          "x": 480,
+          "y": 480,
+          "rssiAt1m": -70,
+          "macAddress": "FF:FF:55:5A:99:4D"
+        },
+        {
+          "type": "beacon",
+          "beaconId": 6,
+          "x": 920,
+          "y": 650,
+          "rssiAt1m": -70,
+          "macAddress": "FF:FF:10:2D:CC:DF"
+        },
+        {
+          "type": "beacon",
+          "beaconId": 6,
+          "x": 520,
+          "y": 400,
+          "rssiAt1m": -74,
+          "macAddress": "5B:28:68:BB:26:60"
+        }
+      ]
+    }
+  ]
+}

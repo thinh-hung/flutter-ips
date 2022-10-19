@@ -39,27 +39,24 @@ class _FloorplanState extends State<Floorplan>
 
   @override
   void didUpdateWidget(covariant Floorplan oldWidget) {
+    print("...................................");
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
-    print(
-        "musst run every 10s...........................................................");
-
     centerXList = bleController.selectedCenterXList;
     centerYList = bleController.selectedCenterYList;
-    print(centerXList);
-    print(centerYList);
+    radiusList.clear();
 
     // rssi to distance
 
     for (int idx = 0; idx < bleController.sortedEntriesMap.length; idx++) {
       var rssi = bleController.rssiList[idx];
-      var alpha = -75;
+      var alpha = bleController.getRssiAt1mFromMac(
+          bleController.beaconsDB, bleController.macAddressList[idx]);
       var constantN = 2;
       var distance = logDistancePathLoss(
           rssi.toDouble(), alpha.toDouble(), constantN.toDouble());
       radiusList.add(distance);
     }
-    print(radiusList);
     // setState(() {});
   }
 
@@ -171,7 +168,6 @@ class _FloorplanState extends State<Floorplan>
             // print("y: " + details.localPosition.dy.toString());
           },
           child: CustomPaint(
-            painter: GridPainter(),
             foregroundPainter:
                 CirclePainter(centerXList, centerYList, radiusList),
             child: Stack(
