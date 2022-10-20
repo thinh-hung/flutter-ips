@@ -31,6 +31,7 @@ class CirclePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     List<Anchor> anchorList = [];
     if (radiusList.isNotEmpty) {
+      // sap xep lai theo radius
       for (int i = 0; i < radiusList.length - 1; i++) {
         for (int j = i + 1; j < radiusList.length; j++) {
           if (radiusList[i] > radiusList[j]) {
@@ -113,14 +114,14 @@ class CirclePainter extends CustomPainter {
       if (localization.conditionMet) {
         Offset xyMinMax = localization.minMaxPosition();
         canvas.drawCircle(xyMinMax, 20, Paint()..color = Colors.red);
-        print("Toa do theo Minmax: " +
+        print("Toa do theo thuat toan MinMax: " +
             xyMinMax.dx.toString() +
             ':' +
             xyMinMax.dy.toString());
 
         Offset xyTrilateration = localization.trilateration();
         canvas.drawCircle(xyTrilateration, 20, Paint()..color = Colors.blue);
-        print("Toa do theo trilateration: " +
+        print("Toa do theo thuat toan trilateration: " +
             xyTrilateration.dx.toString() +
             ':' +
             xyTrilateration.dy.toString());

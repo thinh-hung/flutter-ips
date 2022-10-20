@@ -57,8 +57,12 @@ class _FloorplanState extends State<Floorplan>
           rssi.toDouble(), alpha.toDouble(), constantN.toDouble());
       radiusList.add(distance);
     }
-    print(bleController.sortedEntriesMap);
-    // setState(() {});
+    // Tinh theo cong thuc mo hinh distance path loss
+    print(
+        "Ban kinh r tinh theo mo hinh distance path loss (rssiAt1m, rssiHienTai)");
+    for (int i = 0; i < bleController.macAddressList.length; i++) {
+      print('${bleController.macAddressList[i]} : ${radiusList[i]}');
+    }
   }
 
   @override

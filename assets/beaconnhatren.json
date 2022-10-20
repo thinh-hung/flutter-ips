@@ -51,7 +51,7 @@
           "beaconId": 6,
           "x": 480,
           "y": 480,
-          "rssiAt1m": -70,
+          "rssiAt1m": -79,
           "macAddress": "FF:FF:55:5A:99:4D"
         },
         {
@@ -67,7 +67,7 @@
           "beaconId": 6,
           "x": 520,
           "y": 400,
-          "rssiAt1m": -74,
+          "rssiAt1m": -65,
           "macAddress": "5B:28:68:BB:26:60"
         }
       ]

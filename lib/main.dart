@@ -71,12 +71,13 @@ class _MyHomePageState extends State<MyHomePage> {
   Map<String, double> sortedEntriesMap = HashMap<String, double>();
   void setStream(Stream<ScanResult> stream) async {
     stream.listen((r) {
-      resultList[r.timeStamp.millisecond.toString()] = r;
+      resultList[r.timeStamp.toString()] = r;
       // print('${r.device.name} found! rssi: ${r.rssi}');
     }, onDone: () async {
       // Scan is finished ****************
       await FlutterBluePlus.instance.stopScan();
       print(resultList.length);
+
       resultList.forEach((key, r) {
         if (getMacAddressBeaconDB().contains(r.device.id.id)) {
           List<double> rssiEachItem = [];
@@ -89,21 +90,22 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       });
       resultList.clear();
-      print("Task Done");
-
-      // print("dictNacRSSi filtered beacon");
-
-      // print(dictMacRSSI);
-      // mean
+      // Loc ra nhung beacon co trong database
+      print("Loc ra nhung beacon co trong database");
       dictMacRSSI.forEach((key, value) {
-        print("$key : $value");
+        print('$key: ${value}');
+      });
+      // Loai bo do cac gia tri thua bang do lech chuan
+      print("Loai bo do cac gia tri thua bang do lech chuan");
+      dictMacRSSI.forEach((key, value) {
+        // print("$key : $value");
         if (!value.isEmpty) {
           var aver =
               value.reduce((value, element) => value + element) / value.length;
 
           var dolechchuan = calculateSD(value);
           value.removeWhere((rssi) => rssi > (aver + (1.2 * dolechchuan)));
-
+          print('$key: $value');
           var aver2 =
               value.reduce((value, element) => value + element) / value.length;
           // print('average of $key is ${aver2}');
@@ -124,9 +126,11 @@ class _MyHomePageState extends State<MyHomePage> {
           return diff;
         });
       sortedEntriesMap = Map<String, double>.fromEntries(sortedEntries);
-
-      // print("after sort");
-      // print(sortedEntriesMap);
+      // Tinh trung binh va sap xep beacon theo rssi
+      print("Tinh trung binh va sap xep beacon theo rssi");
+      sortedEntriesMap.forEach((key, value) {
+        print('$key: $value');
+      });
 
       bleController.sortedEntriesMap =
           sortedEntriesMap; // gan map vao bleresult
