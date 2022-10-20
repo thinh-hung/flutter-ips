@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:floorplans/anchor.dart';
@@ -29,9 +30,9 @@ class Localization {
       anchor3 = anchorList.elementAt(2);
       print(
           "${anchor1.centerX}:${anchor1.centerY}, ${anchor2.centerX}:${anchor2.centerY}, ${anchor3.centerX}:${anchor3.centerY}");
-      distance1 = anchorList.elementAt(0).radius;
-      distance2 = anchorList.elementAt(1).radius;
-      distance3 = anchorList.elementAt(2).radius;
+      distance1 = anchorList.elementAt(0).radius * 100;
+      distance2 = anchorList.elementAt(1).radius * 100;
+      distance3 = anchorList.elementAt(2).radius * 100;
     } else {
       conditionMet = false;
     }
@@ -62,6 +63,34 @@ class Localization {
     var x = (xMin + xMax) / 2;
     var y = (yMin + yMax) / 2;
 
+    return Offset(x, y);
+  }
+
+  Offset trilateration() {
+    double a = (-2 * anchor1.centerX) + (2 * anchor2.centerX);
+    double b = (-2 * anchor1.centerY) + (2 * anchor2.centerY);
+    double c = (pow(distance1, 2) -
+            pow(distance2, 2) -
+            pow(anchor1.centerX, 2) +
+            pow(anchor2.centerX, 2) -
+            pow(anchor1.centerY, 2) +
+            pow(anchor2.centerY, 2))
+        .toDouble();
+
+    double d = (-2 * anchor2.centerX) + (2 * anchor3.centerX);
+    double e = (-2 * anchor2.centerY) + (2 * anchor3.centerY);
+    double f = (pow(distance2, 2) -
+            pow(distance3, 2) -
+            pow(anchor2.centerX, 2) +
+            pow(anchor3.centerX, 2) -
+            pow(anchor2.centerY, 2) +
+            pow(anchor3.centerY, 2))
+        .toDouble();
+    double x = (c * e - f * b);
+    x = x / (e * a - b * d);
+
+    double y = (c * d - a * f);
+    y = y / (b * d - a * e);
     return Offset(x, y);
   }
 }

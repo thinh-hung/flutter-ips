@@ -61,7 +61,7 @@ class CirclePainter extends CustomPainter {
         anchorList.add(Anchor(
             centerX: centerXList[i], centerY: centerYList[i], radius: radius));
         canvas.drawCircle(
-            Offset(centerXList[i], centerYList[i]), radius * 10, anchorePaint);
+            Offset(centerXList[i], centerYList[i]), radius * 100, anchorePaint);
         // centerX, centerY
         canvas.drawCircle(
             Offset(centerXList[i], centerYList[i]), 2, anchorePaint);
@@ -113,8 +113,17 @@ class CirclePainter extends CustomPainter {
       if (localization.conditionMet) {
         Offset xyMinMax = localization.minMaxPosition();
         canvas.drawCircle(xyMinMax, 20, Paint()..color = Colors.red);
-        print(
-            "toa do: " + xyMinMax.dx.toString() + ':' + xyMinMax.dy.toString());
+        print("Toa do theo Minmax: " +
+            xyMinMax.dx.toString() +
+            ':' +
+            xyMinMax.dy.toString());
+
+        Offset xyTrilateration = localization.trilateration();
+        canvas.drawCircle(xyTrilateration, 20, Paint()..color = Colors.blue);
+        print("Toa do theo trilateration: " +
+            xyTrilateration.dx.toString() +
+            ':' +
+            xyTrilateration.dy.toString());
       }
     }
   }
