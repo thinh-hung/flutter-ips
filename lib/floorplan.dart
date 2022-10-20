@@ -41,6 +41,10 @@ class _FloorplanState extends State<Floorplan>
     root = RootElement.fromJson(data);
   }
 
+  // Future<void> calldijkstra() async {
+  //   await
+  // }
+
   @override
   void initState() {
     // debugPrint(widget.jsonFloorplan);
@@ -48,6 +52,8 @@ class _FloorplanState extends State<Floorplan>
     super.initState();
 
     a.dijkstraCaculate();
+    listPosition = a.getWayPoint();
+    print("len way:" + listPosition.length.toString());
 
     bleController = Get.put(BLEResult());
     controllerTs = TransformationController();
@@ -82,20 +88,7 @@ class _FloorplanState extends State<Floorplan>
           }
         }
       });
-
-    listPosition = a.wayPoint;
-    print(a.getWayPoint().length);
-    listPosition.forEach((element) {
-      if(element.deskId >=35){
-
-        setState(() {
-          print("######################################");
-          openFloor = true;
-        });
-      }
-    });
   }
-
 
   Widget buildRectElement(BuildContext context, RectElement element) {
     return Positioned(
@@ -178,6 +171,28 @@ class _FloorplanState extends State<Floorplan>
 
   @override
   Widget build(BuildContext context) {
+    List<int> stairList = [2, 6, 30, 31];
+
+    listPosition.forEach((element) {
+      if (element.deskId >= 35 || stairList.contains(listPosition[1].deskId)) {
+        setState(() {
+          print("######################################");
+          openFloor = true;
+        });
+      } else {
+        openFloor = false;
+      }
+      bool b1 = a.x >= listPosition[listPosition.length - 1].x - 10;
+      bool b2 = a.x <= listPosition[listPosition.length - 1].x + 10;
+      bool b3 = a.y >= listPosition[listPosition.length - 1].y - 10;
+      bool b4 = a.y <= listPosition[listPosition.length - 1].y + 10;
+      if (b1 && b2 && b3 && b4) {
+        setState(() {
+          print("tới r");
+        });
+      }
+    });
+
     final size = root.getExtent();
     final layers = root.layers
         .map<Widget>((layer) => buildLayer(context, layer, size))
@@ -187,27 +202,33 @@ class _FloorplanState extends State<Floorplan>
         maxScale: 300,
         constrained: false,
         child: Stack(
-          children: [ openFloor ? ElevatedButton(onPressed: () {
+          children: [
+            openFloor
+                ? ElevatedButton(
+                    onPressed: () {},
+                    child: Text("Lên tầng trên"),
+                  )
+                : Center(),
+            GestureDetector(
+              onTapDown: (details) {
+                // print("beacon in local database: " + beacons.length.toString());
+                // print("beacon in enviroment: " +
+                //     bleController.scanResultList.length.toString());
 
-          }, child: Text("Lên tầng trên"),) : Center(),GestureDetector(
-            onTapDown: (details) {
-              // print("beacon in local database: " + beacons.length.toString());
-              // print("beacon in enviroment: " +
-              //     bleController.scanResultList.length.toString());
+                print("x: " + details.localPosition.dx.toString());
 
-              print("x: " + details.localPosition.dx.toString());
-
-              print("y: " + details.localPosition.dy.toString());
-            },
-            child: CustomPaint(
-              painter: LinePainter(listPosition: listPosition),
-              foregroundPainter:
-                  CirclePainter(centerXList, centerYList, radiusList),
-              child: Stack(
-                children: layers,
+                print("y: " + details.localPosition.dy.toString());
+              },
+              child: CustomPaint(
+                painter: LinePainter(listPosition: listPosition),
+                foregroundPainter:
+                    CirclePainter(centerXList, centerYList, radiusList),
+                child: Stack(
+                  children: layers,
+                ),
               ),
-            ),
-          )],
+            )
+          ],
         ));
   }
 

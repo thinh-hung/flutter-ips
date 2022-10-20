@@ -15,13 +15,14 @@ class Dijkstra {
   List<DeskElement> wayPoint = [];
   List<String> floorLisst = ['assets/floorplan.json', 'assets/floor2.json'];
   List<List<double>> adj = [];
+  late double x, y;
   void addEdge(adj, int dinh1, int dinh2, double dodai) {
     adj[dinh1][dinh2] = dodai;
   }
 
   //láy danh sách đih đường đi
   List<DeskElement> getWayPoint() {
-    return wayPoint;
+    return this.wayPoint;
   }
 
   //lấy đọ dài đường thằng
@@ -29,31 +30,6 @@ class Dijkstra {
     return totalPathValue;
   }
 
-/**
-* Trong nay, cac dinh khong co canh noi voi nhau se co khoang cach la -1
-*/
-  // List dijkstra(List<List<double>> graph, int s) {
-  //   List<double> dist = List<double>.filled(graph.length, 0, growable: true);
-  //
-  //   for (int i = 0; i < graph.length; i++) {
-  //     dist[i] = double.infinity;
-  //   }
-  //   dist[s] = 0;
-  //   List<int> visit = List<int>.filled(graph.length, 0, growable: true);
-  //   for (int i = 0; i < graph.length; i++) {
-  //     int v = closestVertice(graph[s], visit);
-  //     for (int j = 0; j < graph[v].length; j++) {
-  //       if (graph[v][j] != -1) {
-  //         // neu co canh noi giua v va j
-  //         double currentDist = dist[v] + graph[v][j];
-  //         if (currentDist < dist[j]) {
-  //           dist[j] = currentDist;
-  //         }
-  //       }
-  //     }
-  //   }
-  //   return dist; // in ra la do cai nay
-  // }
   void dijkstra(List<List<double>> graph, int start, int finsih) {
     List<int> back =
         List<int>.filled(graph.length, -1, growable: true); //luu dinh cha
@@ -518,8 +494,10 @@ class Dijkstra {
     Timer.periodic(Duration(seconds: 2), (timer) {
       for (int i = 0; i < positionList.length; i++) {
         if (positionList[i].deskId == 0) {
-          positionList[i].x += 5;
-          positionList[i].y += 5;
+          positionList[i].x += 0;
+          positionList[i].y += 10;
+          x = positionList[i].x;
+          y = positionList[i].y;
           // print("X0: "+positionList[i].x.toString());
           // print("Y0: "+positionList[i].y.toString());
         }
@@ -540,7 +518,7 @@ class Dijkstra {
       //print(vitri);
       addEdge(adj, 0, vitri, min);
       addEdge(adj, vitri, 0, min);
-      dijkstra(adj, 0, 2);
+      dijkstra(adj, 0, 6);
     });
   }
 
