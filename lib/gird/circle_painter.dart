@@ -61,6 +61,7 @@ class CirclePainter extends CustomPainter {
         var radius = radiusList[i];
         anchorList.add(Anchor(
             centerX: centerXList[i], centerY: centerYList[i], radius: radius));
+        bleController.anchorList = anchorList; // update
         canvas.drawCircle(
             Offset(centerXList[i], centerYList[i]), radius * 100, anchorePaint);
         // centerX, centerY

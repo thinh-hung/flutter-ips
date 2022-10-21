@@ -1,3 +1,4 @@
+import 'package:floorplans/anchor.dart';
 import 'package:floorplans/beaconelement.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
@@ -20,6 +21,10 @@ class BLEResult extends GetxController {
   // distance value
   List<double> distanceList = [];
   List<BeaconElement> beaconsDB = [];
+
+  // anchor
+  List<Anchor> anchorList = [];
+
   void clearEntries() {
     rssiList.clear();
     macAddressList.clear();

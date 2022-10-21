@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'utils.dart';
 
 class DeskElement implements BaseElement {
-  final String deskId;
-  final double x;
-  final double y;
+  final int deskId;
+  double x;
+  double y;
   final double radius = 5.0;
 
   DeskElement({
@@ -13,6 +13,17 @@ class DeskElement implements BaseElement {
     required this.x,
     required this.y,
   });
+  int getID() {
+    return this.deskId;
+  }
+
+  double getX() {
+    return this.x;
+  }
+
+  double getY() {
+    return this.y;
+  }
 
   @override
   Rect getExtent() =>
