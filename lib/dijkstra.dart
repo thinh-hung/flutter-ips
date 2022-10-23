@@ -15,6 +15,7 @@ class Dijkstra {
   List<DeskElement> wayPoint = [];
   List<String> floorLisst = ['assets/floorplan.json', 'assets/floor2.json'];
   List<List<double>> adj = [];
+  bool isStop = false;
   late double x, y;
   void addEdge(adj, int dinh1, int dinh2, double dodai) {
     adj[dinh1][dinh2] = dodai;
@@ -105,6 +106,10 @@ class Dijkstra {
     double x = (B.getX() - A.getX()) * (B.getX() - A.getX());
     double y = (B.getY() - A.getY()) * (B.getY() - A.getY());
     return double.parse(sqrt(x + y).toStringAsFixed(2));
+  }
+
+  void stopDijstra() {
+    isStop = true;
   }
 
   Future<void> dijkstraCaculate() async {
@@ -519,11 +524,7 @@ class Dijkstra {
       addEdge(adj, 0, vitri, min);
       addEdge(adj, vitri, 0, min);
       dijkstra(adj, 0, 6);
-      bool b1 = x >= wayPoint[wayPoint.length - 1].x - 10;
-      bool b2 = x <= wayPoint[wayPoint.length - 1].x + 10;
-      bool b3 = y >= wayPoint[wayPoint.length - 1].y - 10;
-      bool b4 = y <= wayPoint[wayPoint.length - 1].y + 10;
-      if (b1 && b2 && b3 && b4) {
+      if (isStop) {
         timer.cancel();
       }
     });

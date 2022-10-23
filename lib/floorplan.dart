@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:floorplans/bledata.dart';
 import 'package:floorplans/dijkstra.dart';
 import 'package:floorplans/gird/circle_painter.dart';
@@ -200,6 +201,10 @@ class _FloorplanState extends State<Floorplan>
       if (b1 && b2 && b3 && b4) {
         setState(() {
           print("tới r");
+          a.stopDijstra();
+
+          controller.stop();
+          showDialog();
         });
         break;
       }
@@ -214,12 +219,6 @@ class _FloorplanState extends State<Floorplan>
         constrained: false,
         child: Stack(
           children: [
-            openFloor
-                ? ElevatedButton(
-                    onPressed: () {},
-                    child: Text("Lên tầng trên"),
-                  )
-                : Center(),
             GestureDetector(
               onTapDown: (details) {
                 // print("beacon in local database: " + beacons.length.toString());
@@ -238,7 +237,18 @@ class _FloorplanState extends State<Floorplan>
                   children: layers,
                 ),
               ),
-            )
+            ),
+            openFloor
+                ? ElevatedButton(
+                    onPressed: () async {
+                      final String response =
+                          await rootBundle.loadString('assets/floor2.json');
+                      load(response);
+                      setState(() {});
+                    },
+                    child: Text("Lên tầng trên"),
+                  )
+                : Center(),
           ],
         ));
   }
@@ -247,5 +257,26 @@ class _FloorplanState extends State<Floorplan>
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  Future showDialog() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await AwesomeDialog(
+        context: context,
+        animType: AnimType.leftSlide,
+        headerAnimationLoop: false,
+        dialogType: DialogType.success,
+        showCloseIcon: true,
+        title: 'Hoàn tất chỉ đường',
+        desc: 'Bạn đã đến được địa điểm cần tìm',
+        btnOkOnPress: () {
+          debugPrint('OnClcik');
+        },
+        btnOkIcon: Icons.check_circle,
+        onDismissCallback: (type) {
+          debugPrint('Dialog Dissmiss from callback $type');
+        },
+      ).show();
+    });
   }
 }
