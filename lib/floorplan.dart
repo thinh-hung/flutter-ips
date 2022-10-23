@@ -171,9 +171,20 @@ class _FloorplanState extends State<Floorplan>
 
   @override
   Widget build(BuildContext context) {
-    List<int> stairList = [2, 6, 30, 31];
-
-    listPosition.forEach((element) {
+    List<int> stairList = [
+      2,
+      6,
+      30,
+      31,
+    ];
+    List<int> endList = [
+      35,
+      40,
+      62,
+      70,
+    ];
+    for (int i = 0; i < listPosition.length; i++) {
+      var element = listPosition[i];
       if (element.deskId >= 35 || stairList.contains(listPosition[1].deskId)) {
         setState(() {
           print("######################################");
@@ -190,9 +201,9 @@ class _FloorplanState extends State<Floorplan>
         setState(() {
           print("tới r");
         });
+        break;
       }
-    });
-
+    }
     final size = root.getExtent();
     final layers = root.layers
         .map<Widget>((layer) => buildLayer(context, layer, size))

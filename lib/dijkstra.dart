@@ -519,6 +519,13 @@ class Dijkstra {
       addEdge(adj, 0, vitri, min);
       addEdge(adj, vitri, 0, min);
       dijkstra(adj, 0, 6);
+      bool b1 = x >= wayPoint[wayPoint.length - 1].x - 10;
+      bool b2 = x <= wayPoint[wayPoint.length - 1].x + 10;
+      bool b3 = y >= wayPoint[wayPoint.length - 1].y - 10;
+      bool b4 = y <= wayPoint[wayPoint.length - 1].y + 10;
+      if (b1 && b2 && b3 && b4) {
+        timer.cancel();
+      }
     });
   }
 
