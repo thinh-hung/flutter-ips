@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:convert';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:floorplans/bledata.dart';
@@ -35,8 +36,10 @@ class _FloorplanState extends State<Floorplan>
   var centerYList = [];
   Dijkstra a = Dijkstra();
   List<DeskElement> listPosition = [];
+  List<DeskElement> listPosition1 = [];
   List<num> radiusList = [];
   bool openFloor = false;
+  bool closeFloor = false;
   void load(String jsonString) {
     final data = json.decode(jsonString);
     root = RootElement.fromJson(data);
@@ -52,7 +55,7 @@ class _FloorplanState extends State<Floorplan>
     load(widget.jsonFloorplan);
     super.initState();
 
-    a.dijkstraCaculate();
+    a.dijkstraCaculate(1);
     listPosition = a.getWayPoint();
     print("len way:" + listPosition.length.toString());
 
@@ -184,21 +187,48 @@ class _FloorplanState extends State<Floorplan>
       62,
       70,
     ];
+    HashMap<int, int> connectPoint = HashMap<int, int>();
+    connectPoint.putIfAbsent(6, () => 40);
+    connectPoint.putIfAbsent(2, () => 35);
+    connectPoint.putIfAbsent(31, () => 62);
+    connectPoint.putIfAbsent(30, () => 70);
     for (int i = 0; i < listPosition.length; i++) {
       var element = listPosition[i];
-      if (element.deskId >= 35 || stairList.contains(listPosition[1].deskId)) {
+      if (element.deskId >= 35 && stairList.contains(listPosition[1].deskId)) {
+        listPosition.removeAt(i - 1);
         setState(() {
           print("######################################");
           openFloor = true;
+          print(")))))))))))))))))))))))))))))))) ${element.deskId}");
+          a.stopDijstra();
+          controller.stop();
         });
+        break;
       } else {
         openFloor = false;
+      }
+      //new xuongs tằng
+      if (element.deskId >= 35 && endList.contains(listPosition[1].deskId)) {
+        listPosition.removeAt(i - 1);
+        setState(() {
+          print("######################################");
+          closeFloor = true;
+          a.stopDijstra();
+          controller.stop();
+        });
+        break;
+      } else {
+        closeFloor = false;
       }
       bool b1 = a.x >= listPosition[listPosition.length - 1].x - 10;
       bool b2 = a.x <= listPosition[listPosition.length - 1].x + 10;
       bool b3 = a.y >= listPosition[listPosition.length - 1].y - 10;
       bool b4 = a.y <= listPosition[listPosition.length - 1].y + 10;
-      if (b1 && b2 && b3 && b4) {
+      if (b1 &&
+          b2 &&
+          b3 &&
+          b4 &&
+          element.deskId == listPosition[listPosition.length - 1]) {
         setState(() {
           print("tới r");
           a.stopDijstra();
@@ -245,8 +275,24 @@ class _FloorplanState extends State<Floorplan>
                           await rootBundle.loadString('assets/floor2.json');
                       load(response);
                       setState(() {});
+                      // Dijkstra b1 = Dijkstra();
+                      // b1.dijkstraCaculate();
                     },
                     child: Text("Lên tầng trên"),
+                  )
+                : Center(),
+            //new
+            closeFloor
+                ? ElevatedButton(
+                    onPressed: () async {
+                      final String response =
+                          await rootBundle.loadString('assets/floorplan.json');
+                      load(response);
+                      setState(() {});
+                      // Dijkstra b1 = Dijkstra();
+                      // b1.dijkstraCaculate();
+                    },
+                    child: Text("Xuống tầng dưới"),
                   )
                 : Center(),
           ],

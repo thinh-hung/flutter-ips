@@ -112,7 +112,7 @@ class Dijkstra {
     isStop = true;
   }
 
-  Future<void> dijkstraCaculate() async {
+  Future<void> dijkstraCaculate(int t) async {
     int positionLength = await getDeskLength();
     print("..........................................................");
     print(positionLength);
@@ -514,12 +514,22 @@ class Dijkstra {
       // }
       double min = 99999;
       int vitri = 0;
-      for (int i = 1; i <= 35; i++) {
-        if (min > distance(i, 0)) {
-          min = distance(i, 0);
-          vitri = i;
+      if (t == 0) {
+        for (int i = 1; i <= 35; i++) {
+          if (min > distance(i, 0)) {
+            min = distance(i, 0);
+            vitri = i;
+          }
+        }
+      } else if (t == 1) {
+        for (int i = 35; i <= 72; i++) {
+          if (min > distance(i, 0)) {
+            min = distance(i, 0);
+            vitri = i;
+          }
         }
       }
+
       //print(vitri);
       addEdge(adj, 0, vitri, min);
       addEdge(adj, vitri, 0, min);
