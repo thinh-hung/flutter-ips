@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:floorplans/bledata.dart';
 import 'package:floorplans/dijkstra.dart';
 import 'package:floorplans/drawAPath.dart';
@@ -35,6 +36,7 @@ class _FloorplanState extends State<Floorplan>
   var centerYList = [];
   Dijkstra a = Dijkstra();
   bool openFloor = false;
+  bool closeFloor = false;
 
   List<DeskElement> listPosition = [];
   Localization localization = Localization();
@@ -162,7 +164,18 @@ class _FloorplanState extends State<Floorplan>
 
   @override
   Widget build(BuildContext context) {
-    List<int> stairList = [2, 6, 30, 31];
+    List<int> stairList = [
+      2,
+      6,
+      30,
+      31,
+    ];
+    List<int> endStairList = [
+      35,
+      40,
+      62,
+      70,
+    ];
     localization.addAnchorNode(bleController.anchorList);
 
     if (localization.conditionMet) {
@@ -170,30 +183,55 @@ class _FloorplanState extends State<Floorplan>
 
       print('x: $xyMinMax.dx , y: $xyMinMax.y');
       a.resetGraph();
-      a.dijkstraCaculate(xyMinMax.dx, xyMinMax.dy);
+      a.dijkstraCaculate(xyMinMax.dx, xyMinMax.dy,
+          0); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3
       listPosition = a.getWayPoint();
       print("len way:" + listPosition.length.toString());
     }
-    // listPosition.forEach((element) {
-    //   if (element.deskId >= 35 || stairList.contains(listPosition[1].deskId)) {
-    //     setState(() {
-    //       print("######################################");
-    //       openFloor = true;
-    //     });
-    //   } else {
-    //     openFloor = false;
-    //   }
-    //   bool b1 = a.x >= listPosition[listPosition.length - 1].x - 10;
-    //   bool b2 = a.x <= listPosition[listPosition.length - 1].x + 10;
-    //   bool b3 = a.y >= listPosition[listPosition.length - 1].y - 10;
-    //   bool b4 = a.y <= listPosition[listPosition.length - 1].y + 10;
-    //   if (b1 && b2 && b3 && b4) {
-    //     setState(() {
-    //       print("tới r");
-    //     });
-    //   }
-    // });
-
+    for (int i = 0; i < listPosition.length; i++) {
+      var element = listPosition[i];
+      if (element.deskId >= 35 && stairList.contains(listPosition[1].deskId)) {
+        listPosition.removeAt(i - 1);
+        setState(() {
+          print("######################################");
+          openFloor = true;
+          print(")))))))))))))))))))))))))))))))) ${element.deskId}");
+          controller.stop();
+        });
+        break;
+      } else {
+        openFloor = false;
+      }
+      //new xuongs tằng
+      if (element.deskId >= 35 &&
+          endStairList.contains(listPosition[1].deskId)) {
+        listPosition.removeAt(i - 1);
+        setState(() {
+          print("######################################");
+          closeFloor = true;
+          controller.stop();
+        });
+        break;
+      } else {
+        closeFloor = false;
+      }
+      bool b1 = a.x >= listPosition[listPosition.length - 1].x - 10;
+      bool b2 = a.x <= listPosition[listPosition.length - 1].x + 10;
+      bool b3 = a.y >= listPosition[listPosition.length - 1].y - 10;
+      bool b4 = a.y <= listPosition[listPosition.length - 1].y + 10;
+      if (b1 &&
+          b2 &&
+          b3 &&
+          b4 &&
+          element.deskId == listPosition[listPosition.length - 1]) {
+        setState(() {
+          print("tới r");
+          controller.stop();
+          showDialog();
+        });
+        break;
+      }
+    }
     final size = root.getExtent();
     final layers = root.layers
         .map<Widget>((layer) => buildLayer(context, layer, size))
@@ -203,12 +241,6 @@ class _FloorplanState extends State<Floorplan>
         maxScale: 300,
         constrained: false,
         child: Stack(children: [
-          openFloor
-              ? ElevatedButton(
-                  onPressed: () {},
-                  child: Text("Lên tầng trên"),
-                )
-              : Center(),
           GestureDetector(
             onTapDown: (details) {
               // print("beacon in local database: " + beacons.length.toString());
@@ -227,7 +259,34 @@ class _FloorplanState extends State<Floorplan>
                 children: layers,
               ),
             ),
-          )
+          ),
+          openFloor
+              ? ElevatedButton(
+                  onPressed: () async {
+                    final String response =
+                        await rootBundle.loadString('assets/floor2.json');
+                    load(response);
+                    setState(() {});
+                    // Dijkstra b1 = Dijkstra();
+                    // b1.dijkstraCaculate();
+                  },
+                  child: Text("Lên tầng trên"),
+                )
+              : Center(),
+          //new
+          closeFloor
+              ? ElevatedButton(
+                  onPressed: () async {
+                    final String response =
+                        await rootBundle.loadString('assets/floorplan.json');
+                    load(response);
+                    setState(() {});
+                    // Dijkstra b1 = Dijkstra();
+                    // b1.dijkstraCaculate();
+                  },
+                  child: Text("Xuống tầng dưới"),
+                )
+              : Center(),
         ]));
   }
 
@@ -235,5 +294,26 @@ class _FloorplanState extends State<Floorplan>
   void dispose() {
     controller.dispose();
     super.dispose();
+  }
+
+  Future showDialog() async {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      await AwesomeDialog(
+        context: context,
+        animType: AnimType.leftSlide,
+        headerAnimationLoop: false,
+        dialogType: DialogType.success,
+        showCloseIcon: true,
+        title: 'Hoàn tất chỉ đường',
+        desc: 'Bạn đã đến được địa điểm cần tìm',
+        btnOkOnPress: () {
+          debugPrint('OnClcik');
+        },
+        btnOkIcon: Icons.check_circle,
+        onDismissCallback: (type) {
+          debugPrint('Dialog Dissmiss from callback $type');
+        },
+      ).show();
+    });
   }
 }

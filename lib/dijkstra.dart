@@ -115,7 +115,8 @@ class Dijkstra {
     this.adj.clear();
   }
 
-  Future<void> dijkstraCaculate(double currentX, double currentY) async {
+  Future<void> dijkstraCaculate(
+      double currentX, double currentY, int floorNumber) async {
     print("..........................................................");
     int positionLength = await getDeskLength();
 
@@ -509,10 +510,19 @@ class Dijkstra {
 
     double min = 99999;
     int vitri = 0;
-    for (int i = 1; i <= 35; i++) {
-      if (min > distance(i, 0)) {
-        min = distance(i, 0);
-        vitri = i;
+    if (floorNumber == 0) {
+      for (int i = 1; i <= 35; i++) {
+        if (min > distance(i, 0)) {
+          min = distance(i, 0);
+          vitri = i;
+        }
+      }
+    } else if (floorNumber == 1) {
+      for (int i = 35; i <= 72; i++) {
+        if (min > distance(i, 0)) {
+          min = distance(i, 0);
+          vitri = i;
+        }
       }
     }
     //print(vitri);
