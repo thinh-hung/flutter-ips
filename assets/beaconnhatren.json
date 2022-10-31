@@ -36,7 +36,7 @@
           "x": 480,
           "y": 900,
           "rssiAt1m": -66,
-          "macAddress": "FF:FF:10:2E:71:6F"
+          "macAddress": "51:00:22:08:01:C1"
         },
         {
           "type": "beacon",
@@ -60,7 +60,7 @@
           "x": 920,
           "y": 650,
           "rssiAt1m": -70,
-          "macAddress": "FF:FF:10:2D:CC:DF"
+          "macAddress": "51:00:22:08:01:B8"
         },
         {
           "type": "beacon",

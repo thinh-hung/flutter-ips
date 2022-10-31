@@ -13,11 +13,90 @@
         {
           "roomName": "PK",
           "type": "rect",
+          "idLocation": 8,
           "x": 0,
           "y": 0,
           "w": 1000,
           "h": 1000,
           "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 480,
+          "y": 280,
+          "w": 5,
+          "h": 700,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 520,
+          "y": 480,
+          "w": 480,
+          "h": 5,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 520,
+          "y": 0,
+          "w": 5,
+          "h": 480,
+          "fill": "ff0000ff"
+        },
+        {
+          "roomName": "",
+          "type": "rect",
+          "x": 0,
+          "y": 500,
+          "w": 480,
+          "h": 5,
+          "fill": "ff0000ff"
+        },
+        {
+          "type": "desk",
+          "deskId": 1,
+          "x": 505,
+          "y": 503
+        },
+        {
+          "type": "desk",
+          "deskId": 2,
+          "x": 500,
+          "y": 388
+        },
+        {
+          "type": "desk",
+          "deskId": 3,
+          "x": 502,
+          "y": 320
+        },
+        {
+          "type": "desk",
+          "deskId": 4,
+          "x": 500,
+          "y": 121
+        },
+        {
+          "type": "desk",
+          "deskId": 5,
+          "x": 196,
+          "y": 189
+        },
+        {
+          "type": "desk",
+          "deskId": 6,
+          "x": 772,
+          "y": 778
+        },
+        {
+          "type": "desk",
+          "deskId": 0,
+          "x": 175,
+          "y": 151
         }
       ]
     }

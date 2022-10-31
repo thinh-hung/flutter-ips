@@ -215,22 +215,22 @@ class _FloorplanState extends State<Floorplan>
       } else {
         closeFloor = false;
       }
-      bool b1 = a.x >= listPosition[listPosition.length - 1].x - 10;
-      bool b2 = a.x <= listPosition[listPosition.length - 1].x + 10;
-      bool b3 = a.y >= listPosition[listPosition.length - 1].y - 10;
-      bool b4 = a.y <= listPosition[listPosition.length - 1].y + 10;
-      if (b1 &&
-          b2 &&
-          b3 &&
-          b4 &&
-          element.deskId == listPosition[listPosition.length - 1]) {
-        setState(() {
-          print("tới r");
-          controller.stop();
-          showDialog();
-        });
-        break;
-      }
+      // bool b1 = a.x >= listPosition[listPosition.length - 1].x - 10;
+      // bool b2 = a.x <= listPosition[listPosition.length - 1].x + 10;
+      // bool b3 = a.y >= listPosition[listPosition.length - 1].y - 10;
+      // bool b4 = a.y <= listPosition[listPosition.length - 1].y + 10;
+      // if (b1 &&
+      //     b2 &&
+      //     b3 &&
+      //     b4 &&
+      //     element.deskId == listPosition[listPosition.length - 1]) {
+      //   setState(() {
+      //     print("tới r");
+      //     controller.stop();
+      //     showDialog();
+      //   });
+      //   break;
+      // }
     }
     final size = root.getExtent();
     final layers = root.layers
@@ -247,9 +247,9 @@ class _FloorplanState extends State<Floorplan>
               // print("beacon in enviroment: " +
               //     bleController.scanResultList.length.toString());
 
-              // print("x: " + details.localPosition.dx.toString());
+              print("x: " + details.localPosition.dx.toString());
 
-              // print("y: " + details.localPosition.dy.toString());
+              print("y: " + details.localPosition.dy.toString());
             },
             child: CustomPaint(
               painter: LinePainter(listPosition: listPosition),

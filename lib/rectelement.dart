@@ -6,6 +6,7 @@ import 'utils.dart';
 class RectElement implements BaseElement {
   final Color? fill;
   final Color? stroke;
+  final int? idLocation;
   final String? roomName;
   final double x;
   final double y;
@@ -13,6 +14,7 @@ class RectElement implements BaseElement {
   final double height;
 
   RectElement({
+    this.idLocation,
     this.roomName,
     this.fill,
     this.stroke,
@@ -29,6 +31,7 @@ class RectElement implements BaseElement {
     return RectElement(
       fill: parseColor(data['fill']),
       stroke: parseColor(data['stroke']),
+      idLocation: data['idLocation'],
       x: parseNumber(data['x']),
       y: parseNumber(data['y']),
       width: parseNumber(data['w']),

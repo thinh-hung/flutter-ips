@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "58553196372",
+    "project_id": "lvtn-d6266",
+    "storage_bucket": "lvtn-d6266.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:58553196372:android:bbb02369ebb8c82fa8b2c1",
+        "android_client_info": {
+          "package_name": "com.example.floorplans"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "58553196372-pj00f60nqhut5qundqpgk2vlkpc12n8k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQYwSQBssTIOtr9ouQaPLUM-wNmEAHpwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "58553196372-pj00f60nqhut5qundqpgk2vlkpc12n8k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

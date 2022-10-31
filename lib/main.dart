@@ -2,18 +2,33 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:floorplans/floorplan.dart';
+import 'package:floorplans/model/RoomModel.dart';
+import 'package:floorplans/screens/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 import 'package:wakelock/wakelock.dart';
-
 import 'beaconelement.dart';
 import 'bledata.dart';
 
 void main() async {
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const InitApp());
+}
+
+class InitApp extends StatelessWidget {
+  const InitApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: HomeScreens(),
+    );
+  }
 }
 
 class MyApp extends StatefulWidget {
@@ -28,7 +43,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _future = rootBundle.loadString('assets/floorplan.json');
+    _future = rootBundle.loadString('assets/nhatren.json');
 
     super.initState();
   }
@@ -79,6 +94,7 @@ class _MyHomePageState extends State<MyHomePage> {
       print(resultList.length);
 
       resultList.forEach((key, r) {
+        print('${r.device.id.id} : ${r.rssi}');
         if (getMacAddressBeaconDB().contains(r.device.id.id)) {
           List<double> rssiEachItem = [];
           rssiEachItem.add(r.rssi.toDouble());
@@ -200,17 +216,18 @@ class _MyHomePageState extends State<MyHomePage> {
       Floorplan(jsonFloorplan: widget.json),
     ];
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Ban Do Tang tren Khoa"),
-          backgroundColor: Colors.green,
-        ),
-        body: Column(
-          children: [
-            Expanded(
-              child: _widgetOptions[_selectedIndex],
-            ),
-          ],
-        ));
+      appBar: AppBar(
+        title: const Text("Ban Do Tang tren Khoa"),
+        backgroundColor: Colors.green,
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: _widgetOptions[_selectedIndex],
+          ),
+        ],
+      ),
+    );
   }
 
   double calculateSD(List<double> numArray) {

@@ -41,6 +41,8 @@ dependencies:
   wakelock: ^0.6.2
   ml_linalg: ^13.10.0
   awesome_dialog: ^3.0.2
+  path_provider: ^2.0.11
+  cloud_firestore: ^4.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -64,6 +66,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/images/
     - assets/floorplan.json
     - assets/beacon.json
     - assets/floor2.json
