@@ -16,7 +16,6 @@ class RootElement extends ElementWithChildren<LayerElement> {
       switch (child['type']) {
         case 'layer':
           return LayerElement.fromJson(child);
-
         default:
           throw Exception('Invalid root element child: $child');
       }

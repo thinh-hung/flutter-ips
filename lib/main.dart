@@ -212,6 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.json);
     List<Widget> _widgetOptions = <Widget>[
       Floorplan(jsonFloorplan: widget.json),
     ];
