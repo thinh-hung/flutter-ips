@@ -6,6 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:floorplans/floorplan.dart';
 import 'package:floorplans/model/RoomModel.dart';
 import 'package:floorplans/screens/home.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
