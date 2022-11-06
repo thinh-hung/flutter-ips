@@ -40,12 +40,10 @@ class Dijkstra {
         growable: true); // luu trong so
     List<int> mark =
         List<int>.filled(graph.length, 0, growable: true); //danh dau dinh
-    print("----------------------");
     int connect;
     int start1 = start;
     back[start] = 0;
     weight[start] = 0;
-    print('graph lenggggggggggggggggggg: ${graph.length}');
     do {
       connect = -1;
       double min = double.infinity;
@@ -66,19 +64,13 @@ class Dijkstra {
       mark[start] = 1;
     } while (connect != -1 && start != finsih);
     totalPathValue = weight[finsih];
-    print("trong so: " + weight[finsih].toString());
-    print("duong đi: ");
+
     printPath(start1, finsih, back);
     for (int i = 0; i < positionList.length; i++) {
       if (positionList[i].getID() == finsih) {
         wayPoint.add(positionList[i]);
       }
     }
-    print("len: " + wayPoint.length.toString());
-    for (int i = 0; i < wayPoint.length; i++) {
-      print(wayPoint[i].deskId.toString());
-    }
-    print("++++++++++++++++++++++++++++++++S+++");
   }
 
   void printPath(int start, int finish, List<int> back) {
@@ -117,7 +109,6 @@ class Dijkstra {
 
   Future<void> dijkstraCaculate(
       double currentX, double currentY, int floorNumber) async {
-    print("..........................................................");
     int positionLength = await getDeskLengthONha();
 
     // for test purpose

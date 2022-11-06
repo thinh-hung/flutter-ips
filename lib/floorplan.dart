@@ -44,12 +44,13 @@ class _FloorplanState extends State<Floorplan>
   List<num> radiusList = [];
   void load(String jsonString) {
     final data = json.decode(jsonString);
+    print("data.jsonFloorplan" + data.toString());
+
     root = RootElement.fromJson(data);
   }
 
   @override
   void didUpdateWidget(covariant Floorplan oldWidget) {
-    print("...................................");
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
     centerXList = bleController.selectedCenterXList;
@@ -186,16 +187,13 @@ class _FloorplanState extends State<Floorplan>
       a.dijkstraCaculate(xyMinMax.dx, xyMinMax.dy,
           0); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3
       listPosition = a.getWayPoint();
-      print("len way:" + listPosition.length.toString());
     }
     for (int i = 0; i < listPosition.length; i++) {
       var element = listPosition[i];
       if (element.deskId >= 35 && stairList.contains(listPosition[1].deskId)) {
         listPosition.removeAt(i - 1);
         setState(() {
-          print("######################################");
           openFloor = true;
-          print(")))))))))))))))))))))))))))))))) ${element.deskId}");
           controller.stop();
         });
         break;
@@ -207,7 +205,6 @@ class _FloorplanState extends State<Floorplan>
           endStairList.contains(listPosition[1].deskId)) {
         listPosition.removeAt(i - 1);
         setState(() {
-          print("######################################");
           closeFloor = true;
           controller.stop();
         });

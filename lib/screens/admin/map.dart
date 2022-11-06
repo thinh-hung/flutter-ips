@@ -3,9 +3,8 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/floorplan.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
+import '../../rectelement.dart';
 
 class AdminMapScreen extends StatefulWidget {
   final int floorNumber;
@@ -16,13 +15,26 @@ class AdminMapScreen extends StatefulWidget {
 }
 
 class _AdminMapScreenState extends State<AdminMapScreen> {
-  Map<String, dynamic> dataObjectMap = Map<String, dynamic>();
-  List<dynamic> rooms = [];
-  late final data;
-  Future<List<dynamic>> data2() async {
-    var snapshot = (await FirebaseFirestore.instance.collection('Room').get());
+  List<dynamic> roomsAndObj = [];
+  List<Widget> a = [];
+  late TransformationController controllerTF;
+  late final dataRoomAndObj;
+  Future<List<dynamic>> getRoomsAndObj() async {
+    var snapshot = (await FirebaseFirestore.instance
+        .collection('Room')
+        .where('map_id', isEqualTo: widget.floorNumber)
+        .get());
     var documents = [];
     snapshot.docs.forEach((element) {
+      var document = element.data();
+      documents.add(document);
+    });
+
+    var snapshot2 = (await FirebaseFirestore.instance
+        .collection('Object Map')
+        .where('map_id', isEqualTo: widget.floorNumber)
+        .get());
+    snapshot2.docs.forEach((element) {
       var document = element.data();
       documents.add(document);
     });
@@ -33,12 +45,32 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    data = data2();
+    controllerTF = TransformationController();
+    dataRoomAndObj = getRoomsAndObj();
   }
 
   @override
   void dispose() {
     super.dispose();
+  }
+
+  Widget buildRectElement(BuildContext context, RectElement element) {
+    return Positioned(
+      top: element.y,
+      left: element.x,
+      child: Container(
+        height: element.height,
+        width: element.width,
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.black,
+            width: 2,
+          ),
+        ),
+        child: Center(child: Text("phòng")),
+        // color: element.fill,
+      ),
+    );
   }
 
   @override
@@ -48,51 +80,57 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
           title: Text("Quản trị bản đồ"),
         ),
         body: InteractiveViewer(
+            transformationController: controllerTF,
             maxScale: 300,
             constrained: false,
             child: Stack(children: [
               GestureDetector(
-                  onTapDown: (details) {
-                    // print("beacon in local database: " + beacons.length.toString());
-                    // print("beacon in enviroment: " +
-                    //     bleController.scanResultList.length.toString());
+                onTapDown: (details) {
+                  print("x2: " + details.localPosition.dx.toString());
 
-                    print("x: " + details.localPosition.dx.toString());
-
-                    print("y: " + details.localPosition.dy.toString());
-                  },
-                  child: FutureBuilder(
-                    future: data,
-                    initialData: [],
-                    builder: (context, snapshot) {
-                      switch (snapshot.connectionState) {
-                        case ConnectionState.active:
-                        case ConnectionState.waiting:
-                          return Center(child: CircularProgressIndicator());
-                          break;
-                        case ConnectionState.done:
-                          if (snapshot.hasData && !snapshot.hasError) {
-                            if (snapshot.data == null) {
-                              return Text("No Data",
-                                  style: new TextStyle(fontSize: 20.0));
-                            } else {
-                              // call the setTextFields method when the future is done
-                              rooms = (snapshot.data ?? []) as List<dynamic>;
-                              rooms.forEach((e) {
-                                print(e["room_name"]);
-                              });
-                              return Center(
-                                child: Text(""),
-                              );
-                            }
+                  print("y: " + details.localPosition.dy.toString());
+                },
+                child: FutureBuilder(
+                  future: dataRoomAndObj,
+                  initialData: [],
+                  builder: (context, snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.active:
+                      case ConnectionState.waiting:
+                        return Center(child: CircularProgressIndicator());
+                        break;
+                      case ConnectionState.done:
+                        if (snapshot.hasData && !snapshot.hasError) {
+                          if (snapshot.data == null) {
+                            return const Text("No Data",
+                                style: TextStyle(fontSize: 20.0));
                           } else {
-                            return Center(child: CircularProgressIndicator());
+                            // call the setTextFields method when the future is done
+                            roomsAndObj =
+                                (snapshot.data ?? []) as List<dynamic>;
+                            roomsAndObj.forEach(
+                              (element) => a.add(buildRectElement(
+                                  context, RectElement.fromJson(element))),
+                            );
+                            return CustomPaint(
+                              child: SizedBox(
+                                height: 900,
+                                width: 900,
+                                child: Stack(
+                                  children: a,
+                                ),
+                              ),
+                            );
                           }
-                        default:
-                          return Text('');
-                      }
-                    },
-                  ))
+                        } else {
+                          return Center(child: CircularProgressIndicator());
+                        }
+                      default:
+                        return Text('');
+                    }
+                  },
+                ),
+              )
             ])));
   }
 }

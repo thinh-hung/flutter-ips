@@ -95,7 +95,6 @@ class _MyHomePageState extends State<MyHomePage> {
       print(resultList.length);
 
       resultList.forEach((key, r) {
-        print('${r.device.id.id} : ${r.rssi}');
         if (getMacAddressBeaconDB().contains(r.device.id.id)) {
           List<double> rssiEachItem = [];
           rssiEachItem.add(r.rssi.toDouble());
@@ -145,9 +144,6 @@ class _MyHomePageState extends State<MyHomePage> {
       sortedEntriesMap = Map<String, double>.fromEntries(sortedEntries);
       // Tinh trung binh va sap xep beacon theo rssi
       print("Tinh trung binh va sap xep beacon theo rssi");
-      sortedEntriesMap.forEach((key, value) {
-        print('$key: $value');
-      });
 
       bleController.sortedEntriesMap =
           sortedEntriesMap; // gan map vao bleresult
@@ -166,8 +162,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Stream<ScanResult> getScanStream() {
+    print("scanstream chay....");
     return FlutterBluePlus.instance.scan(
-        timeout: const Duration(seconds: 10),
+        timeout: const Duration(milliseconds: 3000),
         allowDuplicates: true,
         scanMode: const ScanMode(2));
   }
@@ -205,15 +202,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   var _selectedIndex = 0;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    print(widget.json);
     List<Widget> _widgetOptions = <Widget>[
       Floorplan(jsonFloorplan: widget.json),
     ];
