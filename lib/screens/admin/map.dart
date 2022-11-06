@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/floorplan.dart';
 import 'package:floorplans/screens/admin/listBeacon.dart';
+import 'package:floorplans/screens/admin/select_map.dart';
 import 'package:flutter/material.dart';
 
 import '../../deskelement.dart';
@@ -120,7 +121,6 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
 
   void test() async {
     locations = await dataLocation;
-
     locations.forEach(
       (element) {
         return b.add(buildDeskElement(context, DeskElement.fromJson(element)));
@@ -209,7 +209,14 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
                         MaterialPageRoute(
                           builder: (context) =>
                               ListBeaconScreen(floorNumber: widget.floorNumber),
-                        ));
+                        )).then((_) {
+                      setState(() {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => widget));
+                      });
+                    });
                   },
                   child: Text("Danh sách điểm"))
             ],
