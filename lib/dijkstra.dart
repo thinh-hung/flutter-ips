@@ -513,7 +513,7 @@ class Dijkstra {
     // addEdge(adj, 40, 6, 5);
 
     for (int i = 0; i < positionList.length; i++) {
-      if (positionList[i].deskId == 0) {
+      if (positionList[i].location_id == 0) {
         positionList[i].x = currentX;
         positionList[i].y = currentY;
         // print("X0: "+positionList[i].x.toString());
@@ -544,7 +544,7 @@ class Dijkstra {
 
     // khac so voi minmax
     for (int i = 0; i < positionList.length; i++) {
-      if (positionList[i].deskId == 0) {
+      if (positionList[i].location_id == 0) {
         positionList[i].x = currentX;
         positionList[i].y = currentY;
         print("X0: " + positionList[i].x.toString());

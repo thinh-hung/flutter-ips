@@ -190,7 +190,8 @@ class _FloorplanState extends State<Floorplan>
     }
     for (int i = 0; i < listPosition.length; i++) {
       var element = listPosition[i];
-      if (element.deskId >= 35 && stairList.contains(listPosition[1].deskId)) {
+      if (element.location_id >= 35 &&
+          stairList.contains(listPosition[1].location_id)) {
         listPosition.removeAt(i - 1);
         setState(() {
           openFloor = true;
@@ -201,8 +202,8 @@ class _FloorplanState extends State<Floorplan>
         openFloor = false;
       }
       //new xuongs tằng
-      if (element.deskId >= 35 &&
-          endStairList.contains(listPosition[1].deskId)) {
+      if (element.location_id >= 35 &&
+          endStairList.contains(listPosition[1].location_id)) {
         listPosition.removeAt(i - 1);
         setState(() {
           closeFloor = true;
@@ -220,7 +221,7 @@ class _FloorplanState extends State<Floorplan>
       //     b2 &&
       //     b3 &&
       //     b4 &&
-      //     element.deskId == listPosition[listPosition.length - 1]) {
+      //     element.location_id == listPosition[listPosition.length - 1]) {
       //   setState(() {
       //     print("tới r");
       //     controller.stop();

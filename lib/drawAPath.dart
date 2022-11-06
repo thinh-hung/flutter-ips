@@ -27,11 +27,11 @@ class LinePainter extends CustomPainter {
             Offset(listPosition[i].x, listPosition[i].y), 15, paint1);
       } //màu nút
       if (i == this.listPosition.length - 2 &&
-          this.listPosition[i].deskId < 35) {
+          this.listPosition[i].location_id < 35) {
         canvas.drawCircle(
             Offset(listPosition[i + 1].x, listPosition[i + 1].y), 15, paint2);
       } //màu nút
-      if (this.listPosition[i].deskId < 35) {
+      if (this.listPosition[i].location_id < 35) {
         canvas.drawLine(Offset(listPosition[i].x, listPosition[i].y),
             Offset(listPosition[i + 1].x, listPosition[i + 1].y), paint);
       } else {

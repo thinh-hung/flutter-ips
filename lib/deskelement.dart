@@ -3,18 +3,20 @@ import 'package:flutter/material.dart';
 import 'utils.dart';
 
 class DeskElement implements BaseElement {
-  final int deskId;
+  final int location_id;
+  final int map_id;
   double x;
   double y;
   final double radius = 5.0;
 
   DeskElement({
-    required this.deskId,
+    required this.location_id,
     required this.x,
     required this.y,
+    required this.map_id,
   });
   int getID() {
-    return this.deskId;
+    return this.location_id;
   }
 
   double getX() {
@@ -31,7 +33,8 @@ class DeskElement implements BaseElement {
 
   factory DeskElement.fromJson(Map<String, dynamic> data) {
     return DeskElement(
-      deskId: data['deskId'],
+      location_id: data['location_id'],
+      map_id: data['map_id'],
       x: parseNumber(data['x']),
       y: parseNumber(data['y']),
     );
