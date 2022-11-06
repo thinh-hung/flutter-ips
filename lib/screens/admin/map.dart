@@ -67,7 +67,7 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
             width: 2,
           ),
         ),
-        child: Center(child: Text("phòng")),
+        child: Center(child: Text("${element.roomName ?? ""}")),
         // color: element.fill,
       ),
     );
@@ -79,58 +79,58 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
         appBar: AppBar(
           title: Text("Quản trị bản đồ"),
         ),
-        body: InteractiveViewer(
-            transformationController: controllerTF,
-            maxScale: 300,
-            constrained: false,
-            child: Stack(children: [
-              GestureDetector(
-                onTapDown: (details) {
-                  print("x2: " + details.localPosition.dx.toString());
-
-                  print("y: " + details.localPosition.dy.toString());
-                },
-                child: FutureBuilder(
-                  future: dataRoomAndObj,
-                  initialData: [],
-                  builder: (context, snapshot) {
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.active:
-                      case ConnectionState.waiting:
-                        return Center(child: CircularProgressIndicator());
-                        break;
-                      case ConnectionState.done:
-                        if (snapshot.hasData && !snapshot.hasError) {
-                          if (snapshot.data == null) {
-                            return const Text("No Data",
-                                style: TextStyle(fontSize: 20.0));
-                          } else {
-                            // call the setTextFields method when the future is done
-                            roomsAndObj =
-                                (snapshot.data ?? []) as List<dynamic>;
-                            roomsAndObj.forEach(
-                              (element) => a.add(buildRectElement(
-                                  context, RectElement.fromJson(element))),
-                            );
-                            return CustomPaint(
-                              child: SizedBox(
-                                height: 900,
-                                width: 900,
-                                child: Stack(
+        body: GestureDetector(
+          onTapUp: (TapUpDetails details) {
+            print(
+              controllerTF.toScene(details.localPosition),
+            );
+          },
+          child: InteractiveViewer(
+              transformationController: controllerTF,
+              maxScale: 300,
+              constrained: false,
+              child: SizedBox(
+                  height: 900,
+                  width: 900,
+                  child: CustomPaint(
+                    child: FutureBuilder(
+                      future: dataRoomAndObj,
+                      initialData: [],
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.active:
+                          case ConnectionState.waiting:
+                            return const Center(
+                                child: CircularProgressIndicator());
+                            break;
+                          case ConnectionState.done:
+                            if (snapshot.hasData && !snapshot.hasError) {
+                              if (snapshot.data == null) {
+                                return const Text("No Data",
+                                    style: TextStyle(fontSize: 20.0));
+                              } else {
+                                // call the setTextFields method when the future is done
+                                roomsAndObj =
+                                    (snapshot.data ?? []) as List<dynamic>;
+                                roomsAndObj.forEach(
+                                  (element) {
+                                    return a.add(buildRectElement(context,
+                                        RectElement.fromJson(element)));
+                                  },
+                                );
+                                return Stack(
                                   children: a,
-                                ),
-                              ),
-                            );
-                          }
-                        } else {
-                          return Center(child: CircularProgressIndicator());
+                                );
+                              }
+                            } else {
+                              return Center(child: CircularProgressIndicator());
+                            }
+                          default:
+                            return Text('');
                         }
-                      default:
-                        return Text('');
-                    }
-                  },
-                ),
-              )
-            ])));
+                      },
+                    ),
+                  ))),
+        ));
   }
 }

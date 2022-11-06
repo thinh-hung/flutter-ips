@@ -36,7 +36,7 @@ class RectElement implements BaseElement {
       y: parseNumber(data['y']),
       width: parseNumber(data['w']),
       height: parseNumber(data['h']),
-      roomName: data['roomName'],
+      roomName: data['room_name'],
     );
   }
 }
