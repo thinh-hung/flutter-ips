@@ -5,46 +5,42 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
-class ListBeaconScreen extends StatefulWidget {
+class ListLocationScreen extends StatefulWidget {
   final int floorNumber;
-  const ListBeaconScreen({Key? key, required this.floorNumber})
+  const ListLocationScreen({Key? key, required this.floorNumber})
       : super(key: key);
 
   @override
-  State<ListBeaconScreen> createState() => _ListBeaconScreenState();
+  State<ListLocationScreen> createState() => _ListLocationScreenState();
 }
 
-class _ListBeaconScreenState extends State<ListBeaconScreen> {
+class _ListLocationScreenState extends State<ListLocationScreen> {
   final firestoreInstance = FirebaseFirestore.instance;
   int x = 0;
   int y = 0;
-  String mac_address = "";
-  int rssi_at_1m = -66;
 
   Future<int> getCurrentMax() {
     return firestoreInstance
-        .collection("Beacon")
-        .orderBy('beacon_id', descending: true)
+        .collection("Location")
+        .orderBy('location_id', descending: true)
         .limit(1)
         .get()
         .then((value) async {
-      return value.docs.first.data()['beacon_id'];
+      return value.docs.first.data()['location_id'];
     });
   }
 
-  createBeacon() async {
+  createLocation() async {
     DocumentReference documentReference =
-        firestoreInstance.collection("Beacon").doc();
+        firestoreInstance.collection("Location").doc();
     int currentId = await getCurrentMax();
 
     //Map
     Map<String, dynamic> location = {
-      "beacon_id": currentId + 1,
+      "location_id": currentId + 1,
       "map_id": widget.floorNumber,
       "x": x,
-      "y": y,
-      "mac_address": mac_address,
-      "rssi_at_1m": rssi_at_1m,
+      "y": y
     };
 
     documentReference.set(location).whenComplete(() {
@@ -52,54 +48,49 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
     });
   }
 
-  updateLocation(beacon_id, xnew, ynew, mac_adressnew, rssi_at_1mnew) async {
+  updateLocation(location_id, xnew, ynew) async {
     final documentReference = await firestoreInstance
-        .collection("Beacon")
-        .where('beacon_id', isEqualTo: beacon_id)
+        .collection("Location")
+        .where('location_id', isEqualTo: location_id)
         .get()
         .then((value) {
-      return firestoreInstance.collection("Beacon").doc(value.docs.first.id);
+      return firestoreInstance.collection("Location").doc(value.docs.first.id);
     });
     Map<String, dynamic> location = {
-      "beacon_id": beacon_id,
+      "location_id": location_id,
       "map_id": widget.floorNumber,
       "x": xnew,
-      "y": ynew,
-      "mac_address": mac_adressnew,
-      "rssi_at_1m": rssi_at_1mnew,
+      "y": ynew
     };
     documentReference.set(location, SetOptions(merge: true)).whenComplete(() {
-      print("$beacon_id updated");
+      print("$location_id updated");
     });
   }
 
-  deleteBeacon(beacon_id) async {
+  deleteLocation(location_id) async {
     final documentReference = await firestoreInstance
-        .collection("Beacon")
-        .where('beacon_id', isEqualTo: beacon_id)
+        .collection("Location")
+        .where('location_id', isEqualTo: location_id)
         .get()
         .then((value) {
-      return firestoreInstance.collection("Beacon").doc(value.docs.first.id);
+      return firestoreInstance.collection("Location").doc(value.docs.first.id);
     });
 
     documentReference.delete().whenComplete(() {
-      print("$beacon_id deleted");
+      print("$location_id deleted");
     });
   }
 
-  void showUpdateDialog(int beacon_id, int currentX, int currentY,
-      String mac_address, int rssi_at_1m) {
+  void showUpdateDialog(int location_id, int currentX, int currentY) {
     x = currentX;
     y = currentY;
-    this.mac_address = mac_address;
-    this.rssi_at_1m = rssi_at_1m;
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            title: Text("Cập nhật beacon"),
+            title: Text("Cập nhật điểm ảo"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -125,32 +116,12 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                     if (value != "") y = int.parse(value);
                   },
                 ),
-                TextFormField(
-                  initialValue: mac_address.toString(),
-                  decoration: InputDecoration(hintText: "Nhập địa chỉ Mac: "),
-                  onChanged: (String value) {
-                    if (value != "") this.mac_address = value;
-                  },
-                ),
-                TextFormField(
-                  initialValue: rssi_at_1m.toString(),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  decoration:
-                      InputDecoration(hintText: "Nhập giá trị RSSI tại 1m: "),
-                  onChanged: (String value) {
-                    if (value != "") this.rssi_at_1m = int.parse(value);
-                  },
-                ),
               ],
             ),
             actions: <Widget>[
               ElevatedButton(
                   onPressed: () {
-                    updateLocation(
-                        beacon_id, x, y, this.mac_address, this.rssi_at_1m);
+                    updateLocation(location_id, x, y);
                     Navigator.of(context).pop();
                   },
                   child: Text("Cập nhật"))
@@ -159,16 +130,16 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
         });
   }
 
-  void showDeleteDialog(int beacon_id) {
+  void showDeleteDialog(int location_id) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            title: Text("Xóa beacon"),
+            title: Text("Xóa điểm ảo"),
             content: Column(mainAxisSize: MainAxisSize.min, children: [
-              Text("Bạn chắc chắn muốn xóa beacon số $beacon_id này chứ"),
+              Text("Bạn chắc chắn muốn xóa điểm ảo số $location_id này chứ"),
             ]),
             actions: <Widget>[
               ElevatedButton(
@@ -176,7 +147,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                     backgroundColor: Colors.redAccent,
                   ),
                   onPressed: () {
-                    deleteBeacon(beacon_id);
+                    deleteLocation(location_id);
                     Navigator.of(context).pop();
                   },
                   child: Text("Xóa"))
@@ -190,7 +161,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            "Danh sách beacon tầng ${widget.floorNumber == 1 ? "trệt" : widget.floorNumber - 1}"),
+            "Danh sách điểm ảo tầng ${widget.floorNumber == 1 ? "trệt" : widget.floorNumber - 1}"),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -200,7 +171,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                 return AlertDialog(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
-                  title: Text("Thêm beacon"),
+                  title: Text("Thêm điểm ảo"),
                   content: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -226,28 +197,12 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                           if (value != "") y = int.parse(value);
                         },
                       ),
-                      TextField(
-                        decoration:
-                            InputDecoration(hintText: "Nhập địa chỉ Mac: "),
-                        onChanged: (String value) {
-                          if (value != "") this.mac_address = value;
-                        },
-                      ),
-                      TextField(
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                            hintText: "Nhập giá trị RSSI tại 1m: "),
-                        onChanged: (String value) {
-                          if (value != "-" && value != "")
-                            this.rssi_at_1m = int.parse(value);
-                        },
-                      ),
                     ],
                   ),
                   actions: <Widget>[
                     ElevatedButton(
                         onPressed: () {
-                          createBeacon();
+                          createLocation();
                           Navigator.of(context).pop();
                         },
                         child: Text("Thêm"))
@@ -262,9 +217,9 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: firestoreInstance
-              .collection("Beacon")
+              .collection("Location")
               .where('map_id', isEqualTo: widget.floorNumber)
-              .orderBy('beacon_id')
+              .orderBy('location_id')
               .snapshots(),
           builder: (context, snapshots) {
             if (snapshots.hasData) {
@@ -279,9 +234,9 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                           snapshots.data!.docs[index];
                       return Dismissible(
                           onDismissed: (direction) {
-                            showDeleteDialog(documentSnapshot["beacon_id"]);
+                            showDeleteDialog(documentSnapshot["location_id"]);
                           },
-                          key: Key(documentSnapshot["beacon_id"].toString()),
+                          key: Key(documentSnapshot["location_id"].toString()),
                           child: Card(
                             elevation: 4,
                             margin: EdgeInsets.all(8),
@@ -290,30 +245,26 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                             child: InkWell(
                               onTap: () {
                                 showUpdateDialog(
-                                    documentSnapshot["beacon_id"],
+                                    documentSnapshot["location_id"],
                                     documentSnapshot["x"],
-                                    documentSnapshot["y"],
-                                    documentSnapshot["mac_address"],
-                                    documentSnapshot["rssi_at_1m"]);
+                                    documentSnapshot["y"]);
                               },
                               child: ListTile(
                                 leading: CircleAvatar(
                                     child: Text(
-                                        '#${(documentSnapshot["beacon_id"])}')),
+                                        '#${(documentSnapshot["location_id"])}')),
                                 title: Text("X=" +
                                     documentSnapshot["x"].toString() +
                                     " Y=" +
                                     documentSnapshot["y"].toString()),
-                                subtitle: Text(
-                                    'Mac Address: ${documentSnapshot["mac_address"]}\nRSSI 1m: ${documentSnapshot['rssi_at_1m']}'),
                                 trailing: IconButton(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.delete,
                                       color: Colors.red,
                                     ),
                                     onPressed: () {
                                       showDeleteDialog(
-                                          documentSnapshot["beacon_id"]);
+                                          documentSnapshot["location_id"]);
                                     }),
                               ),
                             ),

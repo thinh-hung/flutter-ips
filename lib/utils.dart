@@ -37,3 +37,25 @@ leading(ScanResult r) => const CircleAvatar(
         color: Colors.white,
       ),
     );
+loadTextMap(BuildContext context) => Column(
+      children: [
+        SizedBox(height: MediaQuery.of(context).size.height / 2.5),
+        Row(
+          children: [
+            SizedBox(width: MediaQuery.of(context).size.width / 2.9),
+            Column(
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  "Đang tải bản đồ",
+                  style: TextStyle(fontSize: 19),
+                )
+              ],
+            ),
+          ],
+        ),
+      ],
+    );

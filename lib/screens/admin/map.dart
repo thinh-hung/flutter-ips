@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/floorplan.dart';
 import 'package:floorplans/screens/admin/listBeacon.dart';
+import 'package:floorplans/screens/admin/listLocation.dart';
 import 'package:floorplans/screens/admin/select_map.dart';
 import 'package:flutter/material.dart';
 
@@ -119,22 +120,22 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
     );
   }
 
-  void test() async {
+  void napDiemAo() async {
     locations = await dataLocation;
     locations.forEach(
       (element) {
         return b.add(buildDeskElement(context, DeskElement.fromJson(element)));
       },
     );
-    print(b);
   }
 
   @override
   Widget build(BuildContext context) {
-    test();
+    napDiemAo();
     return Scaffold(
         appBar: AppBar(
-          title: Text("Quản trị bản đồ"),
+          title: Text(
+              "Quản trị bản đồ tầng ${widget.floorNumber == 1 ? "trệt" : widget.floorNumber - 1}"),
         ),
         body: GestureDetector(
           onTapUp: (TapUpDetails details) {
@@ -158,67 +159,98 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
                   transformationController: controllerTF,
                   maxScale: 300,
                   constrained: false,
-                  child: SizedBox(
-                      height: 900,
-                      width: 900,
-                      child: CustomPaint(
-                        child: FutureBuilder(
-                          future: dataRoomAndObj,
-                          initialData: [],
-                          builder: (context, snapshot) {
-                            switch (snapshot.connectionState) {
-                              case ConnectionState.active:
-                              case ConnectionState.waiting:
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                                break;
-                              case ConnectionState.done:
-                                if (snapshot.hasData && !snapshot.hasError) {
-                                  if (snapshot.data == null) {
-                                    return const Text("No Data",
-                                        style: TextStyle(fontSize: 20.0));
-                                  } else {
-                                    // call the setTextFields method when the future is done
-                                    roomsAndObj =
-                                        (snapshot.data ?? []) as List<dynamic>;
-                                    roomsAndObj.forEach(
-                                      (element) {
-                                        return a.add(buildRectElement(context,
-                                            RectElement.fromJson(element)));
-                                      },
-                                    );
-                                    a.addAll(b);
-                                    return Stack(
-                                      children: a,
-                                    );
-                                  }
-                                } else {
-                                  return const Center(
-                                      child: CircularProgressIndicator());
-                                }
-                              default:
-                                return Text('');
+                  child: CustomPaint(
+                    child: FutureBuilder(
+                      future: dataRoomAndObj,
+                      initialData: [],
+                      builder: (context, snapshot) {
+                        switch (snapshot.connectionState) {
+                          case ConnectionState.active:
+                          case ConnectionState.waiting:
+                            return loadTextMap(context);
+                            break;
+                          case ConnectionState.done:
+                            if (snapshot.hasData && !snapshot.hasError) {
+                              if (snapshot.data == null) {
+                                return const Text("No Data",
+                                    style: TextStyle(fontSize: 20.0));
+                              } else {
+                                // call the setTextFields method when the future is done
+                                roomsAndObj =
+                                    (snapshot.data ?? []) as List<dynamic>;
+                                roomsAndObj.forEach(
+                                  (element) {
+                                    return a.add(buildRectElement(context,
+                                        RectElement.fromJson(element)));
+                                  },
+                                );
+                                a.addAll(b);
+                                return SizedBox(
+                                  height: 900,
+                                  width: 900,
+                                  child: Stack(
+                                    children: a,
+                                  ),
+                                );
+                              }
+                            } else {
+                              return Center(child: CircularProgressIndicator());
                             }
-                          },
-                        ),
-                      ))),
-              ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              ListBeaconScreen(floorNumber: widget.floorNumber),
-                        )).then((_) {
-                      setState(() {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => widget));
-                      });
-                    });
-                  },
-                  child: Text("Danh sách điểm"))
+                          default:
+                            return Text('');
+                        }
+                      },
+                    ),
+                  )),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: 15,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ListLocationScreen(
+                                    floorNumber: widget.floorNumber),
+                              )).then((_) {
+                            setState(() {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          widget));
+                            });
+                          });
+                        },
+                        child: Text("Quản lí điểm ảo")),
+                    SizedBox(width: 20),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ListBeaconScreen(
+                                    floorNumber: widget.floorNumber),
+                              )).then((_) {
+                            setState(() {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          widget));
+                            });
+                          });
+                        },
+                        child: Text("Quản lí beacon")),
+                  ],
+                ),
+              ),
             ],
           ),
         ));
