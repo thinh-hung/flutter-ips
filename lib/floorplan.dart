@@ -50,7 +50,7 @@ class _FloorplanState extends State<Floorplan>
     root = RootElement.fromJson(data);
     //-------------Matrix-------------------
     matrix2 = matrix(root.getExtent().right.ceil() +1, root.getExtent().bottom.ceil()+1);
-    print("data.jsonFloorplan" + data.toString());
+    // print("data.jsonFloorplan" + data.toString());
 
   }
 
