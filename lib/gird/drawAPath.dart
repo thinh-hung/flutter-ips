@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'deskelement.dart';
+import '../element/deskelement.dart';
+
 
 class LinePainter extends CustomPainter {
   late List<DeskElement> listPosition;

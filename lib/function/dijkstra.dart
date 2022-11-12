@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:matrix2d/matrix2d.dart';
 
-import 'deskelement.dart';
-import 'localizations/localizationalgorithms.dart';
+import '../element/deskelement.dart';
+
 
 class Dijkstra {
   Matrix2d c = Matrix2d();

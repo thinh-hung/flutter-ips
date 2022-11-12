@@ -1,0 +1,152 @@
+{
+  "$schema": "https://evoko.app/schema/floorplan.schema.json",
+  "locationId": "Floor1",
+  "children": [
+    {
+      "type": "layer",
+      "id": "floorplan-layer",
+      "children": [
+        {
+          "roomName": "216",
+          "type": "rect",
+          "idLocation": 49,
+          "x": 110,
+          "y": 10,
+          "w": 50,
+          "h": 50,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "215",
+          "type": "rect",
+          "idLocation": 48,
+          "x": 60,
+          "y": 60,
+          "w": 100,
+          "h": 50,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "221",
+          "type": "rect",
+          "idLocation": 45,
+          "x": 10,
+          "y": 110,
+          "w": 100,
+          "h": 50,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "214",
+          "type": "rect",
+          "idLocation": 47,
+          "x": 110,
+          "y": 110,
+          "w": 50,
+          "h": 100,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "220",
+          "type": "rect",
+          "idLocation": 45,
+          "x": 10,
+          "y": 160,
+          "w": 70,
+          "h": 50,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "219",
+          "type": "rect",
+          "idLocation": 44,
+          "x": 10,
+          "y": 210,
+          "w": 70,
+          "h": 50,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "218",
+          "type": "rect",
+          "idLocation": 43,
+          "x": 10,
+          "y": 260,
+          "w": 70,
+          "h": 50,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "217",
+          "type": "rect",
+          "idLocation": 42,
+          "x": 10,
+          "y": 310,
+          "w": 70,
+          "h": 50,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "213",
+          "type": "rect",
+          "idLocation": 46,
+          "x": 110,
+          "y": 210,
+          "w": 50,
+          "h": 100,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "212",
+          "type": "rect",
+          "idLocation": 50,
+          "x": 190,
+          "y": 360,
+          "w": 50,
+          "h": 100,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "211",
+          "type": "rect",
+          "idLocation": 51,
+          "x": 240,
+          "y": 360,
+          "w": 50,
+          "h": 100,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "210",
+          "type": "rect",
+          "idLocation": 52,
+          "x": 290,
+          "y": 360,
+          "w": 50,
+          "h": 100,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "209",
+          "type": "rect",
+          "idLocation": 56,
+          "x": 340,
+          "y": 60,
+          "w": 50,
+          "h": 100,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "208",
+          "type": "rect",
+          "idLocation": 57,
+          "x": 340,
+          "y": 160,
+          "w": 50,
+          "h": 100,
+          "fill": "ffffffff","frame": "ff000000"
+        }
+      ]
+    }
+  ]
+}

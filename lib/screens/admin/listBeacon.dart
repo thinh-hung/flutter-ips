@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class ListBeaconScreen extends StatefulWidget {
@@ -172,9 +171,9 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
             ]),
             actions: <Widget>[
               ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.redAccent,
-                  ),
+                  // style: ElevatedButton.styleFrom(
+                  //   backgroundColor: Colors.redAccent,
+                  // ),
                   onPressed: () {
                     deleteBeacon(beacon_id);
                     Navigator.of(context).pop();

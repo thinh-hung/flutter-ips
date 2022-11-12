@@ -1,8 +1,7 @@
 import 'package:floorplans/anchor.dart';
-import 'package:floorplans/beaconelement.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
-import 'package:collection/collection.dart';
+
+import 'element/beaconelement.dart';
 
 class BLEResult extends GetxController {
   // Raw BLE Scan Result

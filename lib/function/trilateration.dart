@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:matrix2d/matrix2d.dart';
-
-import 'anchor.dart';
+import '../anchor.dart';
 
 List trilaterationMethod(List<Anchor> anchorList, double maxDistance) {
   var matrixA = [];

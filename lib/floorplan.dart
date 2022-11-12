@@ -1,22 +1,22 @@
 import 'dart:convert';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:floorplans/bledata.dart';
-import 'package:floorplans/dijkstra.dart';
-import 'package:floorplans/drawAPath.dart';
 import 'package:floorplans/gird/circle_painter.dart';
-import 'package:floorplans/gird/gird_painter.dart';
-import 'package:floorplans/utils.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
-import 'baseelement.dart';
-import 'beaconelement.dart';
-import 'layerelement.dart';
+import 'element/Matrix.dart';
+import 'element/baseelement.dart';
+import 'element/beaconelement.dart';
+import 'element/deskelement.dart';
+import 'element/layerelement.dart';
+import 'element/rectelement.dart';
+import 'element/rootelement.dart';
+import 'function/dijkstra.dart';
+import 'function/utils.dart';
+import 'gird/drawAPath.dart';
+import 'gird/gird_painter.dart';
 import 'localizations/localizationalgorithms.dart';
-import 'rectelement.dart';
 import 'package:flutter/material.dart';
-import 'deskelement.dart';
-import 'rootelement.dart';
 
 class Floorplan extends StatefulWidget {
   final String jsonFloorplan;
@@ -42,11 +42,16 @@ class _FloorplanState extends State<Floorplan>
   Localization localization = Localization();
 
   List<num> radiusList = [];
+
+  List<List<int>> matrix2=[];
+
   void load(String jsonString) {
     final data = json.decode(jsonString);
+    root = RootElement.fromJson(data);
+    //-------------Matrix-------------------
+    matrix2 = matrix(root.getExtent().right.ceil() +1, root.getExtent().bottom.ceil()+1);
     print("data.jsonFloorplan" + data.toString());
 
-    root = RootElement.fromJson(data);
   }
 
   @override
@@ -84,20 +89,85 @@ class _FloorplanState extends State<Floorplan>
     super.initState();
   }
 
+  // Widget buildRectElement(BuildContext context, RectElement element) {
+  //   return Positioned(
+  //     top: element.y,
+  //     left: element.x,
+  //     child: Container(
+  //       height: element.height,
+  //       width: element.width,
+  //       decoration: BoxDecoration(
+  //         border: Border.all(
+  //           color: element.fill as Color,
+  //           width: 2,
+  //         ),
+  //       ),
+  //       child: Center(child: Text("${element.roomName}")),
+  //       // color: element.fill,
+  //     ),
+  //   );
+  // }
+
+  //-------------------------------Phần thêm vào--------------------------------
+  var idcolor=0;
   Widget buildRectElement(BuildContext context, RectElement element) {
+    int val = 1;
+    int x = element.x.ceil();
+    int y = element.y.ceil();
+    int x1 = element.x.ceil()+element.width.ceil();
+    int y1 = element.y.ceil()+element.height.ceil();
+    // print("$x $y $x1 $y1");
+
+    //from left to right
+    for (var i = x; i <= x1; i++) {
+      matrix2[i][y] = val;
+      matrix2[i][y1] = val;
+    }
+    //from top to bottom
+    for (var i = y; i <= y1; i++) {
+      matrix2[x][i] = val;
+      matrix2[x1][i] = val;
+    }
+
+    matrix2[0][1]=1;
+
+
+    return Positioned(
+      top: element.y,
+      left: element.x,
+      child: InkWell(
+        onTap: () {
+          print(element.idLocation.toString());
+          setState(() {
+            element.fill = element.fill == element.baseFill ? Colors.brown[300] : element.baseFill;
+            element.frame = element.frame == element.baseFrame ? Colors.white : element.baseFrame;
+            idcolor=element.idLocation!;
+          });
+        },
+        child: Ink(
+          height: element.height,
+          width: element.width,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: idcolor==element.idLocation?element.frame as Color:Colors.black,
+              width: 2,
+            ),
+            color: idcolor==element.idLocation?element.fill as Color:Colors.white,
+          ),
+          child: Center(child: Text("${element.roomName}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)),
+        ),
+      ),
+    );
+  }
+
+  Widget buildStair(BuildContext context, RectElement element) {
     return Positioned(
       top: element.y,
       left: element.x,
       child: Container(
-        height: element.height,
-        width: element.width,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: element.fill as Color,
-            width: 2,
-          ),
-        ),
-        child: Center(child: Text("${element.roomName}")),
+          height: element.height,
+          width: element.width,
+          child: Icon(Icons.stairs,size: 60,color: Colors.black12,)
         // color: element.fill,
       ),
     );
@@ -250,7 +320,8 @@ class _FloorplanState extends State<Floorplan>
               print("y: " + details.localPosition.dy.toString());
             },
             child: CustomPaint(
-              painter: LinePainter(listPosition: listPosition),
+              // painter: LinePainter(listPosition: listPosition),
+              painter: GridPainter(),
               foregroundPainter:
                   CirclePainter(centerXList, centerYList, radiusList),
               child: Stack(

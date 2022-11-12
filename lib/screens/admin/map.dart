@@ -1,16 +1,12 @@
-import 'dart:convert';
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:floorplans/floorplan.dart';
 import 'package:floorplans/screens/admin/listBeacon.dart';
 import 'package:floorplans/screens/admin/listLocation.dart';
-import 'package:floorplans/screens/admin/select_map.dart';
 import 'package:flutter/material.dart';
 
-import '../../deskelement.dart';
-import '../../rectelement.dart';
-import '../../utils.dart';
+import '../../element/deskelement.dart';
+import '../../element/rectelement.dart';
+import '../../function/utils.dart';
+
 
 class AdminMapScreen extends StatefulWidget {
   final int floorNumber;

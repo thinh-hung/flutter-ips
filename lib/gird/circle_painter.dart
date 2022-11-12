@@ -1,12 +1,10 @@
 import 'dart:math';
-
 import 'package:floorplans/anchor.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../bledata.dart';
 import '../localizations/localizationalgorithms.dart';
-import '../trilateration.dart';
+
 
 class CirclePainter extends CustomPainter {
   var centerXList = [];

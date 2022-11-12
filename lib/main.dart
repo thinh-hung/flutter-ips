@@ -1,10 +1,8 @@
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:math';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:floorplans/floorplan.dart';
-import 'package:floorplans/model/RoomModel.dart';
 import 'package:floorplans/screens/home.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +10,8 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 import 'package:wakelock/wakelock.dart';
-import 'beaconelement.dart';
 import 'bledata.dart';
+import 'element/beaconelement.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,7 +42,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void initState() {
-    _future = rootBundle.loadString('assets/nhatren.json');
+    _future = rootBundle.loadString('assets/testjson.json');
 
     super.initState();
   }
@@ -210,8 +208,10 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Ban Do Tang tren Khoa"),
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.blueAccent,
+        elevation: 0,
       ),
+      backgroundColor: Colors.brown[100],
       body: Column(
         children: [
           Expanded(

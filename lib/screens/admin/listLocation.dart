@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class ListLocationScreen extends StatefulWidget {
@@ -143,9 +142,9 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
             ]),
             actions: <Widget>[
               ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.redAccent,
-                  ),
+                  // style: ElevatedButton.styleFrom(
+                  //   backgroundColor: Colors.redAccent,
+                  // ),
                   onPressed: () {
                     deleteLocation(location_id);
                     Navigator.of(context).pop();

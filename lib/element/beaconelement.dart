@@ -1,6 +1,6 @@
 import 'baseelement.dart';
 import 'package:flutter/material.dart';
-import 'utils.dart';
+import '../function/utils.dart';
 
 class BeaconElement implements BaseElement {
   final int beaconId;
