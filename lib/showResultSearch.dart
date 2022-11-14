@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/SearchRoom.dart';
 import 'package:floorplans/bledata.dart';
 import 'package:floorplans/gird/circle_painter.dart';
-import 'package:floorplans/model/LocationModel.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'element/Matrix.dart';
@@ -21,47 +20,27 @@ import 'gird/gird_painter.dart';
 import 'localizations/localizationalgorithms.dart';
 import 'package:flutter/material.dart';
 
+import 'model/LocationModel.dart';
+
 class ShowResultSearch extends StatefulWidget {
   final int locationResult;
-  const ShowResultSearch({Key? key, required this.locationResult})
+  const ShowResultSearch({required this.locationResult, Key? key})
       : super(key: key);
 
   @override
-  State<ShowResultSearch> createState() => _FloorplanState();
+  State<ShowResultSearch> createState() => _ShowResultSearchState();
 }
 
-class _FloorplanState extends State<ShowResultSearch>
+class _ShowResultSearchState extends State<ShowResultSearch>
     with SingleTickerProviderStateMixin {
   late RootElement root;
   late TransformationController controllerTF;
   late AnimationController controller;
-  var centerXList = [];
-  var centerYList = [];
-  late final Location location;
-  List<DeskElement> listPosition = [];
-
-  List<num> radiusList = [];
-  List<dynamic> roomsAndObj = [];
-
-  late final dataRoomAndObj = [];
   List<List<int>> matrix2 = [];
-
-  Future<Location> getLocation() async {
-    var snapshot = (await FirebaseFirestore.instance
-        .collection('Location')
-        .where('location_id', isEqualTo: widget.locationResult)
-        .get());
-    late final Location location;
-
-    snapshot.docs.forEach((element) {
-      var document = element.data();
-      location = Location.fromJson(document);
-    });
-    return location;
-  }
-
+  List<dynamic> roomsAndObj = [];
+  late final Location location;
+  late final dataRoomAndObj = [];
   Future<List<dynamic>> getRoomsAndObj() async {
-    location = await getLocation();
     var snapshot = (await FirebaseFirestore.instance
         .collection('Room')
         .where('map_id', isEqualTo: location.map_id)
@@ -84,12 +63,23 @@ class _FloorplanState extends State<ShowResultSearch>
   }
 
   void load() {
-    print("-------------------------------------------------");
-    print(dataRoomAndObj);
-
     //-------------Matrix-------------------
     matrix2 = matrix(900, 900);
     // print("data.jsonFloorplan" + data.toString());
+  }
+
+  Future<Location> getLocation() async {
+    var snapshot = (await FirebaseFirestore.instance
+        .collection('Location')
+        .where('location_id', isEqualTo: widget.locationResult)
+        .get());
+    late final Location location;
+
+    snapshot.docs.forEach((element) {
+      var document = element.data();
+      location = Location.fromJson(document);
+    });
+    return location;
   }
 
   @override
@@ -98,11 +88,15 @@ class _FloorplanState extends State<ShowResultSearch>
     super.didUpdateWidget(oldWidget);
   }
 
+  void getLocationFirebase() async {
+    location = await getLocation();
+  }
+
   @override
   void initState() {
     controllerTF = TransformationController();
     // debugPrint(widget.jsonFloorplan);
-
+    getLocationFirebase();
     load();
     super.initState();
   }
@@ -269,70 +263,66 @@ class _FloorplanState extends State<ShowResultSearch>
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Floorplans Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-            appBar: AppBar(
-              title: const Text("Ban Do Tang tren Khaa"),
-              backgroundColor: Colors.blueAccent,
-            ),
-            backgroundColor: Colors.brown[100],
-            body: InteractiveViewer(
-                transformationController: controllerTF,
-                maxScale: 300,
-                constrained: false,
-                child: Stack(children: [
-                  GestureDetector(
-                    onTapDown: (details) {},
-                    child: CustomPaint(
-                      // painter: LinePainter(listPosition: listPosition),
-                      painter: GridPainter(),
+      home: Scaffold(
+        appBar: AppBar(title: Text("Home")),
+        body: InteractiveViewer(
+            transformationController: controllerTF,
+            maxScale: 300,
+            constrained: false,
+            child: Stack(children: [
+              GestureDetector(
+                onTapDown: (details) {
+                  // print("beacon in local database: " + beacons.length.toString());
+                  // print("beacon in enviroment: " +
+                  //     bleController.scanResultList.length.toString());
 
-                      child: FutureBuilder(
-                        future: getRoomsAndObj(),
-                        builder: (context, snapshot) {
-                          roomsAndObj = (snapshot.data ?? []) as List<dynamic>;
+                  print("x: " + details.localPosition.dx.toString());
 
-                          print("-===========================================");
-                          print(snapshot.data);
-                          final data = {
-                            "schema":
-                                "https://evoko.app/schema/floorplan.schema.json",
-                            "locationId": "Floor1",
-                            "children": [
-                              {
-                                "type": "layer",
-                                "id": "floorplan-layer",
-                                "children": roomsAndObj
-                              }
-                            ]
-                          };
-                          // final data = json.decode(jsonString);
-                          root = RootElement.fromJson(data, 'rect');
-                          final size = root.getExtent();
-                          final layers = root.layers
-                              .map<Widget>(
-                                  (layer) => buildLayer(context, layer, size))
-                              .toList();
+                  print("y: " + details.localPosition.dy.toString());
+                },
+                child: CustomPaint(
+                  // painter: LinePainter(listPosition: listPosition),
+                  painter: GridPainter(),
+                  foregroundPainter:
+                      CirclePainterResult(location.x, location.y),
+                  child: FutureBuilder(
+                    future: getRoomsAndObj(),
+                    builder: (context, snapshot) {
+                      roomsAndObj = (snapshot.data ?? []) as List<dynamic>;
 
-                          // print(jsonString);
-                          // layers.add(buildDeskElement(
-                          //     context,
-                          //     DeskElement(
-                          //         location_id: location.id,
-                          //         x: location.x.toDouble(),
-                          //         y: location.y.toDouble(),
-                          //         map_id: location.map_id)));
-                          return Stack(
-                            children: layers,
-                          );
-                        },
-                      ),
-                    ),
+                      print("-===========================================");
+                      print(snapshot.data);
+                      final data = {
+                        "schema":
+                            "https://evoko.app/schema/floorplan.schema.json",
+                        "locationId": "Floor1",
+                        "children": [
+                          {
+                            "type": "layer",
+                            "id": "floorplan-layer",
+                            "children": roomsAndObj
+                          }
+                        ]
+                      };
+                      // final data = json.decode(jsonString);
+                      root = RootElement.fromJson(data, 'rect');
+                      final size = root.getExtent();
+                      final layers = root.layers
+                          .map<Widget>(
+                              (layer) => buildLayer(context, layer, size))
+                          .toList();
+
+                      // print(jsonString);
+                      return Stack(
+                        children: layers,
+                      );
+                    },
                   ),
-                ]))));
+                ),
+              ),
+            ])),
+      ),
+    );
   }
 
   @override
@@ -343,5 +333,23 @@ class _FloorplanState extends State<ShowResultSearch>
 
   void getDataFromFirebase() async {
     await getRoomsAndObj().then((value) => dataRoomAndObj.add(value));
+  }
+}
+
+class CirclePainterResult extends CustomPainter {
+  var dx = 0;
+  var dy = 0;
+
+  CirclePainterResult(this.dx, this.dy);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.drawCircle(
+        Offset(dx.toDouble(), dy.toDouble()), 20, Paint()..color = Colors.blue);
+  }
+
+  @override
+  bool shouldRepaint(CirclePainter oldDelegate) {
+    return true;
   }
 }
