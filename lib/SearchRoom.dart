@@ -1,24 +1,31 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/element/rectelement.dart';
+import 'package:floorplans/showResultSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SearchRoom extends SearchDelegate {
-  Future<List<String?>> getData() async {
-    List<String?> name = [];
-    final String response = await rootBundle.loadString('assets/testjson.json');
-    final Map<String, dynamic> database = await json.decode(response);
-    List<dynamic> data = database["children"][0]["children"];
+  Future<List<Map<String, dynamic>>> getData() async {
+    List<Map<String, dynamic>> roomWithID = [];
 
-    for (dynamic i in data) {
-      if (i["type"] == "rect") {
-        final RectElement d = RectElement.fromJson(i);
-        name.add(d.roomName);
-        // print(d.roomName);
+    var snapshot = (await FirebaseFirestore.instance.collection('Room').get());
+    var documents = [];
+    snapshot.docs.forEach((element) {
+      var document = element.data();
+      documents.add(document);
+    });
+    print("00000000000000000000000000000000000000000000000");
+    documents.forEach((element) {
+      int id = element['location_id'] ?? -1;
+      String name = "Phòng " + element['room_name'];
+      if (id != -1) {
+        roomWithID.add({"id": id, "name": name});
       }
-    }
-    return name;
+    });
+    print(roomWithID);
+    return roomWithID;
   }
 
   List listname = [];
@@ -77,10 +84,12 @@ class SearchRoom extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     convertFutureListToList();
-    List<String> matchQuery = [];
+    List<Map<String, dynamic>> matchQuery = [];
     for (var i in listname) {
-      if (i.toLowerCase().contains(query.toLowerCase())) {
-        matchQuery.add(i);
+      print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+      print(i);
+      if (i['name'].toLowerCase().contains(query.toLowerCase())) {
+        matchQuery.add({"id": i['id'], "name": i['name']});
       }
     }
     return ListView.builder(
@@ -89,11 +98,16 @@ class SearchRoom extends SearchDelegate {
         var result = matchQuery[index];
         return InkWell(
             onTap: () {
-              print(result);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ShowResultSearch(locationResult: result['id']),
+                  ));
             },
             child: ListTile(
               title: Text(
-                result,
+                result['name'],
                 style: TextStyle(color: Colors.blue),
               ),
             ));
