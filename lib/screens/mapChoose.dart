@@ -2,6 +2,8 @@ import 'package:floorplans/main.dart';
 import 'package:floorplans/model/MapModel.dart';
 import 'package:flutter/material.dart';
 
+import '../Drawer.dart';
+
 class MapChooseScreen extends StatelessWidget {
   const MapChooseScreen({Key? key}) : super(key: key);
 
@@ -10,16 +12,17 @@ class MapChooseScreen extends StatelessWidget {
     List<Map> lstOfMaps = [];
     lstOfMaps.add(Map(mapName: 'Map1'));
 
-    lstOfMaps.add(Map(mapName: 'Map2'));
-    lstOfMaps.add(Map(mapName: 'Map3'));
+    lstOfMaps.add(Map(mapName: 'Floor 1'));
+    lstOfMaps.add(Map(mapName: 'Floor 2'));
 
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            "Các bản đồ trong tòa nhà CIT",
+            "Map Indoor College of CIT",
             style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
           ),
         ),
+        drawer: drawermenu(),
         body: Padding(
             padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
             child: ListView.builder(
@@ -33,12 +36,12 @@ class MapChooseScreen extends StatelessWidget {
                       context,
                       MaterialPageRoute(builder: (context) => MyApp(keymap: index,)),
                     );
-                  }else if (lstOfMaps[index].mapName=="Map2") {
+                  }else if (lstOfMaps[index].mapName=="Floor 1") {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => MyApp(keymap: index,)),
                     );
-                  }else if (lstOfMaps[index].mapName=="Map3") {
+                  }else if (lstOfMaps[index].mapName=="Floor 2") {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => MyApp(keymap: index,)),

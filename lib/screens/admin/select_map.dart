@@ -5,6 +5,8 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../../Drawer.dart';
+
 class SelectMapScreen extends StatefulWidget {
   const SelectMapScreen({Key? key}) : super(key: key);
 
@@ -21,6 +23,7 @@ class _SelectMapScreenState extends State<SelectMapScreen> {
         appBar: AppBar(
           title: Text("Chọn bản đồ muốn chỉnh sửa"),
         ),
+        drawer: drawermenu(),
         body: Container(
             padding: EdgeInsets.all(20),
             child: Column(
