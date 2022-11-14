@@ -10,6 +10,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 import 'package:wakelock/wakelock.dart';
+import 'SearchRoom.dart';
 import 'bledata.dart';
 import 'element/beaconelement.dart';
 
@@ -210,6 +211,19 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text("Ban Do Tang tren Khoa"),
         backgroundColor: Colors.blueAccent,
         elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () {
+              // method to show the search bar
+              showSearch(
+                context: context,
+                // delegate to customize the search bar
+                delegate: SearchRoom(),
+              );
+            },
+            icon: const Icon(Icons.search),
+          )
+        ],
       ),
       backgroundColor: Colors.brown[100],
       body: Column(
