@@ -1,3 +1,4 @@
+import 'package:floorplans/Drawer.dart';
 import 'package:floorplans/main.dart';
 import 'package:floorplans/model/MapModel.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class MapChooseScreen extends StatelessWidget {
             style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
           ),
         ),
+        drawer: drawermenu(),
         body: Padding(
             padding: const EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 0.0),
             child: ListView.builder(

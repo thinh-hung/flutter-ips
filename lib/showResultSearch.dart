@@ -345,7 +345,7 @@ class CirclePainterResult extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawCircle(
-        Offset(dx.toDouble(), dy.toDouble()), 20, Paint()..color = Colors.blue);
+        Offset(dx.toDouble(), dy.toDouble()), 10, Paint()..color = Colors.blue);
   }
 
   @override

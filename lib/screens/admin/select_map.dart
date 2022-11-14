@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:floorplans/Drawer.dart';
 import 'package:floorplans/screens/admin/map.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -21,6 +22,7 @@ class _SelectMapScreenState extends State<SelectMapScreen> {
         appBar: AppBar(
           title: Text("Chọn bản đồ muốn chỉnh sửa"),
         ),
+        drawer: drawermenu(),
         body: Container(
             padding: EdgeInsets.all(20),
             child: Column(

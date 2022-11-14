@@ -2,6 +2,7 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:floorplans/Drawer.dart';
 import 'package:floorplans/floorplan.dart';
 import 'package:floorplans/screens/home.dart';
 import 'package:flutter/foundation.dart';
@@ -226,6 +227,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       backgroundColor: Colors.brown[100],
+      drawer: drawermenu(),
       body: Column(
         children: [
           Expanded(
