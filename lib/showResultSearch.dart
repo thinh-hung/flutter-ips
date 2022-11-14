@@ -275,7 +275,7 @@ class _FloorplanState extends State<ShowResultSearch>
         ),
         home: Scaffold(
             appBar: AppBar(
-              title: const Text("Ban Do Tang tren Khoa"),
+              title: const Text("Ban Do Tang tren Khaa"),
               backgroundColor: Colors.blueAccent,
             ),
             backgroundColor: Colors.brown[100],
