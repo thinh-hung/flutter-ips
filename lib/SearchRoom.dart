@@ -4,10 +4,9 @@ import 'package:floorplans/element/rectelement.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class SearchRoom extends SearchDelegate {
   Future<List<String?>> getData() async {
-    List<String?> name=[];
+    List<String?> name = [];
     final String response = await rootBundle.loadString('assets/testjson.json');
     final Map<String, dynamic> database = await json.decode(response);
     List<dynamic> data = database["children"][0]["children"];
@@ -22,10 +21,10 @@ class SearchRoom extends SearchDelegate {
     return name;
   }
 
-  List listname=[];
+  List listname = [];
   void convertFutureListToList() async {
     Future<List> _futureOfList = getData() as Future<List>;
-    listname = await _futureOfList ;
+    listname = await _futureOfList;
     print(listname);
   }
 
@@ -64,7 +63,10 @@ class SearchRoom extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return ListTile(
-          title: Text(result,style: TextStyle(color: Colors.green),),
+          title: Text(
+            result,
+            style: TextStyle(color: Colors.green),
+          ),
         );
       },
     );
@@ -85,9 +87,16 @@ class SearchRoom extends SearchDelegate {
       itemCount: matchQuery.length,
       itemBuilder: (context, index) {
         var result = matchQuery[index];
-        return ListTile(
-          title: Text(result,style: TextStyle(color: Colors.blue),),
-        );
+        return InkWell(
+            onTap: () {
+              print(result);
+            },
+            child: ListTile(
+              title: Text(
+                result,
+                style: TextStyle(color: Colors.blue),
+              ),
+            ));
       },
     );
   }

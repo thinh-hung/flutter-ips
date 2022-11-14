@@ -51,7 +51,6 @@ class RectElement implements BaseElement {
   Color? baseFrame;
   Color? frame;
 
-  final Color? stroke;
   final int? idLocation;
   final String? roomName;
   final double x;
@@ -64,11 +63,8 @@ class RectElement implements BaseElement {
     this.roomName,
     this.baseFill,
     this.fill,
-
     this.baseFrame,
     this.frame,
-
-    this.stroke,
     required this.x,
     required this.y,
     required this.width,
@@ -80,19 +76,16 @@ class RectElement implements BaseElement {
 
   factory RectElement.fromJson(Map<String, dynamic> data) {
     return RectElement(
-      baseFill: parseColor(data['fill']),
-      fill: parseColor(data['fill']),
-
-      baseFrame: parseColor(data['frame']),
-      frame: parseColor(data['frame']),
-
-      stroke: parseColor(data['stroke']),
-      idLocation: data['idLocation'],
+      baseFill: parseColor("ffffffff"),
+      fill: parseColor("ffffffff"),
+      baseFrame: parseColor("ff000000"),
+      frame: parseColor("ff000000"),
+      idLocation: data['location_id'],
       x: parseNumber(data['x']),
       y: parseNumber(data['y']),
       width: parseNumber(data['w']),
       height: parseNumber(data['h']),
-      roomName: data['roomName'],
+      roomName: data['room_name'] ?? "",
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/bledata.dart';
 import 'package:floorplans/gird/circle_painter.dart';
 import 'package:flutter/services.dart';
@@ -42,16 +43,39 @@ class _FloorplanState extends State<Floorplan>
   Localization localization = Localization();
 
   List<num> radiusList = [];
+  List<dynamic> roomsAndObj = [];
 
-  List<List<int>> matrix2=[];
+  late final dataRoomAndObj = [];
+  List<List<int>> matrix2 = [];
+  Future<List<dynamic>> getRoomsAndObj() async {
+    var snapshot = (await FirebaseFirestore.instance
+        .collection('Room')
+        .where('map_id', isEqualTo: 1)
+        .get());
+    var documents = [];
+    snapshot.docs.forEach((element) {
+      var document = element.data();
+      documents.add(document);
+    });
+
+    var snapshot2 = (await FirebaseFirestore.instance
+        .collection('Object Map')
+        .where('map_id', isEqualTo: 1)
+        .get());
+    snapshot2.docs.forEach((element) {
+      var document = element.data();
+      documents.add(document);
+    });
+    return documents;
+  }
 
   void load(String jsonString) {
-    final data = json.decode(jsonString);
-    root = RootElement.fromJson(data);
-    //-------------Matrix-------------------
-    matrix2 = matrix(root.getExtent().right.ceil() +1, root.getExtent().bottom.ceil()+1);
-    // print("data.jsonFloorplan" + data.toString());
+    print("-------------------------------------------------");
+    print(dataRoomAndObj);
 
+    //-------------Matrix-------------------
+    matrix2 = matrix(900, 900);
+    // print("data.jsonFloorplan" + data.toString());
   }
 
   @override
@@ -85,6 +109,7 @@ class _FloorplanState extends State<Floorplan>
   void initState() {
     controllerTF = TransformationController();
     // debugPrint(widget.jsonFloorplan);
+
     load(widget.jsonFloorplan);
     super.initState();
   }
@@ -109,13 +134,13 @@ class _FloorplanState extends State<Floorplan>
   // }
 
   //-------------------------------Phần thêm vào--------------------------------
-  var idcolor=0;
+  var idcolor = 0;
   Widget buildRectElement(BuildContext context, RectElement element) {
     int val = 1;
     int x = element.x.ceil();
     int y = element.y.ceil();
-    int x1 = element.x.ceil()+element.width.ceil();
-    int y1 = element.y.ceil()+element.height.ceil();
+    int x1 = element.x.ceil() + element.width.ceil();
+    int y1 = element.y.ceil() + element.height.ceil();
     // print("$x $y $x1 $y1");
 
     //from left to right
@@ -129,8 +154,7 @@ class _FloorplanState extends State<Floorplan>
       matrix2[x1][i] = val;
     }
 
-    matrix2[0][1]=1;
-
+    matrix2[0][1] = 1;
 
     return Positioned(
       top: element.y,
@@ -139,9 +163,13 @@ class _FloorplanState extends State<Floorplan>
         onTap: () {
           print(element.idLocation.toString());
           setState(() {
-            element.fill = element.fill == element.baseFill ? Colors.brown[300] : element.baseFill;
-            element.frame = element.frame == element.baseFrame ? Colors.white : element.baseFrame;
-            idcolor=element.idLocation!;
+            element.fill = element.fill == element.baseFill
+                ? Colors.brown[300]
+                : element.baseFill;
+            element.frame = element.frame == element.baseFrame
+                ? Colors.white
+                : element.baseFrame;
+            idcolor = element.idLocation!;
           });
         },
         child: Ink(
@@ -149,12 +177,20 @@ class _FloorplanState extends State<Floorplan>
           width: element.width,
           decoration: BoxDecoration(
             border: Border.all(
-              color: idcolor==element.idLocation?element.frame as Color:Colors.black,
+              color: idcolor == element.idLocation
+                  ? element.frame as Color
+                  : Colors.black,
               width: 2,
             ),
-            color: idcolor==element.idLocation?element.fill as Color:Colors.white,
+            color: idcolor == element.idLocation
+                ? element.fill as Color
+                : Colors.white,
           ),
-          child: Center(child: Text("${element.roomName}",style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)),
+          child: Center(
+              child: Text(
+            "${element.roomName}",
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          )),
         ),
       ),
     );
@@ -167,9 +203,13 @@ class _FloorplanState extends State<Floorplan>
       child: Container(
           height: element.height,
           width: element.width,
-          child: Icon(Icons.stairs,size: 60,color: Colors.black12,)
-        // color: element.fill,
-      ),
+          child: Icon(
+            Icons.stairs,
+            size: 60,
+            color: Colors.black12,
+          )
+          // color: element.fill,
+          ),
     );
   }
 
@@ -300,10 +340,7 @@ class _FloorplanState extends State<Floorplan>
       //   break;
       // }
     }
-    final size = root.getExtent();
-    final layers = root.layers
-        .map<Widget>((layer) => buildLayer(context, layer, size))
-        .toList();
+
     return InteractiveViewer(
         transformationController: controllerTF,
         maxScale: 300,
@@ -324,8 +361,36 @@ class _FloorplanState extends State<Floorplan>
               painter: GridPainter(),
               foregroundPainter:
                   CirclePainter(centerXList, centerYList, radiusList),
-              child: Stack(
-                children: layers,
+              child: FutureBuilder(
+                future: getRoomsAndObj(),
+                builder: (context, snapshot) {
+                  roomsAndObj = (snapshot.data ?? []) as List<dynamic>;
+
+                  print("-===========================================");
+                  print(snapshot.data);
+                  final data = {
+                    "schema": "https://evoko.app/schema/floorplan.schema.json",
+                    "locationId": "Floor1",
+                    "children": [
+                      {
+                        "type": "layer",
+                        "id": "floorplan-layer",
+                        "children": roomsAndObj
+                      }
+                    ]
+                  };
+                  // final data = json.decode(jsonString);
+                  root = RootElement.fromJson(data, 'rect');
+                  final size = root.getExtent();
+                  final layers = root.layers
+                      .map<Widget>((layer) => buildLayer(context, layer, size))
+                      .toList();
+
+                  // print(jsonString);
+                  return Stack(
+                    children: layers,
+                  );
+                },
               ),
             ),
           ),
@@ -384,5 +449,9 @@ class _FloorplanState extends State<Floorplan>
         },
       ).show();
     });
+  }
+
+  void getDataFromFirebase() async {
+    await getRoomsAndObj().then((value) => dataRoomAndObj.add(value));
   }
 }

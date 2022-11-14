@@ -7,9 +7,9 @@ import 'rectelement.dart';
 class LayerElement extends ElementWithChildren<BaseElement> {
   LayerElement({List<BaseElement>? children}) : super(children: children);
 
-  factory LayerElement.fromJson(Map<String, dynamic> data) {
+  factory LayerElement.fromJson(Map<String, dynamic> data, String type) {
     final children = ((data['children'] ?? []) as List).map((child) {
-      switch (child['type']) {
+      switch (type) {
         case 'desk':
           return DeskElement.fromJson(child);
         case 'rect':

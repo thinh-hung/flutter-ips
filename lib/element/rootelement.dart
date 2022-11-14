@@ -11,11 +11,11 @@ class RootElement extends ElementWithChildren<LayerElement> {
     required this.locationId,
   }) : super(children: children);
 
-  factory RootElement.fromJson(Map<String, dynamic> data) {
+  factory RootElement.fromJson(Map<String, dynamic> data, String type) {
     final children = ((data['children'] ?? []) as List).map((child) {
       switch (child['type']) {
         case 'layer':
-          return LayerElement.fromJson(child);
+          return LayerElement.fromJson(child, type);
         default:
           throw Exception('Invalid root element child: $child');
       }
