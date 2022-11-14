@@ -32,18 +32,30 @@ class InitApp extends StatelessWidget {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key , required this.keymap}) : super(key: key);
 
+  final int keymap;
   @override
   State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  late Future<String?> _future;
+   Future<String?>? _future;
 
   @override
   void initState() {
-    _future = rootBundle.loadString('assets/testjson.json');
+    switch(widget.keymap){
+      case 0:
+        _future = rootBundle.loadString('assets/testjson.json');
+        break;
+      case 1:
+        _future = rootBundle.loadString('assets/testjson1.json');
+        break;
+      case 2:
+        _future = rootBundle.loadString('assets/testjson2.json');
+        break;
+    }
+
 
     super.initState();
   }

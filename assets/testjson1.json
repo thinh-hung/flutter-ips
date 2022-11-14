@@ -1,0 +1,62 @@
+{
+  "$schema": "https://evoko.app/schema/floorplan.schema.json",
+  "locationId": "Floor1",
+  "children": [
+    {
+      "type": "layer",
+      "id": "floorplan-layer",
+      "children": [
+        {
+          "roomName": "216",
+          "type": "rect",
+          "idLocation": 49,
+          "x": 110,
+          "y": 10,
+          "w": 50,
+          "h": 50,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "215",
+          "type": "rect",
+          "idLocation": 48,
+          "x": 60,
+          "y": 60,
+          "w": 100,
+          "h": 50,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "221",
+          "type": "rect",
+          "idLocation": 45,
+          "x": 10,
+          "y": 110,
+          "w": 100,
+          "h": 50,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "214",
+          "type": "rect",
+          "idLocation": 47,
+          "x": 110,
+          "y": 110,
+          "w": 50,
+          "h": 100,
+          "fill": "ffffffff","frame": "ff000000"
+        },
+        {
+          "roomName": "220",
+          "type": "rect",
+          "idLocation": 45,
+          "x": 10,
+          "y": 160,
+          "w": 70,
+          "h": 50,
+          "fill": "ffffffff","frame": "ff000000"
+        }
+      ]
+    }
+  ]
+}

@@ -8,10 +8,10 @@ class MapChooseScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map> lstOfMaps = [];
-    lstOfMaps.add(Map(mapName: 'Map ở nhà'));
+    lstOfMaps.add(Map(mapName: 'Map1'));
 
-    lstOfMaps.add(Map(mapName: 'Tầng 01'));
-    lstOfMaps.add(Map(mapName: 'Tầng trệt'));
+    lstOfMaps.add(Map(mapName: 'Map2'));
+    lstOfMaps.add(Map(mapName: 'Map3'));
 
     return Scaffold(
         appBar: AppBar(
@@ -26,10 +26,22 @@ class MapChooseScreen extends StatelessWidget {
               itemCount: lstOfMaps.length,
               itemBuilder: (context, index) => InkWell(
                 onTap: () {
-                  if (lstOfMaps[index].mapName == 'Map ở nhà') {
+                  if (lstOfMaps[index].mapName=="Map1") {
+                    print(index);
+                    print("-------------------------");
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const MyApp()),
+                      MaterialPageRoute(builder: (context) => MyApp(keymap: index,)),
+                    );
+                  }else if (lstOfMaps[index].mapName=="Map2") {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyApp(keymap: index,)),
+                    );
+                  }else if (lstOfMaps[index].mapName=="Map3") {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyApp(keymap: index,)),
                     );
                   }
                 },

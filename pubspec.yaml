@@ -73,6 +73,8 @@ flutter:
     - assets/beaconnhatren.json
     - assets/nhatren.json
     - assets/testjson.json
+    - assets/testjson1.json
+    - assets/testjson2.json
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
