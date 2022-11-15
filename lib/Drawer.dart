@@ -57,7 +57,7 @@ class drawermenu extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
+                    width: MediaQuery.of(context).size.width * 0.6,
                     child: Image.asset('assets/images/logo.jpg'),
                   ),
                   SizedBox(height: 20),

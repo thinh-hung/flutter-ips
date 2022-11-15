@@ -11,6 +11,7 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 import 'package:wakelock/wakelock.dart';
+import 'Drawer.dart';
 import 'SearchRoom.dart';
 import 'bledata.dart';
 import 'element/beaconelement.dart';
