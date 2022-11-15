@@ -103,7 +103,7 @@ class SearchRoom extends SearchDelegate {
             child: ListTile(
               title: Text(
                 result['name'],
-                style: TextStyle(color: Colors.blue),
+                style: TextStyle(color: Colors.teal),
               ),
             ));
       },
