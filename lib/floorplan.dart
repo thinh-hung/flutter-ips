@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/SearchRoom.dart';
 import 'package:floorplans/bledata.dart';
 import 'package:floorplans/gird/circle_painter.dart';
+import 'package:floorplans/model/LocationModel.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'element/Matrix.dart';
@@ -40,7 +41,7 @@ class _FloorplanState extends State<Floorplan>
   bool openFloor = false;
   bool closeFloor = false;
 
-  List<DeskElement> listPosition = [];
+  List<Location> listPosition = [];
   Localization localization = Localization();
 
   List<num> radiusList = [];
@@ -295,14 +296,15 @@ class _FloorplanState extends State<Floorplan>
 
       print('x: $xyMinMax.dx , y: $xyMinMax.y');
       a.resetGraph();
-      a.dijkstraCaculate(xyMinMax.dx, xyMinMax.dy,
-          0); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3
+      //nhân sữ khi test beacon
+      //a.dijkstraCaculate(xyMinMax.dx.toInt(), xyMinMax.dy.toInt(),
+      a.dijkstraCaculate(125, 125, 0,
+          45); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3
       listPosition = a.getWayPoint();
     }
     for (int i = 0; i < listPosition.length; i++) {
       var element = listPosition[i];
-      if (element.location_id >= 35 &&
-          stairList.contains(listPosition[1].location_id)) {
+      if (element.id >= 35 && stairList.contains(listPosition[1].id)) {
         listPosition.removeAt(i - 1);
         setState(() {
           openFloor = true;
@@ -313,8 +315,7 @@ class _FloorplanState extends State<Floorplan>
         openFloor = false;
       }
       //new xuongs tằng
-      if (element.location_id >= 35 &&
-          endStairList.contains(listPosition[1].location_id)) {
+      if (element.id >= 35 && endStairList.contains(listPosition[1].id)) {
         listPosition.removeAt(i - 1);
         setState(() {
           closeFloor = true;
