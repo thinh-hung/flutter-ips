@@ -16,17 +16,19 @@ class Room {
   String roomName;
   int x;
   int y;
-  double w;
-  double h;
-
-  Room({
-    this.id,
-    required this.roomName,
-    required this.x,
-    required this.y,
-    required this.w,
-    required this.h,
-  });
+  int w;
+  int h;
+  int location_id;
+  int map_id;
+  Room(
+      {this.id,
+      required this.roomName,
+      required this.x,
+      required this.y,
+      required this.w,
+      required this.h,
+      required this.location_id,
+      required this.map_id});
 
   factory Room.fromMap(Map<String, dynamic> json) => new Room(
         id: json["room_id"],
@@ -34,6 +36,8 @@ class Room {
         x: json["x"],
         y: json["y"],
         w: json["w"],
+        map_id: json["map_id"],
+        location_id: json["location_id"],
         h: json["h"],
       );
 

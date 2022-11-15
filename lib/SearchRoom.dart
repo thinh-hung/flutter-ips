@@ -16,7 +16,6 @@ class SearchRoom extends SearchDelegate {
       var document = element.data();
       documents.add(document);
     });
-    print("00000000000000000000000000000000000000000000000");
     documents.forEach((element) {
       int id = element['location_id'] ?? -1;
       String name = "Phòng " + element['room_name'];
@@ -24,7 +23,6 @@ class SearchRoom extends SearchDelegate {
         roomWithID.add({"id": id, "name": name});
       }
     });
-    print(roomWithID);
     return roomWithID;
   }
 
@@ -32,7 +30,6 @@ class SearchRoom extends SearchDelegate {
   void convertFutureListToList() async {
     Future<List> _futureOfList = getData() as Future<List>;
     listname = await _futureOfList;
-    print(listname);
   }
 
   @override
@@ -86,8 +83,6 @@ class SearchRoom extends SearchDelegate {
     convertFutureListToList();
     List<Map<String, dynamic>> matchQuery = [];
     for (var i in listname) {
-      print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-      print(i);
       if (i['name'].toLowerCase().contains(query.toLowerCase())) {
         matchQuery.add({"id": i['id'], "name": i['name']});
       }
@@ -98,7 +93,7 @@ class SearchRoom extends SearchDelegate {
         var result = matchQuery[index];
         return InkWell(
             onTap: () {
-              Navigator.push(
+              Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) =>
