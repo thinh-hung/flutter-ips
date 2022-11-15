@@ -40,7 +40,7 @@ class Dijkstra {
     return totalPathValue;
   }
 
-  void dijkstra(List<List<double>> graph, int start, int finsih) {
+  void dijkstra(List<List<double>> graph, int start, int finish) {
     List<int> back =
         List<int>.filled(graph.length, -1, growable: true); //luu dinh cha
     List<double> weight = List<double>.filled(graph.length, double.infinity,
@@ -69,12 +69,12 @@ class Dijkstra {
       }
       start = connect;
       mark[start] = 1;
-    } while (connect != -1 && start != finsih);
-    totalPathValue = weight[finsih];
+    } while (connect != -1 && start != finish);
+    totalPathValue = weight[finish];
 
-    printPath(start1, finsih, back);
+    printPath(start1, finish, back);
     for (int i = 0; i < positionList.length; i++) {
-      if (positionList[i].getid() == finsih) {
+      if (positionList[i].getid() == finish) {
         wayPoint.add(positionList[i]);
       }
     }
@@ -84,7 +84,7 @@ class Dijkstra {
     wayPoint.clear();
     if (start != finish) {
       printPath(start, back[finish], back);
-      // print(back[finish].toString()+"->"+finish.toString());
+      print(back[finish].toString() + "->" + finish.toString());
       for (int i = 0; i < positionList.length; i++) {
         if (positionList[i].getid() == back[finish]) {
           wayPoint.add(positionList[i]);
@@ -94,7 +94,6 @@ class Dijkstra {
   }
 
   double distance(int a, int b) {
-    print(positionList[1]);
     Location A = positionList[1];
     Location B = positionList[1];
 
@@ -113,6 +112,8 @@ class Dijkstra {
 
   void resetGraph() {
     this.adj.clear();
+    positionList.clear();
+    pathList.clear();
   }
 
   // lấy bảng Location trong Databaase
@@ -122,11 +123,8 @@ class Dijkstra {
     var documents = [];
     snapshot.docs.forEach((element) {
       var document = element.data();
-      print(element.data());
       documents.add(document);
     });
-
-    print("documents" + documents.toString());
     return documents;
   }
 
@@ -144,19 +142,15 @@ class Dijkstra {
   Future<void> dijkstraCaculate(
       int currentX, int currentY, int floorNumber, int finish) async {
     // int positionLength = await getDeskLengthONha();
-
-    //goi ham lấy Location database
     listLocationS = getListLocation();
-    print("---------------------------------------------------");
+    print("---------------------$finish------------------------------");
     await listLocationS.then((value) {
       // print(value);
       for (int i = 0; i < value.length; i++) {
-        print(value[i]);
         final Location d = Location.fromJson(value[i]); // Parse data
         positionList.add(d);
       }
     });
-    print(positionList);
     //goi ham lấy path database
     pathS = getListPath();
     print("---------------------------------------------------");
@@ -166,6 +160,8 @@ class Dijkstra {
         pathList.add(d);
       }
     });
+    //goi ham lấy Location database
+
     initAdj(adj, positionList.length);
 
     //thêm đường đi cho ma tran
@@ -175,13 +171,12 @@ class Dijkstra {
       addEdge(adj, pathList[i].endLocation, pathList[i].startLocation,
           distance(pathList[i].startLocation, pathList[i].endLocation));
     }
-    print("0000000000000000000000000000000000000000");
     for (int i = 0; i < positionList.length; i++) {
       if (positionList[i].id == 0) {
         positionList[i].x = currentX;
         positionList[i].y = currentY;
-        // print("X0: "+positionList[i].x.toString());
-        // print("Y0: "+positionList[i].y.toString());
+        print("X0: " + positionList[i].x.toString());
+        print("Y0: " + positionList[i].y.toString());
       }
     }
     double min = 99999;
@@ -204,16 +199,6 @@ class Dijkstra {
     //print(vitri);
     addEdge(adj, 0, vitri, min);
     addEdge(adj, vitri, 0, min);
-
-    // khac so voi minmax
-    for (int i = 0; i < positionList.length; i++) {
-      if (positionList[i].id == 0) {
-        positionList[i].x = currentX;
-        positionList[i].y = currentY;
-        print("X0: " + positionList[i].x.toString());
-        print("Y0: " + positionList[i].y.toString());
-      }
-    }
 
     dijkstra(adj, 0, finish);
   }
