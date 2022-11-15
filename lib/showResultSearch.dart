@@ -5,7 +5,9 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/SearchRoom.dart';
 import 'package:floorplans/bledata.dart';
+import 'package:floorplans/floorplan.dart';
 import 'package:floorplans/gird/circle_painter.dart';
+import 'package:floorplans/main.dart';
 import 'package:floorplans/model/RoomModel.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -125,6 +127,56 @@ class _ShowResultSearchState extends State<ShowResultSearch>
 
     // debugPrint(widget.jsonFloorplan);
     load();
+    Future.delayed(Duration(seconds: 0)).then((_) {
+      showModalBottomSheet(
+          isDismissible: false,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10.0),
+              topRight: Radius.circular(10.0),
+            ),
+          ),
+          context: context,
+          builder: (builder) {
+            return Container(
+              padding: const EdgeInsets.all(15),
+              height: 120,
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Phòng ${room.roomName}",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    ElevatedButton(
+                        style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MyApp(
+                                    search_location_finish:
+                                        widget.locationResult),
+                              ));
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.directions),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text("Đường đi")
+                          ],
+                        )),
+                  ]),
+            );
+          });
+    });
     super.initState();
   }
 

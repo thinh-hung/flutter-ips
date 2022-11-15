@@ -31,7 +31,10 @@ class MapChooseScreen extends StatelessWidget {
                   if (lstOfMaps[index].mapName == 'Map ở nhà') {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const MyApp()),
+                      MaterialPageRoute(
+                          builder: (context) => MyApp(
+                                search_location_finish: 0,
+                              )),
                     );
                   }
                 },

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/SearchRoom.dart';
 import 'package:floorplans/bledata.dart';
 import 'package:floorplans/gird/circle_painter.dart';
+import 'package:floorplans/model/LocationModel.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'element/Matrix.dart';
@@ -21,8 +22,8 @@ import 'localizations/localizationalgorithms.dart';
 import 'package:flutter/material.dart';
 
 class Floorplan extends StatefulWidget {
-  final String jsonFloorplan;
-  const Floorplan({required this.jsonFloorplan, Key? key}) : super(key: key);
+  int search_location_finish = 0;
+  Floorplan({required this.search_location_finish, Key? key}) : super(key: key);
 
   @override
   State<Floorplan> createState() => _FloorplanState();
@@ -40,7 +41,7 @@ class _FloorplanState extends State<Floorplan>
   bool openFloor = false;
   bool closeFloor = false;
 
-  List<DeskElement> listPosition = [];
+  List<Location> listPosition = [];
   Localization localization = Localization();
 
   List<num> radiusList = [];
@@ -70,7 +71,7 @@ class _FloorplanState extends State<Floorplan>
     return documents;
   }
 
-  void load(String jsonString) {
+  void load() {
     print("-------------------------------------------------");
     print(dataRoomAndObj);
 
@@ -110,8 +111,10 @@ class _FloorplanState extends State<Floorplan>
   void initState() {
     controllerTF = TransformationController();
     // debugPrint(widget.jsonFloorplan);
-
-    load(widget.jsonFloorplan);
+    print("999999999999999999999999999999999999");
+    print("du lieu ket qua truyen  qua la: " +
+        widget.search_location_finish.toString());
+    load();
     super.initState();
   }
 
@@ -289,20 +292,26 @@ class _FloorplanState extends State<Floorplan>
       70,
     ];
     localization.addAnchorNode(bleController.anchorList);
+    print("****************************************");
 
-    if (localization.conditionMet) {
-      Offset xyMinMax = localization.minMaxPosition();
+    // if (localization.conditionMet) {
+    if (true) {
+      print("/////////////////////////////////////////");
+      // Offset xyMinMax = localization.minMaxPosition();
 
-      print('x: $xyMinMax.dx , y: $xyMinMax.y');
+      // print('x: $xyMinMax.dx , y: $xyMinMax.y');
       a.resetGraph();
-      a.dijkstraCaculate(xyMinMax.dx, xyMinMax.dy,
-          0); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3
+      a.dijkstraCaculate(
+          125,
+          125,
+          0,
+          widget
+              .search_location_finish); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3
       listPosition = a.getWayPoint();
     }
     for (int i = 0; i < listPosition.length; i++) {
       var element = listPosition[i];
-      if (element.location_id >= 35 &&
-          stairList.contains(listPosition[1].location_id)) {
+      if (element.id >= 35 && stairList.contains(listPosition[1].id)) {
         listPosition.removeAt(i - 1);
         setState(() {
           openFloor = true;
@@ -313,8 +322,7 @@ class _FloorplanState extends State<Floorplan>
         openFloor = false;
       }
       //new xuongs tằng
-      if (element.location_id >= 35 &&
-          endStairList.contains(listPosition[1].location_id)) {
+      if (element.id >= 35 && endStairList.contains(listPosition[1].id)) {
         listPosition.removeAt(i - 1);
         setState(() {
           closeFloor = true;
@@ -367,8 +375,6 @@ class _FloorplanState extends State<Floorplan>
                 builder: (context, snapshot) {
                   roomsAndObj = (snapshot.data ?? []) as List<dynamic>;
 
-                  print("-===========================================");
-                  print(snapshot.data);
                   final data = {
                     "schema": "https://evoko.app/schema/floorplan.schema.json",
                     "locationId": "Floor1",
@@ -400,7 +406,7 @@ class _FloorplanState extends State<Floorplan>
                   onPressed: () async {
                     final String response =
                         await rootBundle.loadString('assets/floor2.json');
-                    load(response);
+                    load();
                     setState(() {});
                     // Dijkstra b1 = Dijkstra();
                     // b1.dijkstraCaculate();
@@ -414,7 +420,7 @@ class _FloorplanState extends State<Floorplan>
                   onPressed: () async {
                     final String response =
                         await rootBundle.loadString('assets/floorplan.json');
-                    load(response);
+                    load();
                     setState(() {});
                     // Dijkstra b1 = Dijkstra();
                     // b1.dijkstraCaculate();

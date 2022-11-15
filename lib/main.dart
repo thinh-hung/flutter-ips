@@ -34,7 +34,8 @@ class InitApp extends StatelessWidget {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  int search_location_finish = 0;
+  MyApp({Key? key, required this.search_location_finish}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -61,7 +62,10 @@ class _MyAppState extends State<MyApp> {
         future: _future,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done) {
-            return MyHomePage(json: snapshot.data!);
+            return MyHomePage(
+              json: snapshot.data!,
+              search_location_finish: widget.search_location_finish,
+            );
           }
           return const SizedBox.shrink();
         },
@@ -72,8 +76,11 @@ class _MyAppState extends State<MyApp> {
 
 class MyHomePage extends StatefulWidget {
   final String json;
+  int search_location_finish = 0;
 
-  const MyHomePage({required this.json, Key? key}) : super(key: key);
+  MyHomePage(
+      {required this.json, Key? key, required this.search_location_finish})
+      : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -206,7 +213,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _widgetOptions = <Widget>[
-      Floorplan(jsonFloorplan: widget.json),
+      Floorplan(search_location_finish: widget.search_location_finish),
     ];
     return Scaffold(
       appBar: AppBar(
