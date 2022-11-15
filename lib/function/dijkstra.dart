@@ -106,8 +106,8 @@ class Dijkstra {
         B = positionList[i];
       }
     }
-    int X = (B.x - A.x) * (B.x - A.x);
-    int Y = (B.y - A.y) * (B.y - A.y);
+    int x = (B.x - A.x) * (B.x - A.x);
+    int y = (B.y - A.y) * (B.y - A.y);
     return double.parse(sqrt(x + y).toStringAsFixed(2));
   }
 
@@ -146,9 +146,9 @@ class Dijkstra {
     // int positionLength = await getDeskLengthONha();
 
     //goi ham lấy Location database
-    listLocationS = await getListLocation();
+    listLocationS = getListLocation();
     print("---------------------------------------------------");
-    listLocationS.then((value) {
+    await listLocationS.then((value) {
       // print(value);
       for (int i = 0; i < value.length; i++) {
         print(value[i]);
