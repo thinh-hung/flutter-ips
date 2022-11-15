@@ -1,19 +1,29 @@
+import 'package:floorplans/main.dart';
 import 'package:floorplans/screens/admin/select_map.dart';
+import 'package:floorplans/screens/home.dart';
 import 'package:floorplans/screens/mapChoose.dart';
 import 'package:flutter/material.dart';
 
+import 'About.dart';
+
 final List<String> listname = [
   "Home",
+  "Floor List",
   "Edit",
+  "About",
 ];
 final List<IconData> listicon = [
   Icons.gps_fixed,
+  Icons.menu_book,
   Icons.build,
+  Icons.person_pin_circle_rounded,
 ];
 
 final List<Widget> listclass = [
+  const MyApp(),
   MapChooseScreen(),
   SelectMapScreen(),
+  About(),
 ];
 
 class Listnav extends StatelessWidget {
@@ -49,9 +59,15 @@ class drawermenu extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height / 2.3,
             child: DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
+              // decoration: BoxDecoration(
+              //   color: Colors.white,
+              //   border: Border(
+              //     bottom: BorderSide(
+              //       color: Colors.grey,
+              //       width: 1,
+              //     )
+              //   )
+              // ),
               child: Container(
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

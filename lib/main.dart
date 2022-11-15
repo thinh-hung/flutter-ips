@@ -209,8 +209,8 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Ban Do Tang tren Khoa"),
-        backgroundColor: Colors.blueAccent,
+        title: Center(child: Text("Map Indoor CIT")),
+        backgroundColor: Colors.teal,
         elevation: 0,
         actions: [
           IconButton(

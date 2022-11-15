@@ -10,16 +10,16 @@ class MapChooseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map> lstOfMaps = [];
     lstOfMaps.add(Map(mapName: 'Map ở nhà'));
-
     lstOfMaps.add(Map(mapName: 'Tầng 01'));
     lstOfMaps.add(Map(mapName: 'Tầng trệt'));
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "Các bản đồ trong tòa nhà CIT",
-            style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-          ),
+          title: Center(child: Text("LIST MAP CIT")),
+          backgroundColor: Colors.teal,
+          actions: [
+            IconButton(onPressed: (){}, icon: Icon(Icons.location_on),)
+          ],
         ),
         drawer: drawermenu(),
         body: Padding(
@@ -40,16 +40,17 @@ class MapChooseScreen extends StatelessWidget {
                   child: Center(
                     child: Container(
                       alignment: Alignment.center,
-                      width: 100,
-                      height: 100,
+                      width: MediaQuery.of(context).size.width*0.6,
+                      height: 50,
                       child: Text(
                         lstOfMaps[index].mapName,
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 19),
+                        style: TextStyle(fontSize: 19,color: Colors.white),
                       ),
                       decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color(0xFFe0f2f1),
+                        // shape: BoxShape.circle,
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.teal,
                         boxShadow: [
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.5),

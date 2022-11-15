@@ -20,7 +20,11 @@ class _SelectMapScreenState extends State<SelectMapScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Chọn bản đồ muốn chỉnh sửa"),
+          title: Center(child: Text("EDIT FLOOR")),
+          backgroundColor: Colors.teal,
+          actions: [
+            IconButton(onPressed: (){}, icon: Icon(Icons.location_on),)
+          ],
         ),
         drawer: drawermenu(),
         body: Container(
@@ -49,7 +53,7 @@ class _SelectMapScreenState extends State<SelectMapScreen> {
                                 document.data()! as Map<String, dynamic>;
                             return InkWell(
                               child: box(
-                                  data['map_name'], Colors.deepPurpleAccent),
+                                  data['map_name'], Colors.teal),
                               onTap: () {
                                 Navigator.push(
                                     context,
@@ -69,11 +73,22 @@ class _SelectMapScreenState extends State<SelectMapScreen> {
 
   Widget box(String title, Color backgroundcolor) {
     return Container(
-        margin: EdgeInsets.all(10),
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        width: 120,
-        color: backgroundcolor,
+        margin: EdgeInsets.all(20),
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        width: MediaQuery.of(context).size.width/3,
+        // color: backgroundcolor,
         alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5.0),
+          color: backgroundcolor,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey,
+              offset: Offset(0.0, 1.0), //(x,y)
+              blurRadius: 6.0,
+            ),
+          ],
+        ),
         child:
             Text(title, style: TextStyle(color: Colors.white, fontSize: 20)));
   }
