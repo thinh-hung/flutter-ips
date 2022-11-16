@@ -42,44 +42,28 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late Future<String?> _future;
-
   @override
   void initState() {
-    _future = rootBundle.loadString('assets/testjson.json');
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Floorplans Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: FutureBuilder<String?>(
-        future: _future,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return MyHomePage(
-              json: snapshot.data!,
-              search_location_finish: widget.search_location_finish,
-            );
-          }
-          return const SizedBox.shrink();
-        },
-      ),
-    );
+        title: 'Floorplans Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: MyHomePage(
+          search_location_finish: widget.search_location_finish,
+        ));
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  final String json;
   int search_location_finish = 0;
 
-  MyHomePage(
-      {required this.json, Key? key, required this.search_location_finish})
+  MyHomePage({Key? key, required this.search_location_finish})
       : super(key: key);
 
   @override
@@ -92,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
       FirebaseFirestore.instance.collection("Beacon");
   late Future<QuerySnapshot> _futureData;
   List<Beacon> _beaconItems = [];
-
+  int _mapIds = 1;
   var bleController = Get.put(BLEResult());
   HashMap<String, List<double>> dictMacRSSI = HashMap<String, List<double>>();
   HashMap<String, double> averageRSSIByMac = HashMap<String, double>();
@@ -135,7 +119,9 @@ class _MyHomePageState extends State<MyHomePage> {
       // Scan is finished ****************
       await FlutterBluePlus.instance.stopScan();
       print(resultList.length);
-
+      if (resultList.length != 0) {
+        _mapIds = 1;
+      }
       resultList.forEach((key, r) {
         if (getMacAddressBeaconDB().contains(r.device.id.id)) {
           List<double> rssiEachItem = [];
@@ -153,6 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
       dictMacRSSI.forEach((key, value) {
         print('$key: ${value}');
       });
+
       // Loai bo do cac gia tri thua bang do lech chuan
       print("Loai bo do cac gia tri thua bang do lech chuan");
       dictMacRSSI.forEach((key, value) {
@@ -184,6 +171,9 @@ class _MyHomePageState extends State<MyHomePage> {
           return diff;
         });
       sortedEntriesMap = Map<String, double>.fromEntries(sortedEntries);
+
+      _mapIds = getMapIdByMacAddress(sortedEntries.first.key);
+      print('${sortedEntries.first.key} : mapid= $_mapIds');
       // Tinh trung binh va sap xep beacon theo rssi
       print("Tinh trung binh va sap xep beacon theo rssi");
 
@@ -195,7 +185,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
       // reset
       dictMacRSSI.clear();
-      print("second scan");
       setState(() {});
       setStream(getScanStream()); // New scan
     }, onError: (Object e) {
@@ -204,7 +193,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Stream<ScanResult> getScanStream() {
-    print("scanstream chay....");
     return FlutterBluePlus.instance.scan(
         timeout: const Duration(milliseconds: 3000),
         allowDuplicates: true,
@@ -220,7 +208,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     List<Widget> _widgetOptions = <Widget>[
-      Floorplan(search_location_finish: widget.search_location_finish),
+      Floorplan(
+        search_location_finish: widget.search_location_finish,
+        map_id: _mapIds,
+      ),
     ];
     return Scaffold(
       appBar: AppBar(
@@ -268,5 +259,13 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     return sqrt(standardDeviation / length);
+  }
+
+  int getMapIdByMacAddress(String value) {
+    int mapId = 1;
+    for (var element in _beaconItems) {
+      if (element.mac_address == value) mapId = element.map_id;
+    }
+    return mapId;
   }
 }

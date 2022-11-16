@@ -23,7 +23,10 @@ import 'package:flutter/material.dart';
 
 class Floorplan extends StatefulWidget {
   int search_location_finish = 0;
-  Floorplan({required this.search_location_finish, Key? key}) : super(key: key);
+  int map_id = 1;
+  Floorplan(
+      {required this.search_location_finish, required this.map_id, Key? key})
+      : super(key: key);
 
   @override
   State<Floorplan> createState() => _FloorplanState();
@@ -52,7 +55,7 @@ class _FloorplanState extends State<Floorplan>
   Future<List<dynamic>> getRoomsAndObj() async {
     var snapshot = (await FirebaseFirestore.instance
         .collection('Room')
-        .where('map_id', isEqualTo: 1)
+        .where('map_id', isEqualTo: widget.map_id)
         .get());
     var documents = [];
     snapshot.docs.forEach((element) {
@@ -62,7 +65,7 @@ class _FloorplanState extends State<Floorplan>
 
     var snapshot2 = (await FirebaseFirestore.instance
         .collection('Object Map')
-        .where('map_id', isEqualTo: 1)
+        .where('map_id', isEqualTo: widget.map_id)
         .get());
     snapshot2.docs.forEach((element) {
       var document = element.data();
