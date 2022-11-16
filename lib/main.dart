@@ -171,9 +171,11 @@ class _MyHomePageState extends State<MyHomePage> {
           return diff;
         });
       sortedEntriesMap = Map<String, double>.fromEntries(sortedEntries);
+      if (sortedEntries.isNotEmpty) {
+        _mapIds = getMapIdByMacAddress(sortedEntries.first.key);
 
-      _mapIds = getMapIdByMacAddress(sortedEntries.first.key);
-      print('${sortedEntries.first.key} : mapid= $_mapIds');
+        print('${sortedEntries.first.key} : mapid= $_mapIds');
+      }
       // Tinh trung binh va sap xep beacon theo rssi
       print("Tinh trung binh va sap xep beacon theo rssi");
 

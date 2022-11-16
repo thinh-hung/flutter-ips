@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/Drawer.dart';
+import 'package:floorplans/function/utils.dart';
 import 'package:floorplans/screens/admin/map.dart';
+import 'package:floorplans/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -23,6 +25,9 @@ class _SelectMapScreenState extends State<SelectMapScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Chọn bản đồ muốn chỉnh sửa"),
+          actions: [
+            logoutButton(context),
+          ],
         ),
         drawer: drawermenu(),
         body: Container(

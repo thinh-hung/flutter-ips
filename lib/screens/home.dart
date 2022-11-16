@@ -75,8 +75,7 @@ class HomeScreens extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const SelectMapScreen()),
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
                 );
               },
               child: Text('Bạn là Admin ? Đăng nhập ngay'),

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:floorplans/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -59,3 +60,18 @@ loadTextMap(BuildContext context) => Column(
         ),
       ],
     );
+Widget logoutButton(BuildContext context) {
+  return IconButton(
+      onPressed: () {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Đăng xuất thành công')));
+        Navigator.pushAndRemoveUntil<dynamic>(
+          context,
+          MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) => const LoginScreen(),
+          ),
+          ModalRoute.withName('/'),
+        );
+      },
+      icon: Icon(Icons.door_back_door_rounded));
+}

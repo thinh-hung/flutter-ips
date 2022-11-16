@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:floorplans/function/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -161,6 +162,7 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
       appBar: AppBar(
         title: Text(
             "Danh sách điểm ảo tầng ${widget.floorNumber == 1 ? "trệt" : widget.floorNumber - 1}"),
+        actions: [logoutButton(context)],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

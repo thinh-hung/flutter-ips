@@ -20,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         title: Text('Trang đăng nhập'),
       ),
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -28,10 +29,10 @@ class _LoginScreenState extends State<LoginScreen> {
               padding: const EdgeInsets.only(top: 60.0),
               child: Center(
                 child: Container(
-                  width: 200,
-                  height: 150,
+                  width: 230,
+                  height: 200,
                   child: Image.asset(
-                    'assets/images/login.png',
+                    'assets/images/logo.jpg',
                     fit: BoxFit.cover,
                   ),
                 ),

@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/screens/admin/listBeacon.dart';
 import 'package:floorplans/screens/admin/listLocation.dart';
+import 'package:floorplans/screens/login.dart';
 import 'package:flutter/material.dart';
 
+import '../../element/beaconelement.dart';
 import '../../element/deskelement.dart';
 import '../../element/rectelement.dart';
 import '../../function/utils.dart';
-
+import '../../model/BeaconModel.dart';
 
 class AdminMapScreen extends StatefulWidget {
   final int floorNumber;
@@ -19,17 +21,32 @@ class AdminMapScreen extends StatefulWidget {
 class _AdminMapScreenState extends State<AdminMapScreen> {
   List<dynamic> roomsAndObj = [];
   List<dynamic> locations = [];
-  List<Widget> a = [];
-  List<Widget> b = [];
+  List<dynamic> beacons = [];
+  List<Widget> elementInScreens = [];
+  List<Widget> elements = [];
   late TransformationController controllerTF;
   late final dataRoomAndObj;
   late final dataLocation;
+  late final dataBeacon;
   bool _dsDiemActive = false;
   late double x;
   late double y;
   Future<List<dynamic>> getLocation() async {
     var snapshot = (await FirebaseFirestore.instance
         .collection('Location')
+        .where('map_id', isEqualTo: widget.floorNumber)
+        .get());
+    var documents = [];
+    snapshot.docs.forEach((element) {
+      var document = element.data();
+      documents.add(document);
+    });
+    return documents;
+  }
+
+  Future<List<dynamic>> getBeacon() async {
+    var snapshot = (await FirebaseFirestore.instance
+        .collection('Beacon')
         .where('map_id', isEqualTo: widget.floorNumber)
         .get());
     var documents = [];
@@ -69,6 +86,7 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
     controllerTF = TransformationController();
     dataRoomAndObj = getRoomsAndObj();
     dataLocation = getLocation();
+    dataBeacon = getBeacon();
   }
 
   @override
@@ -116,11 +134,37 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
     );
   }
 
+  Widget buildBeaconElement(BuildContext context, Beacon element) {
+    return Positioned(
+        top: element.y - element.radius,
+        left: element.x - 10,
+        child: Tooltip(
+          message: 'ID: ${element.id}\nMac: ${element.mac_address}',
+          triggerMode:
+              TooltipTriggerMode.tap, // ensures the label appears when tapped
+          preferBelow: false, // use this if you want the label above the widget
+          child: Image.asset(
+            "assets/images/bluetooth_icon.png",
+          ),
+        ));
+  }
+
   void napDiemAo() async {
     locations = await dataLocation;
     locations.forEach(
       (element) {
-        return b.add(buildDeskElement(context, DeskElement.fromJson(element)));
+        return elements
+            .add(buildDeskElement(context, DeskElement.fromJson(element)));
+      },
+    );
+  }
+
+  void napBeacon() async {
+    beacons = await dataBeacon;
+    beacons.forEach(
+      (element) {
+        return elements
+            .add(buildBeaconElement(context, Beacon.fromJson(element)));
       },
     );
   }
@@ -128,10 +172,14 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
   @override
   Widget build(BuildContext context) {
     napDiemAo();
+    napBeacon();
     return Scaffold(
         appBar: AppBar(
           title: Text(
               "Quản trị bản đồ tầng ${widget.floorNumber == 1 ? "trệt" : widget.floorNumber - 1}"),
+          actions: [
+            logoutButton(context),
+          ],
         ),
         body: GestureDetector(
           onTapUp: (TapUpDetails details) {
@@ -176,16 +224,17 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
                                     (snapshot.data ?? []) as List<dynamic>;
                                 roomsAndObj.forEach(
                                   (element) {
-                                    return a.add(buildRectElement(context,
-                                        RectElement.fromJson(element)));
+                                    return elementInScreens.add(
+                                        buildRectElement(context,
+                                            RectElement.fromJson(element)));
                                   },
                                 );
-                                a.addAll(b);
+                                elementInScreens.addAll(elements);
                                 return SizedBox(
                                   height: 900,
                                   width: 900,
                                   child: Stack(
-                                    children: a,
+                                    children: elementInScreens,
                                   ),
                                 );
                               }

@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
+
 class Beacon {
   int id;
   int map_id;
   String mac_address;
   int rssi_at_1m;
+  final double radius = 25.0;
   int x;
   int y;
 
@@ -19,6 +22,9 @@ class Beacon {
     return this.id;
   }
 
+  @override
+  Rect getExtent() =>
+      Rect.fromLTWH(x - radius, y - radius, radius * 2, radius * 2);
   factory Beacon.fromJson(Map<String, dynamic> data) {
     return Beacon(
       id: data['beacon_id'],
