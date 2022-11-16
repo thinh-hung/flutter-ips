@@ -72,7 +72,6 @@ class _FloorplanState extends State<Floorplan>
   }
 
   void load() {
-    print("-------------------------------------------------");
     print(dataRoomAndObj);
 
     //-------------Matrix-------------------
@@ -292,11 +291,9 @@ class _FloorplanState extends State<Floorplan>
       70,
     ];
     localization.addAnchorNode(bleController.anchorList);
-    print("****************************************");
 
     // if (localization.conditionMet) {
     if (true) {
-      print("/////////////////////////////////////////");
       // Offset xyMinMax = localization.minMaxPosition();
 
       // print('x: $xyMinMax.dx , y: $xyMinMax.y');

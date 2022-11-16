@@ -1,20 +1,20 @@
 import 'dart:collection';
-import 'dart:convert';
 import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:floorplans/Drawer.dart';
 import 'package:floorplans/floorplan.dart';
+import 'package:floorplans/model/BeaconModel.dart';
 import 'package:floorplans/screens/home.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 import 'package:wakelock/wakelock.dart';
-import 'Drawer.dart';
+
 import 'SearchRoom.dart';
 import 'bledata.dart';
-import 'element/beaconelement.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -87,12 +87,46 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // firebase 11/16/2022
+  final CollectionReference _referenceBeaconList =
+      FirebaseFirestore.instance.collection("Beacon");
+  late Future<QuerySnapshot> _futureData;
+  List<Beacon> _beaconItems = [];
+
   var bleController = Get.put(BLEResult());
   HashMap<String, List<double>> dictMacRSSI = HashMap<String, List<double>>();
   HashMap<String, double> averageRSSIByMac = HashMap<String, double>();
-  List<BeaconElement> beaconsDB = [];
   Map<String, ScanResult> resultList = HashMap<String, ScanResult>();
   Map<String, double> sortedEntriesMap = HashMap<String, double>();
+
+  @override
+  void initState() {
+    // firebase 11/16/2022
+    _futureData = _referenceBeaconList.get();
+    _futureData.then(
+      (value) {
+        setState(() {
+          _beaconItems = parseData(value);
+          bleController.beaconsDB = _beaconItems;
+        });
+      },
+    );
+
+    setStream(getScanStream());
+    Wakelock.enable();
+    super.initState();
+  }
+
+  // firebase 11/16/2022
+  List<Beacon> parseData(QuerySnapshot querySnapshot) {
+    List<QueryDocumentSnapshot> listDocs = querySnapshot.docs;
+
+    List<Beacon> listItems = listDocs
+        .map((e) => Beacon.fromJson(e.data() as Map<String, dynamic>))
+        .toList();
+    return listItems;
+  }
+
   void setStream(Stream<ScanResult> stream) async {
     stream.listen((r) {
       resultList[r.timeStamp.toString()] = r;
@@ -177,35 +211,8 @@ class _MyHomePageState extends State<MyHomePage> {
         scanMode: const ScanMode(2));
   }
 
-  Future<List<BeaconElement>> getJsonBeacon() async {
-    List<BeaconElement> beacons = [];
-    final String response =
-        await rootBundle.loadString('assets/beaconnhatren.json');
-    final Map<String, dynamic> database = await json.decode(response);
-    List<dynamic> data = database["children"][0]["children"];
-    for (dynamic it in data) {
-      final BeaconElement b = BeaconElement.fromJson(it); // Parse data
-      beacons.add(b); // and organization to List
-    }
-    return beacons;
-  }
-
   List<String> getMacAddressBeaconDB() {
-    return beaconsDB.map((e) => e.macAddress!).toList();
-  }
-
-  void fromFutureToListBeacon(Future<List<BeaconElement>> beacons) async {
-    beaconsDB = await beacons;
-    bleController.beaconsDB = beaconsDB;
-  }
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    fromFutureToListBeacon(getJsonBeacon());
-    setStream(getScanStream());
-    Wakelock.enable();
-    super.initState();
+    return _beaconItems.map((e) => e.mac_address).toList();
   }
 
   var _selectedIndex = 0;

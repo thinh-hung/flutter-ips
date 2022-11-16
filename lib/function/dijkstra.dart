@@ -143,7 +143,6 @@ class Dijkstra {
       int currentX, int currentY, int floorNumber, int finish) async {
     // int positionLength = await getDeskLengthONha();
     listLocationS = getListLocation();
-    print("---------------------$finish------------------------------");
     await listLocationS.then((value) {
       // print(value);
       for (int i = 0; i < value.length; i++) {
@@ -153,7 +152,6 @@ class Dijkstra {
     });
     //goi ham lấy path database
     pathS = getListPath();
-    print("---------------------------------------------------");
     await pathS.then((value) {
       for (int i = 0; i < value.length; i++) {
         final TablePath d = TablePath.fromJson(value[i]); // Parse data

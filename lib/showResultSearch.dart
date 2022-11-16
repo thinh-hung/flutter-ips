@@ -1,16 +1,11 @@
 import 'dart:ui' as ui;
 
-import 'dart:convert';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:floorplans/SearchRoom.dart';
-import 'package:floorplans/bledata.dart';
-import 'package:floorplans/floorplan.dart';
-import 'package:floorplans/gird/circle_painter.dart';
 import 'package:floorplans/main.dart';
 import 'package:floorplans/model/RoomModel.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+
 import 'element/Matrix.dart';
 import 'element/baseelement.dart';
 import 'element/beaconelement.dart';
@@ -18,13 +13,8 @@ import 'element/deskelement.dart';
 import 'element/layerelement.dart';
 import 'element/rectelement.dart';
 import 'element/rootelement.dart';
-import 'function/dijkstra.dart';
 import 'function/utils.dart';
-import 'gird/drawAPath.dart';
 import 'gird/gird_painter.dart';
-import 'localizations/localizationalgorithms.dart';
-import 'package:flutter/material.dart';
-
 import 'model/LocationModel.dart';
 
 class ShowResultSearch extends StatefulWidget {

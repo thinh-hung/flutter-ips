@@ -1,7 +1,6 @@
 import 'package:floorplans/anchor.dart';
+import 'package:floorplans/model/BeaconModel.dart';
 import 'package:get/get.dart';
-
-import 'element/beaconelement.dart';
 
 class BLEResult extends GetxController {
   // Raw BLE Scan Result
@@ -19,7 +18,7 @@ class BLEResult extends GetxController {
 
   // distance value
   List<double> distanceList = [];
-  List<BeaconElement> beaconsDB = [];
+  List<Beacon> beaconsDB = [];
 
   // anchor
   List<Anchor> anchorList = [];
@@ -42,28 +41,28 @@ class BLEResult extends GetxController {
     });
   }
 
-  num getRssiAt1mFromMac(List<BeaconElement> beaconsDB, String key) {
-    for (BeaconElement b in beaconsDB) {
-      if (b.macAddress == key) {
-        return b.rssiAt1m;
+  num getRssiAt1mFromMac(List<Beacon> beaconsDB, String key) {
+    for (Beacon b in beaconsDB) {
+      if (b.mac_address == key) {
+        return b.rssi_at_1m;
       }
     }
     return 0;
   }
 
-  double getYFromMac(List<BeaconElement> beaconsDB, String key) {
-    for (BeaconElement b in beaconsDB) {
-      if (b.macAddress == key) {
-        return b.y;
+  double getYFromMac(List<Beacon> beaconsDB, String key) {
+    for (Beacon b in beaconsDB) {
+      if (b.mac_address == key) {
+        return b.y.toDouble();
       }
     }
     return 0;
   }
 
-  double getXFromMac(List<BeaconElement> beaconsDB, String key) {
-    for (BeaconElement b in beaconsDB) {
-      if (b.macAddress == key) {
-        return b.x;
+  double getXFromMac(List<Beacon> beaconsDB, String key) {
+    for (Beacon b in beaconsDB) {
+      if (b.mac_address == key) {
+        return b.x.toDouble();
       }
     }
     return 0;
