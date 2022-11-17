@@ -38,7 +38,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
     int currentId = await getCurrentMax();
 
     //Map
-    Map<String, dynamic> location = {
+    Map<String, dynamic> beacon = {
       "beacon_id": currentId + 1,
       "map_id": widget.floorNumber,
       "x": x,
@@ -47,12 +47,14 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
       "rssi_at_1m": rssi_at_1m,
     };
 
-    documentReference.set(location).whenComplete(() {
-      print("tạo thành công");
-    });
+    documentReference.set(beacon).whenComplete(() {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Thêm beacon thành công')));
+    }).onError((error, stackTrace) => ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Thêm thất bại'))));
   }
 
-  updateLocation(beacon_id, xnew, ynew, mac_adressnew, rssi_at_1mnew) async {
+  updateBeacon(beacon_id, xnew, ynew, mac_adressnew, rssi_at_1mnew) async {
     final documentReference = await firestoreInstance
         .collection("Beacon")
         .where('beacon_id', isEqualTo: beacon_id)
@@ -69,8 +71,10 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
       "rssi_at_1m": rssi_at_1mnew,
     };
     documentReference.set(location, SetOptions(merge: true)).whenComplete(() {
-      print("$beacon_id updated");
-    });
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Cập nhật beacon thành công')));
+    }).onError((error, stackTrace) => ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Cập nhật thất bại'))));
   }
 
   deleteBeacon(beacon_id) async {
@@ -83,8 +87,10 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
     });
 
     documentReference.delete().whenComplete(() {
-      print("$beacon_id deleted");
-    });
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Xóa beacon thành công')));
+    }).onError((error, stackTrace) => ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text('Xóa thất bại'))));
   }
 
   void showUpdateDialog(int beacon_id, int currentX, int currentY,
@@ -149,7 +155,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
             actions: <Widget>[
               ElevatedButton(
                   onPressed: () {
-                    updateLocation(
+                    updateBeacon(
                         beacon_id, x, y, this.mac_address, this.rssi_at_1m);
                     Navigator.of(context).pop();
                   },
