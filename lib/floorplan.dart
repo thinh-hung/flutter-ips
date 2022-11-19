@@ -365,41 +365,50 @@ class _FloorplanState extends State<Floorplan>
 
               print("y: " + details.localPosition.dy.toString());
             },
-            child: CustomPaint(
-              // painter: LinePainter(listPosition: listPosition),
-              painter: GridPainter(),
-              foregroundPainter:
-                  CirclePainter(centerXList, centerYList, radiusList),
-              child: FutureBuilder(
-                future: getRoomsAndObj(),
-                builder: (context, snapshot) {
-                  roomsAndObj = (snapshot.data ?? []) as List<dynamic>;
+            child: Stack(children: [
+              RepaintBoundary(
+                  child: CustomPaint(
+                painter: LinePainter(listPosition: listPosition),
+              )),
+              RepaintBoundary(
+                child: CustomPaint(
+                  painter: GridPainter(),
+                  foregroundPainter:
+                      CirclePainter(centerXList, centerYList, radiusList),
+                  child: FutureBuilder(
+                    future: getRoomsAndObj(),
+                    builder: (context, snapshot) {
+                      roomsAndObj = (snapshot.data ?? []) as List<dynamic>;
 
-                  final data = {
-                    "schema": "https://evoko.app/schema/floorplan.schema.json",
-                    "locationId": "Floor1",
-                    "children": [
-                      {
-                        "type": "layer",
-                        "id": "floorplan-layer",
-                        "children": roomsAndObj
-                      }
-                    ]
-                  };
-                  // final data = json.decode(jsonString);
-                  root = RootElement.fromJson(data, 'rect');
-                  final size = root.getExtent();
-                  final layers = root.layers
-                      .map<Widget>((layer) => buildLayer(context, layer, size))
-                      .toList();
+                      final data = {
+                        "schema":
+                            "https://evoko.app/schema/floorplan.schema.json",
+                        "locationId": "Floor1",
+                        "children": [
+                          {
+                            "type": "layer",
+                            "id": "floorplan-layer",
+                            "children": roomsAndObj
+                          }
+                        ]
+                      };
+                      // final data = json.decode(jsonString);
+                      root = RootElement.fromJson(data, 'rect');
+                      final size = root.getExtent();
+                      final layers = root.layers
+                          .map<Widget>(
+                              (layer) => buildLayer(context, layer, size))
+                          .toList();
 
-                  // print(jsonString);
-                  return Stack(
-                    children: layers,
-                  );
-                },
+                      // print(jsonString);
+                      return Stack(
+                        children: layers,
+                      );
+                    },
+                  ),
+                ),
               ),
-            ),
+            ]),
           ),
           openFloor
               ? ElevatedButton(

@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
    <application
         android:name="androidx.multidex.MultiDexApplication"
-        android:label="floorplans"
+        android:label="Indoor BLE"
         android:icon="@mipmap/ic_launcher">
         
         <activity
