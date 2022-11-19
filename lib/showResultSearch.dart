@@ -117,55 +117,8 @@ class _ShowResultSearchState extends State<ShowResultSearch>
 
     // debugPrint(widget.jsonFloorplan);
     load();
-    Future.delayed(Duration(seconds: 0)).then((_) {
-      showModalBottomSheet(
-          isDismissible: false,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10.0),
-              topRight: Radius.circular(10.0),
-            ),
-          ),
-          context: context,
-          builder: (builder) {
-            return Container(
-              padding: const EdgeInsets.all(15),
-              height: 120,
-              child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Phòng ${room.roomName}",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(shape: StadiumBorder()),
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => MyApp(
-                                    search_location_finish:
-                                        widget.locationResult),
-                              ));
-                        },
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.directions),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text("Đường đi")
-                          ],
-                        )),
-                  ]),
-            );
-          });
+    Future.delayed(Duration(milliseconds: 300)).then((_) {
+      _showModalBottom();
     });
     super.initState();
   }
@@ -218,6 +171,7 @@ class _ShowResultSearchState extends State<ShowResultSearch>
       child: InkWell(
         onTap: () {
           print(element.idLocation.toString());
+          _showModalBottom();
           setState(() {
             element.fill = element.fill == element.baseFill
                 ? Colors.brown[300]
@@ -413,6 +367,56 @@ class _ShowResultSearchState extends State<ShowResultSearch>
 
   void getDataFromFirebase() async {
     await getRoomsAndObj().then((value) => dataRoomAndObj.add(value));
+  }
+
+  void _showModalBottom() {
+    showModalBottomSheet(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10.0),
+            topRight: Radius.circular(10.0),
+          ),
+        ),
+        context: context,
+        builder: (builder) {
+          return Container(
+            padding: const EdgeInsets.all(15),
+            height: 120,
+            child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Phòng ${room.roomName}",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  ElevatedButton(
+                      style: ElevatedButton.styleFrom(shape: StadiumBorder()),
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyApp(
+                                  search_location_finish:
+                                      widget.locationResult),
+                            ));
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(Icons.directions),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text("Đường đi")
+                        ],
+                      )),
+                ]),
+          );
+        });
   }
 }
 
