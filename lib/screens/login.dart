@@ -68,7 +68,16 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
 
             SizedBox(height: 20.0),
-
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SelectMapScreen()),
+                );
+              },
+              child: Text('Đăng nhập nhanh (dành cho debug)'),
+            ),
             Container(
               height: 50,
               width: 250,

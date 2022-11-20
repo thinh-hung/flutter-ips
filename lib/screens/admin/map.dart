@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/screens/admin/listBeacon.dart';
 import 'package:floorplans/screens/admin/listLocation.dart';
@@ -22,12 +24,15 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
   List<dynamic> roomsAndObj = [];
   List<dynamic> locations = [];
   List<dynamic> beacons = [];
+  List<dynamic> paths = [];
   List<Widget> elementInScreens = [];
   List<Widget> elements = [];
+  List<int> twoEdge = [];
   late TransformationController controllerTF;
   late final dataRoomAndObj;
   late final dataLocation;
   late final dataBeacon;
+  late final dataPath;
   bool _dsDiemActive = false;
   late double x;
   late double y;
@@ -49,6 +54,16 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
         .collection('Beacon')
         .where('map_id', isEqualTo: widget.floorNumber)
         .get());
+    var documents = [];
+    snapshot.docs.forEach((element) {
+      var document = element.data();
+      documents.add(document);
+    });
+    return documents;
+  }
+
+  Future<List<dynamic>> getPath() async {
+    var snapshot = (await FirebaseFirestore.instance.collection('Path').get());
     var documents = [];
     snapshot.docs.forEach((element) {
       var document = element.data();
@@ -87,6 +102,7 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
     dataRoomAndObj = getRoomsAndObj();
     dataLocation = getLocation();
     dataBeacon = getBeacon();
+    dataPath = getPath();
   }
 
   @override
@@ -113,6 +129,15 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
     );
   }
 
+  Widget buildPathElement(
+      BuildContext context, DeskElement element1, DeskElement element2) {
+    Offset elementOffset1 = Offset(element1.x, element1.y);
+    Offset elementOffset2 = Offset(element2.x, element2.y);
+    return CustomPaint(
+      painter: Arrow(p1: elementOffset1, p2: elementOffset2),
+    );
+  }
+
   Widget buildDeskElement(BuildContext context, DeskElement element) {
     return Positioned(
       top: element.y - element.radius,
@@ -125,11 +150,26 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
           shape: BoxShape.circle,
         ),
         child: Center(
+            child: Tooltip(
+          message: 'ID: ${element.location_id}',
+          triggerMode:
+              TooltipTriggerMode.tap, // ensures the label appears when tapped
+          onTriggered: () {
+            setState(() {
+              twoEdge.add(element.location_id);
+            });
+            if (twoEdge.length == 2) {
+              print(twoEdge);
+
+              twoEdge.clear();
+            }
+          },
+          preferBelow: false,
           child: Text(
             "${element.location_id}",
             style: TextStyle(fontSize: 6),
           ),
-        ),
+        )),
       ),
     );
   }
@@ -159,6 +199,35 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
     );
   }
 
+  Map<String, dynamic> getLocationById(List<dynamic> list, int id) {
+    int a = 0;
+    for (int i = 0; i < list.length; i++) {
+      if (list[i]['location_id'] == id) {
+        a = i;
+        break;
+      }
+    }
+    return list[a];
+  }
+
+  void napDuongDi() async {
+    locations = await dataLocation;
+    paths = await dataPath;
+    paths.forEach(
+      (element1) {
+        Map<String, dynamic> item1 =
+            getLocationById(locations, element1['start_location']);
+        Map<String, dynamic> item2 =
+            getLocationById(locations, element1['end_location']);
+        elements.add(buildPathElement(
+          context,
+          DeskElement.fromJson(item1),
+          DeskElement.fromJson(item2),
+        ));
+      },
+    );
+  }
+
   void napBeacon() async {
     beacons = await dataBeacon;
     beacons.forEach(
@@ -171,8 +240,9 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
 
   @override
   Widget build(BuildContext context) {
-    napDiemAo();
+    napDuongDi();
     napBeacon();
+    napDiemAo();
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -299,5 +369,24 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
             ],
           ),
         ));
+  }
+}
+
+class Arrow extends CustomPainter {
+  Offset p1;
+  Offset p2;
+  Arrow({required this.p1, required this.p2});
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = Color.fromARGB(45, 150, 133, 236)
+      ..strokeWidth = 4;
+    canvas.drawLine(p1, p2, paint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    return true;
   }
 }
