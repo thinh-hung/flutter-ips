@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import '../bledata.dart';
 import '../localizations/localizationalgorithms.dart';
 
-
 class CirclePainter extends CustomPainter {
   var centerXList = [];
   var centerYList = [];
@@ -52,8 +51,10 @@ class CirclePainter extends CustomPainter {
       for (int i = 0; i < radiusList.length; i++) {
         // danh dau mau tim 3 diem theo rssi gan nhat
         if (i < 3) {
-          canvas.drawCircle(Offset(centerXList[i], centerYList[i]),
-              radiusList[i] * 20, Paint()..color = Colors.purple);
+          canvas.drawCircle(
+              Offset(centerXList[i], centerYList[i]),
+              radiusList[i] * 20,
+              Paint()..color = Color.fromARGB(47, 155, 39, 176));
         }
         // radius
         var radius = radiusList[i];
@@ -119,7 +120,7 @@ class CirclePainter extends CustomPainter {
             xyMinMax.dy.toString());
 
         Offset xyTrilateration = localization.trilateration();
-        canvas.drawCircle(xyTrilateration, 20, Paint()..color = Colors.blue);
+        // canvas.drawCircle(xyTrilateration, 20, Paint()..color = Colors.blue);
         print("Toa do theo thuat toan trilateration: " +
             xyTrilateration.dx.toString() +
             ':' +

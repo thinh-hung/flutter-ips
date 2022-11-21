@@ -224,6 +224,8 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
             getLocationById(locations, element1['start_location']);
         Map<String, dynamic>? item2 =
             getLocationById(locations, element1['end_location']);
+        print("$item1 : $item2");
+        print("${element1['start_location']} : ${element1['end_location']}");
         if (item1 != null && item2 != null) {
           elements.add(buildPathElement(
             context,

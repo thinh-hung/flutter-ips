@@ -204,9 +204,9 @@ class Dijkstra {
 // tao ma tran
   Future<void> initAdj(List<List<double>> list, int positionLength) async {
     // print(a);
-    for (var i = 0; i < positionLength; i++) {
+    for (var i = 0; i <= positionLength; i++) {
       List<double> arr = [];
-      for (var j = 0; j < positionLength; j++) {
+      for (var j = 0; j <= positionLength; j++) {
         arr.add(-1);
       }
       adj.add(arr);
