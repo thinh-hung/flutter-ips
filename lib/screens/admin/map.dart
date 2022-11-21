@@ -199,15 +199,20 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
     );
   }
 
-  Map<String, dynamic> getLocationById(List<dynamic> list, int id) {
-    int a = 0;
+  Map<String, dynamic>? getLocationById(List<dynamic> list, int id) {
+    int a = -1;
+
     for (int i = 0; i < list.length; i++) {
       if (list[i]['location_id'] == id) {
         a = i;
         break;
       }
     }
-    return list[a];
+    if (a == -1) {
+      return null;
+    } else {
+      return list[a];
+    }
   }
 
   void napDuongDi() async {
@@ -215,15 +220,17 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
     paths = await dataPath;
     paths.forEach(
       (element1) {
-        Map<String, dynamic> item1 =
+        Map<String, dynamic>? item1 =
             getLocationById(locations, element1['start_location']);
-        Map<String, dynamic> item2 =
+        Map<String, dynamic>? item2 =
             getLocationById(locations, element1['end_location']);
-        elements.add(buildPathElement(
-          context,
-          DeskElement.fromJson(item1),
-          DeskElement.fromJson(item2),
-        ));
+        if (item1 != null && item2 != null) {
+          elements.add(buildPathElement(
+            context,
+            DeskElement.fromJson(item1),
+            DeskElement.fromJson(item2),
+          ));
+        }
       },
     );
   }

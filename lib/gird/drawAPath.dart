@@ -25,7 +25,7 @@ class LinePainter extends CustomPainter {
     for (int i = 0; i < this.listPosition.length - 1; i++) {
       canvas.drawCircle(
           Offset(listPosition[i].x.toDouble(), listPosition[i].y.toDouble()),
-          15,
+          0.5,
           paint);
     }
     for (int i = 0; i < this.listPosition.length - 1; i++) {
