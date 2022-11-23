@@ -5,6 +5,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import 'addEdgeDB.dart';
+
 class ListLocationScreen extends StatefulWidget {
   final int floorNumber;
   const ListLocationScreen({Key? key, required this.floorNumber})
@@ -44,7 +46,7 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
     };
 
     documentReference.set(location).whenComplete(() {
-      print("tạo thành công");
+      print("tạo thành công điểm ảo");
     });
   }
 
@@ -204,7 +206,14 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
                     ElevatedButton(
                         onPressed: () {
                           createLocation();
-                          Navigator.of(context).pop();
+                          // Navigator.of(context).pop();
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => addEdgeDB(
+                                    floorNumber: widget.floorNumber),
+                              ));
                         },
                         child: Text("Thêm"))
                   ],

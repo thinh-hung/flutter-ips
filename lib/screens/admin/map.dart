@@ -11,6 +11,7 @@ import '../../element/deskelement.dart';
 import '../../element/rectelement.dart';
 import '../../function/utils.dart';
 import '../../model/BeaconModel.dart';
+import 'listPath.dart';
 
 class AdminMapScreen extends StatefulWidget {
   final int floorNumber;
@@ -333,7 +334,7 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: 15,
+                      width: 5,
                     ),
                     ElevatedButton(
                         onPressed: () {
@@ -353,7 +354,7 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
                           });
                         },
                         child: Text("Quản lí điểm ảo")),
-                    SizedBox(width: 20),
+                    SizedBox(width: 10),
                     ElevatedButton(
                         onPressed: () {
                           Navigator.push(
@@ -372,6 +373,25 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
                           });
                         },
                         child: Text("Quản lí beacon")),
+                    SizedBox(width: 10),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ListPath(
+                                    floorNumber: widget.floorNumber),
+                              )).then((_) {
+                            setState(() {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                      widget));
+                            });
+                          });
+                        },
+                        child: Text("Quản lí path")),
                   ],
                 ),
               ),
