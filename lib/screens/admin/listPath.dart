@@ -20,17 +20,7 @@ class _ListPathState extends State<ListPath> {
   int end_location = 0;
   int start_location = 0;
 
-  updateLocation(
-      start_location, end_location, startLocationNew, endLocationNew) async {
-    // final documentReference = await firestoreInstance
-    //     .collection("Path")
-    //     .where("end_location", isEqualTo: end_location)
-    //     .where("start_location", isEqualTo: start_location)
-    //     .get()
-    //     .then((value) {
-    //   return firestoreInstance.collection("Path").doc(value.docs.first.id);
-    // });
-
+  updateLocation(start_location, end_location, startLocationNew, endLocationNew) async {
     final documentReference = await firestoreInstance
         .collection("Path")
         .where("end_location", isEqualTo: end_location)

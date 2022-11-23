@@ -1,3 +1,4 @@
+import 'package:floorplans/screens/admin/ListRoom.dart';
 import 'package:floorplans/screens/admin/listBeacon.dart';
 import 'package:floorplans/screens/admin/listLocation.dart';
 import 'package:floorplans/screens/admin/listPath.dart';
@@ -62,7 +63,7 @@ class _draweradminState extends State<draweradmin> {
       ListLocationScreen(floorNumber: widget.floorNumber,),
       ListBeaconScreen(floorNumber: widget.floorNumber,),
       ListPath(floorNumber: widget.floorNumber,),
-      ListPath(floorNumber: widget.floorNumber,),
+      ListRoom(floorNumber: widget.floorNumber,),
     ];
     print(floorNumbernav);
     return Drawer(
