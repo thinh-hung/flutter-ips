@@ -379,19 +379,19 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ListPath(
-                                    floorNumber: widget.floorNumber),
+                                builder: (context) =>
+                                    ListPath(floorNumber: widget.floorNumber),
                               )).then((_) {
                             setState(() {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                       builder: (BuildContext context) =>
-                                      widget));
+                                          widget));
                             });
                           });
                         },
-                        child: Text("Quản lí path")),
+                        child: Text("Quản lí cung")),
                   ],
                 ),
               ),

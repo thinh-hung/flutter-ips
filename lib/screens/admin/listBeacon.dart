@@ -199,6 +199,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
             "Danh sách beacon tầng ${widget.floorNumber == 1 ? "trệt" : widget.floorNumber - 1}"),
         actions: [logoutButton(context)],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(

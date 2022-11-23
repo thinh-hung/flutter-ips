@@ -127,7 +127,7 @@ class _ListPathState extends State<ListPath> {
             title: Text("Xóa cung này"),
             content: Column(mainAxisSize: MainAxisSize.min, children: [
               Text(
-                  "Bạn chắc chắn muốn xóa cung số  $currentend,  $currentstart này chứ"),
+                  "Bạn chắc chắn muốn xóa cung số  $currentstart,  $currentend này chứ"),
             ]),
             actions: <Widget>[
               ElevatedButton(
@@ -144,6 +144,20 @@ class _ListPathState extends State<ListPath> {
         });
   }
 
+  createPath() async {
+    DocumentReference documentReference =
+        firestoreInstance.collection("Path").doc();
+
+    Map<String, dynamic> location = {
+      "end_location": start_location,
+      "start_location": end_location
+    };
+
+    documentReference.set(location).whenComplete(() {
+      print("Tạo thành công đường đi");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -151,6 +165,59 @@ class _ListPathState extends State<ListPath> {
         title: Text(
             "Danh sách cung tầng ${widget.floorNumber == 1 ? "trệt" : widget.floorNumber - 1}"),
         actions: [logoutButton(context)],
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  title: Text("Thêm cung"),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextField(
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        decoration:
+                            InputDecoration(hintText: "Nhập Id đầu cung: "),
+                        onChanged: (String value) {
+                          if (value != "") end_location = int.parse(value);
+                        },
+                      ),
+                      TextField(
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        decoration:
+                            InputDecoration(hintText: "Nhập Id cuối cung: "),
+                        onChanged: (String value) {
+                          if (value != "") start_location = int.parse(value);
+                        },
+                      ),
+                    ],
+                  ),
+                  actions: <Widget>[
+                    ElevatedButton(
+                        onPressed: () {
+                          createPath();
+                          Navigator.of(context).pop();
+                        },
+                        child: Text("Thêm"))
+                  ],
+                );
+              });
+        },
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: firestoreInstance

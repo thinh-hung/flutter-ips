@@ -166,6 +166,7 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
             "Danh sách điểm ảo tầng ${widget.floorNumber == 1 ? "trệt" : widget.floorNumber - 1}"),
         actions: [logoutButton(context)],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
