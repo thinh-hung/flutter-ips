@@ -9,8 +9,7 @@ import 'addEdgeDB.dart';
 
 class ListPath extends StatefulWidget {
   final int floorNumber;
-  const ListPath({Key? key, required this.floorNumber})
-      : super(key: key);
+  const ListPath({Key? key, required this.floorNumber}) : super(key: key);
 
   @override
   State<ListPath> createState() => _ListPathState();
@@ -21,7 +20,8 @@ class _ListPathState extends State<ListPath> {
   int end_location = 0;
   int start_location = 0;
 
-  updateLocation(endLocation, startLocation) async {
+  updateLocation(
+      start_location, end_location, startLocationNew, endLocationNew) async {
     // final documentReference = await firestoreInstance
     //     .collection("Path")
     //     .where("end_location", isEqualTo: end_location)
@@ -33,30 +33,26 @@ class _ListPathState extends State<ListPath> {
 
     final documentReference = await firestoreInstance
         .collection("Path")
-        .where("end_location", isEqualTo: endLocation);
-    final sort2 = await documentReference
-        .where("start_location", isEqualTo: startLocation)
+        .where("end_location", isEqualTo: end_location)
+        .where("start_location", isEqualTo: start_location)
         .get()
         .then((value) {
       return firestoreInstance.collection("Path").doc(value.docs.first.id);
     });
-
-    print("------------------------");
-    print(sort2);
     Map<String, dynamic> location = {
-      "end_location": endLocation,
-      "start_location": startLocation
+      "end_location": endLocationNew,
+      "start_location": startLocationNew
     };
-    sort2.set(location, SetOptions(merge: true)).whenComplete(() {
-      print("($endLocation , $startLocation) cập nhật cung thành công");
+    documentReference.set(location, SetOptions(merge: true)).whenComplete(() {
+      print("($endLocationNew , $startLocationNew) cập nhật cung thành công");
     });
   }
 
   deleteLocation(end_location, start_location) async {
     final documentReference = await firestoreInstance
         .collection("Path")
-        .where(end_location)
-        .where(start_location)
+        .where('end_location', isEqualTo: end_location)
+        .where('start_location', isEqualTo: start_location)
         .get()
         .then((value) {
       return firestoreInstance.collection("Path").doc(value.docs.first.id);
@@ -75,31 +71,33 @@ class _ListPathState extends State<ListPath> {
         builder: (BuildContext context) {
           return AlertDialog(
             shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: Text("Cập nhật cung"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextFormField(
-                  initialValue: currentend.toString(),
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  decoration: InputDecoration(hintText: "Nhập Id đầu cung(end_location): "),
-                  onChanged: (String value) {
-                    if (value != "") end_location = int.parse(value);
-                  },
-                ),
                 TextFormField(
                   initialValue: currentstart.toString(),
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
-                  decoration: InputDecoration(hintText: "Nhập Id cuối cung(start_location): "),
+                  decoration: InputDecoration(
+                      hintText: "Nhập Id đầu cung(start_location): "),
                   onChanged: (String value) {
                     if (value != "") start_location = int.parse(value);
+                  },
+                ),
+                TextFormField(
+                  initialValue: currentend.toString(),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  decoration: InputDecoration(
+                      hintText: "Nhập Id cuối cung(end_location): "),
+                  onChanged: (String value) {
+                    if (value != "") end_location = int.parse(value);
                   },
                 ),
               ],
@@ -107,7 +105,8 @@ class _ListPathState extends State<ListPath> {
             actions: <Widget>[
               ElevatedButton(
                   onPressed: () {
-                    updateLocation(end_location, start_location);
+                    updateLocation(
+                        currentstart, currentend, start_location, end_location);
                     Navigator.of(context).pop();
                   },
                   child: Text("Cập nhật"))
@@ -124,16 +123,17 @@ class _ListPathState extends State<ListPath> {
         builder: (BuildContext context) {
           return AlertDialog(
             shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: Text("Xóa cung này"),
             content: Column(mainAxisSize: MainAxisSize.min, children: [
-              Text("Bạn chắc chắn muốn xóa cung số  $currentend,  $currentstart này chứ"),
+              Text(
+                  "Bạn chắc chắn muốn xóa cung số  $currentend,  $currentstart này chứ"),
             ]),
             actions: <Widget>[
               ElevatedButton(
-                // style: ElevatedButton.styleFrom(
-                //   backgroundColor: Colors.redAccent,
-                // ),
+                  // style: ElevatedButton.styleFrom(
+                  //   backgroundColor: Colors.redAccent,
+                  // ),
                   onPressed: () {
                     deleteLocation(end_location, start_location);
                     Navigator.of(context).pop();
@@ -167,7 +167,7 @@ class _ListPathState extends State<ListPath> {
                     itemCount: snapshots.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot documentSnapshot =
-                      snapshots.data!.docs[index];
+                          snapshots.data!.docs[index];
                       return Dismissible(
                           // onDismissed: (direction) {
                           //   showDeleteDialog(documentSnapshot["location_id"]);
@@ -179,28 +179,52 @@ class _ListPathState extends State<ListPath> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                             child: InkWell(
-                              onTap: () {
-                                showUpdateDialog(
-                                    documentSnapshot["end_location"],
-                                    documentSnapshot["start_location"]);
-                              },
-                              child: ListTile(
-                                title: Text("đầu cung: " +
-                                    documentSnapshot["end_location"].toString() +
-                                    " cuối cung: " +
-                                    documentSnapshot["start_location"].toString()),
-                                trailing: IconButton(
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                    ),
-                                    onPressed: () {
-                                      showDeleteDialog(
-                                          documentSnapshot["end_location"],
-                                          documentSnapshot["start_location"]);
-                                    }),
-                              ),
-                            ),
+                                onTap: () {
+                                  showUpdateDialog(
+                                      documentSnapshot["end_location"],
+                                      documentSnapshot["start_location"]);
+                                },
+                                child: Container(
+                                    height: 50,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: Row(children: [
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      CircleAvatar(
+                                          child: Text(
+                                              "${documentSnapshot["start_location"]}")),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      Container(
+                                        height: 25,
+                                        width: 25,
+                                        child: Image.asset(
+                                            "assets/images/double-arrows.png"),
+                                      ),
+                                      SizedBox(
+                                        width: 10,
+                                      ),
+                                      CircleAvatar(
+                                          child: Text(
+                                              "${documentSnapshot["end_location"]}")),
+                                      Expanded(
+                                        child: Center(),
+                                      ),
+                                      IconButton(
+                                          icon: const Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ),
+                                          onPressed: () {
+                                            showDeleteDialog(
+                                                documentSnapshot[
+                                                    "end_location"],
+                                                documentSnapshot[
+                                                    "start_location"]);
+                                          }),
+                                    ]))),
                           ));
                     });
               }

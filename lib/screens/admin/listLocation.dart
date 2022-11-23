@@ -211,8 +211,8 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => addEdgeDB(
-                                    floorNumber: widget.floorNumber),
+                                builder: (context) =>
+                                    addEdgeDB(floorNumber: widget.floorNumber),
                               ));
                         },
                         child: Text("Thêm"))
