@@ -1,21 +1,29 @@
+import 'package:floorplans/main.dart';
 import 'package:floorplans/screens/admin/select_map.dart';
 import 'package:floorplans/screens/login.dart';
 import 'package:floorplans/screens/mapChoose.dart';
+import 'package:floorplans/screens/user/Listmap.dart';
 import 'package:flutter/material.dart';
 
 import 'About.dart';
 
 final List<String> listname = [
   "Home",
+  "List floorplan",
+  "About",
   "Log out",
 ];
 final List<IconData> listicon = [
   Icons.gps_fixed,
+  Icons.map,
+  Icons.info,
   Icons.logout,
 ];
 
 final List<Widget> listclass = [
-  SelectMapScreen(),
+  MyApp(search_location_finish: 0),
+  ListMapScreen(),
+  About(),
   LoginScreen(),
 ];
 
@@ -41,7 +49,7 @@ class Listnav extends StatelessWidget {
   }
 }
 
-class drawermenu extends StatelessWidget {
+class draweruser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -57,23 +65,23 @@ class drawermenu extends StatelessWidget {
               ),
               child: Container(
                   child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    child: Image.asset('assets/images/logo.jpg'),
-                  ),
-                  SizedBox(height: 20),
-                  Text('Hệ thống định vị tòa nhà',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
-                  SizedBox(height: 20),
-                  Text('Công nghệ Bluetooth năng lượng thấp',
-                      style: TextStyle(color: Colors.black, fontSize: 15)),
-                ],
-              )),
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: Image.asset('assets/images/logo.jpg'),
+                      ),
+                      SizedBox(height: 20),
+                      Text('Hệ thống định vị tòa nhà',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold)),
+                      SizedBox(height: 20),
+                      Text('Công nghệ Bluetooth năng lượng thấp',
+                          style: TextStyle(color: Colors.black, fontSize: 15)),
+                    ],
+                  )),
             ),
           ),
           for (int i = 0; i < listname.length; i++)

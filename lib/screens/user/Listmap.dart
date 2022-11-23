@@ -1,35 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/Drawer.dart';
 import 'package:floorplans/function/utils.dart';
-import 'package:floorplans/screens/admin/map.dart';
-import 'package:floorplans/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import '../../draweruser.dart';
+import 'mapuser.dart';
 
-import '../../Drawer.dart';
-
-class SelectMapScreen extends StatefulWidget {
-  const SelectMapScreen({Key? key}) : super(key: key);
+class ListMapScreen extends StatefulWidget {
+  const ListMapScreen({Key? key}) : super(key: key);
 
   @override
-  State<SelectMapScreen> createState() => _SelectMapScreenState();
+  State<ListMapScreen> createState() => _ListMapScreenState();
 }
 
-class _SelectMapScreenState extends State<SelectMapScreen> {
+class _ListMapScreenState extends State<ListMapScreen> {
   @override
   Widget build(BuildContext context) {
     final maps = FirebaseFirestore.instance.collection('map').snapshots();
 
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: Text("EDIT FLOOR")),
+          title: Center(child: Text("LIST FLOOR")),
           actions: [
             logoutButton(context),
           ],
         ),
-        drawer: drawermenu(),
+        drawer: draweruser(),
         body: Container(
             padding: EdgeInsets.all(20),
             child: Column(
@@ -53,7 +51,7 @@ class _SelectMapScreenState extends State<SelectMapScreen> {
                           scrollDirection: Axis.horizontal,
                           children: snapshot.data!.docs.map((document) {
                             Map<String, dynamic> data =
-                                document.data()! as Map<String, dynamic>;
+                            document.data()! as Map<String, dynamic>;
                             return InkWell(
                               child: box(
                                   data['map_name'], Colors.teal),
@@ -61,7 +59,7 @@ class _SelectMapScreenState extends State<SelectMapScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => AdminMapScreen(
+                                      builder: (context) => UserMapScreen(
                                           floorNumber: data['map_id']),
                                     ));
                               },
@@ -74,17 +72,6 @@ class _SelectMapScreenState extends State<SelectMapScreen> {
             )));
   }
 
-//   Widget box(String title, Color backgroundcolor) {
-//     return Container(
-//         margin: EdgeInsets.all(10),
-//         padding: EdgeInsets.symmetric(horizontal: 10),
-//         width: 120,
-//         color: backgroundcolor,
-//         alignment: Alignment.center,
-//         child:
-//             Text(title, style: TextStyle(color: Colors.white, fontSize: 20)));
-//   }
-// }
   Widget box(String title, Color backgroundcolor) {
     return Container(
         margin: EdgeInsets.all(20),

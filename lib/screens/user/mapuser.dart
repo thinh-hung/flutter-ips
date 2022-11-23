@@ -1,78 +1,30 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:floorplans/screens/admin/listBeacon.dart';
-import 'package:floorplans/screens/admin/listLocation.dart';
-import 'package:floorplans/screens/login.dart';
 import 'package:flutter/material.dart';
 
 import '../../DrawerAdmin.dart';
-import '../../element/beaconelement.dart';
+import '../../draweruser.dart';
 import '../../element/deskelement.dart';
 import '../../element/rectelement.dart';
 import '../../function/utils.dart';
 import '../../model/BeaconModel.dart';
-import 'listPath.dart';
 
-class AdminMapScreen extends StatefulWidget {
+class UserMapScreen extends StatefulWidget {
   final int floorNumber;
-  const AdminMapScreen({Key? key, required this.floorNumber}) : super(key: key);
+  const UserMapScreen({Key? key, required this.floorNumber}) : super(key: key);
 
   @override
-  State<AdminMapScreen> createState() => _AdminMapScreenState();
+  State<UserMapScreen> createState() => _UserMapScreenState();
 }
 
-class _AdminMapScreenState extends State<AdminMapScreen> {
+class _UserMapScreenState extends State<UserMapScreen> {
   List<dynamic> roomsAndObj = [];
-  List<dynamic> locations = [];
-  List<dynamic> beacons = [];
-  List<dynamic> paths = [];
   List<Widget> elementInScreens = [];
   List<Widget> elements = [];
   List<int> twoEdge = [];
   late TransformationController controllerTF;
   late final dataRoomAndObj;
-  late final dataLocation;
-  late final dataBeacon;
-  late final dataPath;
-  bool _dsDiemActive = false;
   late double x;
   late double y;
-  Future<List<dynamic>> getLocation() async {
-    var snapshot = (await FirebaseFirestore.instance
-        .collection('Location')
-        .where('map_id', isEqualTo: widget.floorNumber)
-        .get());
-    var documents = [];
-    snapshot.docs.forEach((element) {
-      var document = element.data();
-      documents.add(document);
-    });
-    return documents;
-  }
-
-  Future<List<dynamic>> getBeacon() async {
-    var snapshot = (await FirebaseFirestore.instance
-        .collection('Beacon')
-        .where('map_id', isEqualTo: widget.floorNumber)
-        .get());
-    var documents = [];
-    snapshot.docs.forEach((element) {
-      var document = element.data();
-      documents.add(document);
-    });
-    return documents;
-  }
-
-  Future<List<dynamic>> getPath() async {
-    var snapshot = (await FirebaseFirestore.instance.collection('Path').get());
-    var documents = [];
-    snapshot.docs.forEach((element) {
-      var document = element.data();
-      documents.add(document);
-    });
-    return documents;
-  }
 
   Future<List<dynamic>> getRoomsAndObj() async {
     var snapshot = (await FirebaseFirestore.instance
@@ -98,13 +50,9 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controllerTF = TransformationController();
     dataRoomAndObj = getRoomsAndObj();
-    dataLocation = getLocation();
-    dataBeacon = getBeacon();
-    dataPath = getPath();
   }
 
   @override
@@ -153,25 +101,25 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
         ),
         child: Center(
             child: Tooltip(
-          message: 'ID: ${element.location_id}',
-          triggerMode:
+              message: 'ID: ${element.location_id}',
+              triggerMode:
               TooltipTriggerMode.tap, // ensures the label appears when tapped
-          onTriggered: () {
-            setState(() {
-              twoEdge.add(element.location_id);
-            });
-            if (twoEdge.length == 2) {
-              print(twoEdge);
+              onTriggered: () {
+                setState(() {
+                  twoEdge.add(element.location_id);
+                });
+                if (twoEdge.length == 2) {
+                  print(twoEdge);
 
-              twoEdge.clear();
-            }
-          },
-          preferBelow: false,
-          child: Text(
-            "${element.location_id}",
-            style: TextStyle(fontSize: 6),
-          ),
-        )),
+                  twoEdge.clear();
+                }
+              },
+              preferBelow: false,
+              child: Text(
+                "${element.location_id}",
+                style: TextStyle(fontSize: 6),
+              ),
+            )),
       ),
     );
   }
@@ -183,7 +131,7 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
         child: Tooltip(
           message: 'ID: ${element.id}\nMac: ${element.mac_address}',
           triggerMode:
-              TooltipTriggerMode.tap, // ensures the label appears when tapped
+          TooltipTriggerMode.tap, // ensures the label appears when tapped
           preferBelow: false, // use this if you want the label above the widget
           child: Image.asset(
             "assets/images/bluetooth_icon.png",
@@ -191,15 +139,7 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
         ));
   }
 
-  void napDiemAo() async {
-    locations = await dataLocation;
-    locations.forEach(
-      (element) {
-        return elements
-            .add(buildDeskElement(context, DeskElement.fromJson(element)));
-      },
-    );
-  }
+
 
   Map<String, dynamic>? getLocationById(List<dynamic> list, int id) {
     int a = -1;
@@ -217,52 +157,18 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
     }
   }
 
-  void napDuongDi() async {
-    locations = await dataLocation;
-    paths = await dataPath;
-    paths.forEach(
-      (element1) {
-        Map<String, dynamic>? item1 =
-            getLocationById(locations, element1['start_location']);
-        Map<String, dynamic>? item2 =
-            getLocationById(locations, element1['end_location']);
-        print("$item1 : $item2");
-        print("${element1['start_location']} : ${element1['end_location']}");
-        if (item1 != null && item2 != null) {
-          elements.add(buildPathElement(
-            context,
-            DeskElement.fromJson(item1),
-            DeskElement.fromJson(item2),
-          ));
-        }
-      },
-    );
-  }
-
-  void napBeacon() async {
-    beacons = await dataBeacon;
-    beacons.forEach(
-      (element) {
-        return elements
-            .add(buildBeaconElement(context, Beacon.fromJson(element)));
-      },
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
-    napDuongDi();
-    napBeacon();
-    napDiemAo();
     return Scaffold(
         appBar: AppBar(
           title: Text(
-              "Quản trị bản đồ tầng ${widget.floorNumber == 1 ? "trệt" : widget.floorNumber - 1}"),
+              "Floor ${widget.floorNumber == 1 ? "ground" : widget.floorNumber - 1}"),
           actions: [
             logoutButton(context),
           ],
         ),
-        drawer: draweradmin(floorNumber: widget.floorNumber,),
+        drawer: draweruser(),
         body: GestureDetector(
           onTapUp: (TapUpDetails details) {
             print(
@@ -303,9 +209,9 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
                               } else {
                                 // call the setTextFields method when the future is done
                                 roomsAndObj =
-                                    (snapshot.data ?? []) as List<dynamic>;
+                                (snapshot.data ?? []) as List<dynamic>;
                                 roomsAndObj.forEach(
-                                  (element) {
+                                      (element) {
                                     return elementInScreens.add(
                                         buildRectElement(context,
                                             RectElement.fromJson(element)));
@@ -349,7 +255,6 @@ class Arrow extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    // TODO: implement shouldRepaint
     return true;
   }
 }

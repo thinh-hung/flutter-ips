@@ -34,7 +34,7 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
 
   createLocation() async {
     DocumentReference documentReference =
-        firestoreInstance.collection("Location").doc();
+    firestoreInstance.collection("Location").doc();
     int currentId = await getCurrentMax();
 
     //Map
@@ -91,7 +91,7 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: Text("Cập nhật điểm ảo"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
@@ -138,16 +138,16 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: Text("Xóa điểm ảo"),
             content: Column(mainAxisSize: MainAxisSize.min, children: [
               Text("Bạn chắc chắn muốn xóa điểm ảo số $location_id này chứ"),
             ]),
             actions: <Widget>[
               ElevatedButton(
-                  // style: ElevatedButton.styleFrom(
-                  //   backgroundColor: Colors.redAccent,
-                  // ),
+                // style: ElevatedButton.styleFrom(
+                //   backgroundColor: Colors.redAccent,
+                // ),
                   onPressed: () {
                     deleteLocation(location_id);
                     Navigator.of(context).pop();
@@ -166,6 +166,7 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
             "Danh sách điểm ảo tầng ${widget.floorNumber == 1 ? "trệt" : widget.floorNumber - 1}"),
         actions: [logoutButton(context)],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
@@ -184,7 +185,7 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         decoration:
-                            InputDecoration(hintText: "Nhập tọa độ X: "),
+                        InputDecoration(hintText: "Nhập tọa độ X: "),
                         onChanged: (String value) {
                           if (value != "") x = int.parse(value);
                         },
@@ -195,7 +196,7 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         decoration:
-                            InputDecoration(hintText: "Nhập tọa độ Y: "),
+                        InputDecoration(hintText: "Nhập tọa độ Y: "),
                         onChanged: (String value) {
                           if (value != "") y = int.parse(value);
                         },
@@ -241,7 +242,7 @@ class _ListLocationScreenState extends State<ListLocationScreen> {
                     itemCount: snapshots.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot documentSnapshot =
-                          snapshots.data!.docs[index];
+                      snapshots.data!.docs[index];
                       return Dismissible(
                           onDismissed: (direction) {
                             showDeleteDialog(documentSnapshot["location_id"]);

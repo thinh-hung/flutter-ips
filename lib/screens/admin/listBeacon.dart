@@ -34,7 +34,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
 
   createBeacon() async {
     DocumentReference documentReference =
-        firestoreInstance.collection("Beacon").doc();
+    firestoreInstance.collection("Beacon").doc();
     int currentId = await getCurrentMax();
 
     //Map
@@ -104,7 +104,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: Text("Cập nhật beacon"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
@@ -145,7 +145,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   decoration:
-                      InputDecoration(hintText: "Nhập giá trị RSSI tại 1m: "),
+                  InputDecoration(hintText: "Nhập giá trị RSSI tại 1m: "),
                   onChanged: (String value) {
                     if (value != "") this.rssi_at_1m = int.parse(value);
                   },
@@ -171,16 +171,16 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: Text("Xóa beacon"),
             content: Column(mainAxisSize: MainAxisSize.min, children: [
               Text("Bạn chắc chắn muốn xóa beacon số $beacon_id này chứ"),
             ]),
             actions: <Widget>[
               ElevatedButton(
-                  // style: ElevatedButton.styleFrom(
-                  //   backgroundColor: Colors.redAccent,
-                  // ),
+                // style: ElevatedButton.styleFrom(
+                //   backgroundColor: Colors.redAccent,
+                // ),
                   onPressed: () {
                     deleteBeacon(beacon_id);
                     Navigator.of(context).pop();
@@ -199,6 +199,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
             "Danh sách beacon tầng ${widget.floorNumber == 1 ? "trệt" : widget.floorNumber - 1}"),
         actions: [logoutButton(context)],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
@@ -217,7 +218,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         decoration:
-                            InputDecoration(hintText: "Nhập tọa độ X: "),
+                        InputDecoration(hintText: "Nhập tọa độ X: "),
                         onChanged: (String value) {
                           if (value != "") x = int.parse(value);
                         },
@@ -228,14 +229,14 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         decoration:
-                            InputDecoration(hintText: "Nhập tọa độ Y: "),
+                        InputDecoration(hintText: "Nhập tọa độ Y: "),
                         onChanged: (String value) {
                           if (value != "") y = int.parse(value);
                         },
                       ),
                       TextField(
                         decoration:
-                            InputDecoration(hintText: "Nhập địa chỉ Mac: "),
+                        InputDecoration(hintText: "Nhập địa chỉ Mac: "),
                         onChanged: (String value) {
                           if (value != "") this.mac_address = value;
                         },
@@ -283,7 +284,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                     itemCount: snapshots.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot documentSnapshot =
-                          snapshots.data!.docs[index];
+                      snapshots.data!.docs[index];
                       return Dismissible(
                           onDismissed: (direction) {
                             showDeleteDialog(documentSnapshot["beacon_id"]);
