@@ -48,9 +48,9 @@ class _ListRoomState extends State<ListRoom> {
               children: [
                 TextFormField(
                   initialValue: room_name.toString(),
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
+                  // inputFormatters: <TextInputFormatter>[
+                  //   FilteringTextInputFormatter.digitsOnly
+                  // ],
                   decoration: InputDecoration(
                       hintText: "Nhập tên phòng: "),
                   onChanged: (String value) {
@@ -70,8 +70,6 @@ class _ListRoomState extends State<ListRoom> {
           );
         });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
