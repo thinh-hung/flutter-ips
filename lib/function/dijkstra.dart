@@ -164,9 +164,9 @@ class Dijkstra {
 
     //thêm đường đi cho ma tran
     for (int i = 0; i < pathList.length; i++) {
-      addEdge(adj, pathList[i].startLocation, pathList[i].endLocation,
+      addEdge(adj, pathList[i].startLocation.toInt(), pathList[i].endLocation.toInt(),
           distance(pathList[i].startLocation, pathList[i].endLocation));
-      addEdge(adj, pathList[i].endLocation, pathList[i].startLocation,
+      addEdge(adj, pathList[i].endLocation.toInt(), pathList[i].startLocation.toInt(),
           distance(pathList[i].startLocation, pathList[i].endLocation));
     }
     for (int i = 0; i < positionList.length; i++) {

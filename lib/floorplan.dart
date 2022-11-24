@@ -311,6 +311,11 @@ class _FloorplanState extends State<Floorplan>
     }
     for (int i = 0; i < listPosition.length; i++) {
       var element = listPosition[i];
+
+      // if(element.map_id != 0){
+      //   listPosition.removeRange(i, listPosition.length);
+      //   break;
+      // }
       if (element.id >= 35 && stairList.contains(listPosition[1].id)) {
         listPosition.removeAt(i - 1);
         setState(() {
@@ -368,7 +373,7 @@ class _FloorplanState extends State<Floorplan>
             child: Stack(children: [
               RepaintBoundary(
                   child: CustomPaint(
-                painter: LinePainter(listPosition: listPosition),
+                painter: LinePainter(listPosition: listPosition,mapid: 1),
               )),
               RepaintBoundary(
                 child: CustomPaint(

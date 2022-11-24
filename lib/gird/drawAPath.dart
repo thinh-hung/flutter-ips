@@ -5,9 +5,10 @@ import '../element/deskelement.dart';
 
 class LinePainter extends CustomPainter {
   late List<Location> listPosition;
+  late int mapid;
   List<Location> listPosition1 = [];
 
-  LinePainter({required this.listPosition});
+  LinePainter({required this.listPosition,required this.mapid});
 
   List<Location> getlistPosition1() {
     return this.listPosition1;
@@ -23,10 +24,14 @@ class LinePainter extends CustomPainter {
     final paint2 = Paint()..color = Colors.red;
 
     for (int i = 0; i < this.listPosition.length - 1; i++) {
-      canvas.drawCircle(
-          Offset(listPosition[i].x.toDouble(), listPosition[i].y.toDouble()),
-          0.5,
-          paint);
+      print(listPosition[i].map_id);
+      if(listPosition[i].map_id == mapid) {
+
+        canvas.drawCircle(
+            Offset(listPosition[i].x.toDouble(), listPosition[i].y.toDouble()),
+            0.5,
+            paint);
+      }
     }
     for (int i = 0; i < this.listPosition.length - 1; i++) {
       if (i == 0) {
