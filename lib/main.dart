@@ -198,7 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Stream<ScanResult> getScanStream() {
     return FlutterBluePlus.instance.scan(
-        timeout: const Duration(milliseconds: 3000),
+        timeout: const Duration(seconds: 6),
         allowDuplicates: true,
         scanMode: const ScanMode(2));
   }

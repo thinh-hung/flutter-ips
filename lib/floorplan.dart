@@ -295,65 +295,65 @@ class _FloorplanState extends State<Floorplan>
     ];
     localization.addAnchorNode(bleController.anchorList);
 
-    // if (localization.conditionMet) {
-    if (true) {
-      // Offset xyMinMax = localization.minMaxPosition();
+    if (localization.conditionMet) {
+      // if (true) {
+      Offset xyMinMax = localization.minMaxPosition();
 
-      // print('x: $xyMinMax.dx , y: $xyMinMax.y');
-      a.resetGraph();
-      a.dijkstraCaculate(
-          125,
-          125,
-          0,
-          widget
-              .search_location_finish); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3
-      listPosition = a.getWayPoint();
+      print('x: $xyMinMax.dx , y: $xyMinMax.y');
+      // a.resetGraph();
+      // a.dijkstraCaculate(
+      //     125,
+      //     125,
+      //     ww,
+      //     widget
+      //         .search_location_finish); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3
+      // listPosition = a.getWayPoint();
     }
-    for (int i = 0; i < listPosition.length; i++) {
-      var element = listPosition[i];
+    // for (int i = 0; i < listPosition.length; i++) {
+    //   var element = listPosition[i];
 
-      // if(element.map_id != 0){
-      //   listPosition.removeRange(i, listPosition.length);
-      //   break;
-      // }
-      if (element.id >= 35 && stairList.contains(listPosition[1].id)) {
-        listPosition.removeAt(i - 1);
-        setState(() {
-          openFloor = true;
-          controller.stop();
-        });
-        break;
-      } else {
-        openFloor = false;
-      }
-      //new xuongs tằng
-      if (element.id >= 35 && endStairList.contains(listPosition[1].id)) {
-        listPosition.removeAt(i - 1);
-        setState(() {
-          closeFloor = true;
-          controller.stop();
-        });
-        break;
-      } else {
-        closeFloor = false;
-      }
-      // bool b1 = a.x >= listPosition[listPosition.length - 1].x - 10;
-      // bool b2 = a.x <= listPosition[listPosition.length - 1].x + 10;
-      // bool b3 = a.y >= listPosition[listPosition.length - 1].y - 10;
-      // bool b4 = a.y <= listPosition[listPosition.length - 1].y + 10;
-      // if (b1 &&
-      //     b2 &&
-      //     b3 &&
-      //     b4 &&
-      //     element.location_id == listPosition[listPosition.length - 1]) {
-      //   setState(() {
-      //     print("tới r");
-      //     controller.stop();
-      //     showDialog();
-      //   });
-      //   break;
-      // }
-    }
+    //   // if(element.map_id != 0){
+    //   //   listPosition.removeRange(i, listPosition.length);
+    //   //   break;
+    //   // }
+    //   if (element.id >= 35 && stairList.contains(listPosition[1].id)) {
+    //     listPosition.removeAt(i - 1);
+    //     setState(() {
+    //       openFloor = true;
+    //       controller.stop();
+    //     });
+    //     break;
+    //   } else {
+    //     openFloor = false;
+    //   }
+    //   //new xuongs tằng
+    //   if (element.id >= 35 && endStairList.contains(listPosition[1].id)) {
+    //     listPosition.removeAt(i - 1);
+    //     setState(() {
+    //       closeFloor = true;
+    //       controller.stop();
+    //     });
+    //     break;
+    //   } else {
+    //     closeFloor = false;
+    //   }
+    //   // bool b1 = a.x >= listPosition[listPosition.length - 1].x - 10;
+    //   // bool b2 = a.x <= listPosition[listPosition.length - 1].x + 10;
+    //   // bool b3 = a.y >= listPosition[listPosition.length - 1].y - 10;
+    //   // bool b4 = a.y <= listPosition[listPosition.length - 1].y + 10;
+    //   // if (b1 &&
+    //   //     b2 &&
+    //   //     b3 &&
+    //   //     b4 &&
+    //   //     element.location_id == listPosition[listPosition.length - 1]) {
+    //   //   setState(() {
+    //   //     print("tới r");
+    //   //     controller.stop();
+    //   //     showDialog();
+    //   //   });
+    //   //   break;
+    //   // }
+    // }
 
     return InteractiveViewer(
         transformationController: controllerTF,
@@ -373,7 +373,7 @@ class _FloorplanState extends State<Floorplan>
             child: Stack(children: [
               RepaintBoundary(
                   child: CustomPaint(
-                painter: LinePainter(listPosition: listPosition,mapid: 1),
+                painter: LinePainter(listPosition: listPosition, mapid: 1),
               )),
               RepaintBoundary(
                 child: CustomPaint(

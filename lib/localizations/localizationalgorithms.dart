@@ -32,9 +32,9 @@ class Localization {
       print("Toa do 3 diem theo ban kinh gan nhat: ");
       print(
           "(${anchor1.centerX},${anchor1.centerY}) ---- (${anchor2.centerX},${anchor2.centerY}) ---- (${anchor3.centerX},${anchor3.centerY})");
-      distance1 = anchorList.elementAt(0).radius * 100;
-      distance2 = anchorList.elementAt(1).radius * 100;
-      distance3 = anchorList.elementAt(2).radius * 100;
+      distance1 = anchorList.elementAt(0).radius * 10;
+      distance2 = anchorList.elementAt(1).radius * 10;
+      distance3 = anchorList.elementAt(2).radius * 10;
     } else {
       conditionMet = false;
     }
