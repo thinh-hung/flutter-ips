@@ -8,7 +8,7 @@ class LinePainter extends CustomPainter {
   late int mapid;
   List<Location> listPosition1 = [];
 
-  LinePainter({required this.listPosition,required this.mapid});
+  LinePainter({required this.listPosition, required this.mapid});
 
   List<Location> getlistPosition1() {
     return this.listPosition1;
@@ -19,14 +19,13 @@ class LinePainter extends CustomPainter {
     final paint = Paint()
       ..color = Colors.cyan
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 15;
-    final paint1 = Paint()..color = Colors.blue;
+      ..strokeWidth = 5;
+    final paint1 = Paint()..color = Color.fromARGB(255, 246, 255, 0);
     final paint2 = Paint()..color = Colors.red;
 
     for (int i = 0; i < this.listPosition.length - 1; i++) {
       print(listPosition[i].map_id);
-      if(listPosition[i].map_id == mapid) {
-
+      if (listPosition[i].map_id == mapid) {
         canvas.drawCircle(
             Offset(listPosition[i].x.toDouble(), listPosition[i].y.toDouble()),
             0.5,

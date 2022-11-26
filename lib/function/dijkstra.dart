@@ -164,36 +164,37 @@ class Dijkstra {
 
     //thêm đường đi cho ma tran
     for (int i = 0; i < pathList.length; i++) {
-      addEdge(adj, pathList[i].startLocation.toInt(), pathList[i].endLocation.toInt(),
-          distance(pathList[i].startLocation, pathList[i].endLocation));
-      addEdge(adj, pathList[i].endLocation.toInt(), pathList[i].startLocation.toInt(),
-          distance(pathList[i].startLocation, pathList[i].endLocation));
+      addEdge(
+          adj,
+          pathList[i].startLocation.toInt(),
+          pathList[i].endLocation.toInt(),
+          distance(pathList[i].startLocation, pathList[i].endLocation)
+              .toDouble());
+      addEdge(
+          adj,
+          pathList[i].endLocation.toInt(),
+          pathList[i].startLocation.toInt(),
+          distance(pathList[i].startLocation, pathList[i].endLocation)
+              .toDouble());
     }
     for (int i = 0; i < positionList.length; i++) {
       if (positionList[i].id == 0) {
         positionList[i].x = currentX;
         positionList[i].y = currentY;
+        positionList[i].map_id = floorNumber;
         print("X0: " + positionList[i].x.toString());
         print("Y0: " + positionList[i].y.toString());
       }
     }
     double min = 99999;
     int vitri = 0;
-    if (floorNumber == 0) {
-      for (int i = 1; i <= 35; i++) {
-        if (min > distance(i, 0)) {
-          min = distance(i, 0);
-          vitri = i;
-        }
-      }
-    } else if (floorNumber == 1) {
-      for (int i = 35; i <= 72; i++) {
-        if (min > distance(i, 0)) {
-          min = distance(i, 0);
-          vitri = i;
-        }
+    for (int i = 1; i < positionList.length; i++) {
+      if (min > distance(i, 0) && positionList[i].map_id == floorNumber) {
+        min = distance(i, 0);
+        vitri = i;
       }
     }
+
     //print(vitri);
     addEdge(adj, 0, vitri, min);
     addEdge(adj, vitri, 0, min);

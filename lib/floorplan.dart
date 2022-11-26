@@ -300,14 +300,14 @@ class _FloorplanState extends State<Floorplan>
       Offset xyMinMax = localization.minMaxPosition();
 
       print('x: $xyMinMax.dx , y: $xyMinMax.y');
-      // a.resetGraph();
-      // a.dijkstraCaculate(
-      //     125,
-      //     125,
-      //     ww,
-      //     widget
-      //         .search_location_finish); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3
-      // listPosition = a.getWayPoint();
+      a.resetGraph();
+      a.dijkstraCaculate(
+          xyMinMax.dx.toInt(),
+          xyMinMax.dy.toInt(),
+          widget.map_id - 1,
+          widget
+              .search_location_finish); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3
+      listPosition = a.getWayPoint();
     }
     // for (int i = 0; i < listPosition.length; i++) {
     //   var element = listPosition[i];

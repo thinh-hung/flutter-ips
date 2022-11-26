@@ -51,10 +51,10 @@ class CirclePainter extends CustomPainter {
       for (int i = 0; i < radiusList.length; i++) {
         // danh dau mau tim 3 diem theo rssi gan nhat
         if (i < 3) {
-          canvas.drawCircle(
-              Offset(centerXList[i], centerYList[i]),
-              radiusList[i] * 20,
-              Paint()..color = Color.fromARGB(47, 155, 39, 176));
+          // canvas.drawCircle(
+          //     Offset(centerXList[i], centerYList[i]),
+          //     radiusList[i] * 20,
+          //     Paint()..color = Color.fromARGB(47, 155, 39, 176));
         }
         // radius
         var radius = radiusList[i];
