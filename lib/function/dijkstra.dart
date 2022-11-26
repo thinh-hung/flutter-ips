@@ -51,8 +51,8 @@ class Dijkstra {
     int start1 = start;
     back[start] = 0;
     weight[start] = 0;
-    connect = -1;
     do {
+      connect = -1;
       double min = double.infinity;
       for (int j = 0; j < graph.length; j++) {
         if (mark[j] == 0) {
@@ -206,12 +206,14 @@ class Dijkstra {
           mapId = positionList[j].map_id;
         }
       }
-      if (min > distance(i, 0) && mapId == floorNumber) {
+      print("mapId: $mapId");
+      if (min > distance(i, 0) && mapId == floorNumber + 1) {
         print("---------------------------------------------------- $i");
         min = distance(i, 0);
         vitri = i;
       }
     }
+    print("vitri: $vitri");
 
     //print(vitri);
     addEdge(adj, 0, vitri, min);
