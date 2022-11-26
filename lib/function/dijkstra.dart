@@ -159,8 +159,16 @@ class Dijkstra {
       }
     });
     //goi ham lấy Location database
+    int t =0;
+    for(int i=0;i<positionList.length;i++){
+      if(positionList[i].id > t ){
+        t=positionList[i].id;
+      }
 
-    initAdj(adj, positionList.length);
+    }
+    // print("lenth: "+positionList.length.toString());
+    // print("lenth: "+t.toString());
+    initAdj(adj, t);
 
     //thêm đường đi cho ma tran
     for (int i = 0; i < pathList.length; i++) {
@@ -210,7 +218,7 @@ class Dijkstra {
       for (var j = 0; j <= positionLength; j++) {
         arr.add(-1);
       }
-      adj.add(arr);
+      list.add(arr);
     }
   }
 

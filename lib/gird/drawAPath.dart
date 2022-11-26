@@ -17,10 +17,10 @@ class LinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.cyan
+      ..color = Colors.yellowAccent
       ..style = PaintingStyle.stroke
       ..strokeWidth = 5;
-    final paint1 = Paint()..color = Color.fromARGB(255, 246, 255, 0);
+    final paint1 = Paint()..color = Color.fromARGB(255, 0, 196, 255);
     final paint2 = Paint()..color = Colors.red;
 
     for (int i = 0; i < this.listPosition.length - 1; i++) {
