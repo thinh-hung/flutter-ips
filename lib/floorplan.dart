@@ -5,6 +5,7 @@ import 'package:floorplans/SearchRoom.dart';
 import 'package:floorplans/bledata.dart';
 import 'package:floorplans/gird/circle_painter.dart';
 import 'package:floorplans/model/LocationModel.dart';
+import 'package:floorplans/showResultSearch.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'element/Matrix.dart';
@@ -160,8 +161,8 @@ class _FloorplanState extends State<Floorplan>
       matrix2[x1][i] = val;
     }
 
+    int idroom=element.idLocation??0;
     matrix2[0][1] = 1;
-
     return Positioned(
       top: element.y,
       left: element.x,
@@ -177,6 +178,15 @@ class _FloorplanState extends State<Floorplan>
                 : element.baseFrame;
             idcolor = element.idLocation!;
           });
+
+          if(idroom!=0){
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      ShowResultSearch(locationResult: idroom),
+                ));
+          }
         },
         child: Ink(
           height: element.height,

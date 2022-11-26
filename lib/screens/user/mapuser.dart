@@ -104,16 +104,16 @@ class _UserMapScreenState extends State<UserMapScreen> {
               message: 'ID: ${element.location_id}',
               triggerMode:
               TooltipTriggerMode.tap, // ensures the label appears when tapped
-              onTriggered: () {
-                setState(() {
-                  twoEdge.add(element.location_id);
-                });
-                if (twoEdge.length == 2) {
-                  print(twoEdge);
-
-                  twoEdge.clear();
-                }
-              },
+              // onTriggered: () {
+              //   setState(() {
+              //     twoEdge.add(element.location_id);
+              //   });
+              //   if (twoEdge.length == 2) {
+              //     print(twoEdge);
+              //
+              //     twoEdge.clear();
+              //   }
+              // },
               preferBelow: false,
               child: Text(
                 "${element.location_id}",
