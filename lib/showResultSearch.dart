@@ -30,7 +30,6 @@ class _ShowResultSearchState extends State<ShowResultSearch>
     with SingleTickerProviderStateMixin {
   late RootElement root;
   late TransformationController controllerTF;
-  late AnimationController controller;
   List<List<int>> matrix2 = [];
   List<dynamic> roomsAndObj = [];
   late Location location = Location(id: 0, map_id: 0, x: 0, y: 0);
@@ -360,7 +359,6 @@ class _ShowResultSearchState extends State<ShowResultSearch>
 
   @override
   void dispose() {
-    controller.dispose();
     controllerTF.dispose();
     super.dispose();
   }
@@ -396,13 +394,15 @@ class _ShowResultSearchState extends State<ShowResultSearch>
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(shape: StadiumBorder()),
                       onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MyApp(
-                                  search_location_finish:
-                                      widget.locationResult),
-                            ));
+                        // Navigator.pushReplacement(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => MyApp(
+                        //           search_location_finish:
+                        //               widget.locationResult),
+                        //     ));
+                        Navigator.pop(context);
+                        Navigator.pop(context, widget.locationResult);
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,

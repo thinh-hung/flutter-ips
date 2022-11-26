@@ -9,8 +9,7 @@ import 'map.dart';
 
 class addEdgeDB extends StatefulWidget {
   final int floorNumber;
-  const addEdgeDB({Key? key, required this.floorNumber})
-      : super(key: key);
+  const addEdgeDB({Key? key, required this.floorNumber}) : super(key: key);
 
   @override
   State<addEdgeDB> createState() => _addEdgeDBState();
@@ -34,9 +33,8 @@ class _addEdgeDBState extends State<addEdgeDB> {
 
   createPath(location_id) async {
     DocumentReference documentReference =
-    firestoreInstance.collection("Path").doc();
+        firestoreInstance.collection("Path").doc();
     int currentId = await getCurrentMax();
-    print("-----------------------------------");
     print("end");
     print(currentId);
     print("start");
@@ -59,24 +57,24 @@ class _addEdgeDBState extends State<addEdgeDB> {
         builder: (BuildContext context) {
           return AlertDialog(
             shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: Text("Tạo cung"),
             content: Column(mainAxisSize: MainAxisSize.min, children: [
               Text("Bạn chắc chắn muốn tạo cung $location_id này chứ"),
             ]),
             actions: <Widget>[
               ElevatedButton(
-                // style: ElevatedButton.styleFrom(
-                //   backgroundColor: Colors.redAccent,
-                // ),
+                  // style: ElevatedButton.styleFrom(
+                  //   backgroundColor: Colors.redAccent,
+                  // ),
                   onPressed: () {
                     createPath(location_id);
                     // Navigator.of(context).pop();
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AdminMapScreen(
-                              floorNumber: widget.floorNumber),
+                          builder: (context) =>
+                              AdminMapScreen(floorNumber: widget.floorNumber),
                         ));
                   },
                   child: Text("Tạo"))
@@ -109,7 +107,7 @@ class _addEdgeDBState extends State<addEdgeDB> {
                     itemCount: snapshots.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot documentSnapshot =
-                      snapshots.data!.docs[index];
+                          snapshots.data!.docs[index];
                       return Dismissible(
                           onDismissed: (direction) {
                             showCreateDialog(documentSnapshot["location_id"]);
@@ -121,9 +119,7 @@ class _addEdgeDBState extends State<addEdgeDB> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(8)),
                             child: InkWell(
-                              onTap: () {
-
-                              },
+                              onTap: () {},
                               child: ListTile(
                                 leading: CircleAvatar(
                                     child: Text(

@@ -86,6 +86,8 @@ class _FloorplanState extends State<Floorplan>
   @override
   void didUpdateWidget(covariant Floorplan oldWidget) {
     // TODO: implement didUpdateWidget
+    // print("getLocationId : ${SearchRoom.getLocationId()}");
+    widget.search_location_finish = SearchRoom.getLocationId();
     super.didUpdateWidget(oldWidget);
     centerXList = bleController.selectedCenterXList;
     centerYList = bleController.selectedCenterYList;
@@ -114,9 +116,6 @@ class _FloorplanState extends State<Floorplan>
   void initState() {
     controllerTF = TransformationController();
     // debugPrint(widget.jsonFloorplan);
-    print("---------------------------------");
-    print("du lieu ket qua truyen  qua la: " +
-        widget.search_location_finish.toString());
     load();
     super.initState();
   }

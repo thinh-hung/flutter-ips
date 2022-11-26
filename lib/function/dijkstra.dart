@@ -69,7 +69,6 @@ class Dijkstra {
       }
       start = connect;
       mark[start] = 1;
-      print("connect $connect");
     } while (connect != -1 && start != finish);
     totalPathValue = weight[finish];
 
@@ -152,7 +151,6 @@ class Dijkstra {
         positionList.add(d);
       }
     });
-    print("${positionList.length},,,,,,,,,");
     //goi ham lấy path database
     pathS = getListPath();
     await pathS.then((value) {
@@ -199,23 +197,17 @@ class Dijkstra {
     double min = 99999;
     int vitri = 0;
     int mapId = 0;
-    print("$t ttttttttttttttttttt");
     for (int i = 1; i <= t; i++) {
       for (int j = 0; j < positionList.length; j++) {
         if (positionList[j].id == i) {
           mapId = positionList[j].map_id;
         }
       }
-      print("mapId: $mapId");
       if (min > distance(i, 0) && mapId == floorNumber + 1) {
-        print("---------------------------------------------------- $i");
         min = distance(i, 0);
         vitri = i;
       }
     }
-    print("vitri: $vitri");
-
-    //print(vitri);
     addEdge(adj, 0, vitri, min);
     addEdge(adj, vitri, 0, min);
     dijkstra(adj, 0, finish);

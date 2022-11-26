@@ -7,6 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SearchRoom extends SearchDelegate {
+  static int idLocation = 0;
+  static int getLocationId() {
+    return idLocation;
+  }
+
   Future<List<Map<String, dynamic>>> getData() async {
     List<Map<String, dynamic>> roomWithID = [];
 
@@ -93,12 +98,13 @@ class SearchRoom extends SearchDelegate {
         var result = matchQuery[index];
         return InkWell(
             onTap: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        ShowResultSearch(locationResult: result['id']),
-                  ));
+              _navigateAndDisplaySelection(context, result['id']);
+              // Navigator.pushReplacement(
+              //     context,
+              //     MaterialPageRoute(
+              //       builder: (context) =>
+              //           ShowResultSearch(locationResult: result['id']),
+              //     ));
             },
             child: ListTile(
               title: Text(
@@ -108,5 +114,16 @@ class SearchRoom extends SearchDelegate {
             ));
       },
     );
+  }
+
+  Future<void> _navigateAndDisplaySelection(
+      BuildContext context, int id) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ShowResultSearch(locationResult: id)),
+    );
+    print("result $result");
+    idLocation = result;
   }
 }
