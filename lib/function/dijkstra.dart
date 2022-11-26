@@ -51,8 +51,8 @@ class Dijkstra {
     int start1 = start;
     back[start] = 0;
     weight[start] = 0;
+    connect = -1;
     do {
-      connect = -1;
       double min = double.infinity;
       for (int j = 0; j < graph.length; j++) {
         if (mark[j] == 0) {
@@ -69,6 +69,7 @@ class Dijkstra {
       }
       start = connect;
       mark[start] = 1;
+      print("connect $connect");
     } while (connect != -1 && start != finish);
     totalPathValue = weight[finish];
 
@@ -94,8 +95,8 @@ class Dijkstra {
   }
 
   double distance(int a, int b) {
-    Location A = positionList[1];
-    Location B = positionList[1];
+    Location A = positionList[0];
+    Location B = positionList[0];
 
     for (int i = 0; i < positionList.length; i++) {
       if (positionList[i].getid() == a) {
@@ -144,23 +145,32 @@ class Dijkstra {
     // int positionLength = await getDeskLengthONha();
     listLocationS = getListLocation();
     await listLocationS.then((value) {
+      positionList.clear();
       // print(value);
       for (int i = 0; i < value.length; i++) {
         final Location d = Location.fromJson(value[i]); // Parse data
         positionList.add(d);
       }
     });
+    print("${positionList.length},,,,,,,,,");
     //goi ham lấy path database
     pathS = getListPath();
     await pathS.then((value) {
+      pathList.clear();
       for (int i = 0; i < value.length; i++) {
         final TablePath d = TablePath.fromJson(value[i]); // Parse data
         pathList.add(d);
       }
     });
     //goi ham lấy Location database
+    int t = 0;
+    for (int i = 0; i < positionList.length; i++) {
+      if (positionList[i].id > t) {
+        t = positionList[i].id;
+      }
+    }
 
-    initAdj(adj, positionList.length);
+    initAdj(adj, t);
 
     //thêm đường đi cho ma tran
     for (int i = 0; i < pathList.length; i++) {
@@ -188,8 +198,16 @@ class Dijkstra {
     }
     double min = 99999;
     int vitri = 0;
-    for (int i = 1; i < positionList.length; i++) {
-      if (min > distance(i, 0) && positionList[i].map_id == floorNumber) {
+    int mapId = 0;
+    print("$t ttttttttttttttttttt");
+    for (int i = 1; i <= t; i++) {
+      for (int j = 0; j < positionList.length; j++) {
+        if (positionList[j].id == i) {
+          mapId = positionList[j].map_id;
+        }
+      }
+      if (min > distance(i, 0) && mapId == floorNumber) {
+        print("---------------------------------------------------- $i");
         min = distance(i, 0);
         vitri = i;
       }
@@ -198,19 +216,19 @@ class Dijkstra {
     //print(vitri);
     addEdge(adj, 0, vitri, min);
     addEdge(adj, vitri, 0, min);
-
     dijkstra(adj, 0, finish);
   }
 
 // tao ma tran
   Future<void> initAdj(List<List<double>> list, int positionLength) async {
+    list.clear();
     // print(a);
     for (var i = 0; i <= positionLength; i++) {
       List<double> arr = [];
       for (var j = 0; j <= positionLength; j++) {
         arr.add(-1);
       }
-      adj.add(arr);
+      list.add(arr);
     }
   }
 

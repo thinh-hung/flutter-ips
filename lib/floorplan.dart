@@ -161,78 +161,87 @@ class _FloorplanState extends State<Floorplan>
       matrix2[x1][i] = val;
     }
     matrix2[0][1] = 1;
-    int idroom=element.idLocation??0;
+    int idroom = element.idLocation ?? 0;
 
-    List<Map<String,int>> stair=[{"x":340,"y":580},{"x":342,"y":580},{"x":200,"y":698},{"x":109,"y":409},{"x":470,"y":261},{"x":198,"y":697}];
-    var check=true;
-    print("======================");
+    List<Map<String, int>> stair = [
+      {"x": 340, "y": 580},
+      {"x": 342, "y": 580},
+      {"x": 200, "y": 698},
+      {"x": 109, "y": 409},
+      {"x": 470, "y": 261},
+      {"x": 198, "y": 697}
+    ];
+    var check = true;
+
     stair.forEach((x) {
-      print(x["x"]);
-      if(x["x"]==element.x&&x["y"]==element.y){
-        check=false;
+      if (x["x"] == element.x && x["y"] == element.y) {
+        check = false;
       }
     });
     // print(check);
-    return check?Positioned(
-      top: element.y,
-      left: element.x,
-      child: InkWell(
-        onTap: () {
-          print(element.idLocation.toString());
-          setState(() {
-            element.fill = element.fill == element.baseFill
-                ? Colors.brown[300]
-                : element.baseFill;
-            element.frame = element.frame == element.baseFrame
-                ? Colors.white
-                : element.baseFrame;
-            idcolor = element.idLocation!;
-          });
+    return check
+        ? Positioned(
+            top: element.y,
+            left: element.x,
+            child: InkWell(
+              onTap: () {
+                print(element.idLocation.toString());
+                setState(() {
+                  element.fill = element.fill == element.baseFill
+                      ? Colors.brown[300]
+                      : element.baseFill;
+                  element.frame = element.frame == element.baseFrame
+                      ? Colors.white
+                      : element.baseFrame;
+                  idcolor = element.idLocation!;
+                });
 
-          if(idroom!=0){
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ShowResultSearch(locationResult: idroom),
-                ));
-          }
-        },
-        child: Ink(
-          height: element.height,
-          width: element.width,
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: idcolor == element.idLocation
-                  ? element.frame as Color
-                  : Colors.black,
-              width: 2,
+                if (idroom != 0) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            ShowResultSearch(locationResult: idroom),
+                      ));
+                }
+              },
+              child: Ink(
+                height: element.height,
+                width: element.width,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: idcolor == element.idLocation
+                        ? element.frame as Color
+                        : Colors.black,
+                    width: 2,
+                  ),
+                  color: idcolor == element.idLocation
+                      ? element.fill as Color
+                      : Colors.white,
+                ),
+                child: Center(
+                    child: Text(
+                  "${element.roomName}",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                )),
+              ),
             ),
-            color: idcolor == element.idLocation
-                ? element.fill as Color
-                : Colors.white,
-          ),
-          child: Center(
-              child: Text(
-            "${element.roomName}",
-            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          )),
-        ),
-      ),
-    ):Positioned(
-      top: element.y,
-      left: element.x,
-      child: Container(
-          height: element.height,
-          width: element.width,
-          child: Icon(
-            Icons.stairs,
-            size: 50,
-            color: Colors.brown,
           )
-        // color: element.fill,
-      ),
-    );
+        : Positioned(
+            top: element.y,
+            left: element.x,
+            child: Container(
+                height: element.height,
+                width: element.width,
+                child: Icon(
+                  Icons.stairs,
+                  size: 50,
+                  color: Colors.brown,
+                )
+                // color: element.fill,
+                ),
+          );
   }
 
   Widget buildStair(BuildContext context, RectElement element) {
