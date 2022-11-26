@@ -114,7 +114,7 @@ class _FloorplanState extends State<Floorplan>
   void initState() {
     controllerTF = TransformationController();
     // debugPrint(widget.jsonFloorplan);
-    print("999999999999999999999999999999999999");
+    print("---------------------------------");
     print("du lieu ket qua truyen  qua la: " +
         widget.search_location_finish.toString());
     load();
@@ -160,10 +160,20 @@ class _FloorplanState extends State<Floorplan>
       matrix2[x][i] = val;
       matrix2[x1][i] = val;
     }
-
-    int idroom=element.idLocation??0;
     matrix2[0][1] = 1;
-    return Positioned(
+    int idroom=element.idLocation??0;
+
+    List<Map<String,int>> stair=[{"x":340,"y":580},{"x":342,"y":580},{"x":200,"y":698},{"x":109,"y":409},{"x":470,"y":261},{"x":198,"y":697}];
+    var check=true;
+    print("======================");
+    stair.forEach((x) {
+      print(x["x"]);
+      if(x["x"]==element.x&&x["y"]==element.y){
+        check=false;
+      }
+    });
+    // print(check);
+    return check?Positioned(
       top: element.y,
       left: element.x,
       child: InkWell(
@@ -208,6 +218,19 @@ class _FloorplanState extends State<Floorplan>
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           )),
         ),
+      ),
+    ):Positioned(
+      top: element.y,
+      left: element.x,
+      child: Container(
+          height: element.height,
+          width: element.width,
+          child: Icon(
+            Icons.stairs,
+            size: 50,
+            color: Colors.brown,
+          )
+        // color: element.fill,
       ),
     );
   }
