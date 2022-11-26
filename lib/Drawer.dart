@@ -50,7 +50,7 @@ class drawermenu extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height / 2.3,
+            height: MediaQuery.of(context).size.height / 2,
             child: DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.white,
