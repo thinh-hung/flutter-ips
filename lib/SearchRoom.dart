@@ -98,6 +98,7 @@ class SearchRoom extends SearchDelegate {
         var result = matchQuery[index];
         return InkWell(
             onTap: () {
+              close(context, result['id']);
               _navigateAndDisplaySelection(context, result['id']);
               // Navigator.pushReplacement(
               //     context,
