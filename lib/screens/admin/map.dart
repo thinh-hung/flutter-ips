@@ -279,8 +279,9 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
                 .toScene(details.localPosition)
                 .dy
                 .toStringAsFixed(2));
-            ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Tọa độ hiện tại: X: $x - Y: $y')));
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                duration: const Duration(milliseconds: 500),
+                content: Text('Tọa độ hiện tại: X: $x - Y: $y')));
           },
           child: Stack(
             children: [
