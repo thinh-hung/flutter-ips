@@ -55,6 +55,7 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
     var snapshot = (await FirebaseFirestore.instance
         .collection('Beacon')
         .where('map_id', isEqualTo: widget.floorNumber)
+        .where('isActive', isEqualTo: true)
         .get());
     var documents = [];
     snapshot.docs.forEach((element) {
@@ -262,7 +263,9 @@ class _AdminMapScreenState extends State<AdminMapScreen> {
             logoutButton(context),
           ],
         ),
-        drawer: draweradmin(floorNumber: widget.floorNumber,),
+        drawer: draweradmin(
+          floorNumber: widget.floorNumber,
+        ),
         body: GestureDetector(
           onTapUp: (TapUpDetails details) {
             print(

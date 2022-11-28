@@ -88,7 +88,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     // firebase 11/16/2022
-    _futureData = _referenceBeaconList.get();
+    _futureData = _referenceBeaconList.where('isActive', isEqualTo: true).get();
     _futureData.then(
       (value) {
         setState(() {

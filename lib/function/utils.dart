@@ -63,8 +63,9 @@ loadTextMap(BuildContext context) => Column(
 Widget logoutButton(BuildContext context) {
   return IconButton(
       onPressed: () {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Đăng xuất thành công')));
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            duration: const Duration(milliseconds: 500),
+            content: Text('Đăng xuất thành công')));
         Navigator.pushAndRemoveUntil<dynamic>(
           context,
           MaterialPageRoute<dynamic>(

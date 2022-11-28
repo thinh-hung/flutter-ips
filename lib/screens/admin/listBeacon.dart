@@ -21,6 +21,37 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
   String mac_address = "";
   int rssi_at_1m = -66;
 
+  Future<bool> getStatus(int idBeacon) {
+    return firestoreInstance
+        .collection("Beacon")
+        .where('beacon_id', isEqualTo: idBeacon)
+        .get()
+        .then((value) async {
+      return value.docs.first.data()['isActive'];
+    });
+  }
+
+  updateStatus(int beacon_id, bool isActive) async {
+    final documentReference = await firestoreInstance
+        .collection("Beacon")
+        .where('beacon_id', isEqualTo: beacon_id)
+        .get()
+        .then((value) {
+      return firestoreInstance.collection("Beacon").doc(value.docs.first.id);
+    });
+    Map<String, dynamic> beacon = {"isActive": isActive};
+    documentReference.set(beacon, SetOptions(merge: true)).whenComplete(() {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(milliseconds: 500),
+          content: Text(
+            'Cập nhật trạng thái thành công',
+          )));
+    }).onError((error, stackTrace) => ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(
+            duration: const Duration(milliseconds: 500),
+            content: Text('Cập nhật thất bại'))));
+  }
+
   Future<int> getCurrentMax() {
     return firestoreInstance
         .collection("Beacon")
@@ -34,7 +65,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
 
   createBeacon() async {
     DocumentReference documentReference =
-    firestoreInstance.collection("Beacon").doc();
+        firestoreInstance.collection("Beacon").doc();
     int currentId = await getCurrentMax();
 
     //Map
@@ -45,13 +76,17 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
       "y": y,
       "mac_address": mac_address,
       "rssi_at_1m": rssi_at_1m,
+      "isActive": true,
     };
 
     documentReference.set(beacon).whenComplete(() {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Thêm beacon thành công')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(milliseconds: 500),
+          content: Text('Thêm beacon thành công')));
     }).onError((error, stackTrace) => ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Thêm thất bại'))));
+        .showSnackBar(SnackBar(
+            duration: const Duration(milliseconds: 500),
+            content: Text('Thêm thất bại'))));
   }
 
   updateBeacon(beacon_id, xnew, ynew, mac_adressnew, rssi_at_1mnew) async {
@@ -71,10 +106,13 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
       "rssi_at_1m": rssi_at_1mnew,
     };
     documentReference.set(location, SetOptions(merge: true)).whenComplete(() {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Cập nhật beacon thành công')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(milliseconds: 500),
+          content: Text('Cập nhật beacon thành công')));
     }).onError((error, stackTrace) => ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Cập nhật thất bại'))));
+        .showSnackBar(SnackBar(
+            duration: const Duration(milliseconds: 500),
+            content: Text('Cập nhật thất bại'))));
   }
 
   deleteBeacon(beacon_id) async {
@@ -87,10 +125,13 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
     });
 
     documentReference.delete().whenComplete(() {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Xóa beacon thành công')));
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          duration: const Duration(milliseconds: 500),
+          content: Text('Xóa beacon thành công')));
     }).onError((error, stackTrace) => ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text('Xóa thất bại'))));
+        .showSnackBar(SnackBar(
+            duration: const Duration(milliseconds: 500),
+            content: Text('Xóa thất bại'))));
   }
 
   void showUpdateDialog(int beacon_id, int currentX, int currentY,
@@ -104,7 +145,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: Text("Cập nhật beacon"),
             content: Column(
               mainAxisSize: MainAxisSize.min,
@@ -145,7 +186,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   decoration:
-                  InputDecoration(hintText: "Nhập giá trị RSSI tại 1m: "),
+                      InputDecoration(hintText: "Nhập giá trị RSSI tại 1m: "),
                   onChanged: (String value) {
                     if (value != "") this.rssi_at_1m = int.parse(value);
                   },
@@ -171,16 +212,16 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
         builder: (BuildContext context) {
           return AlertDialog(
             shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             title: Text("Xóa beacon"),
             content: Column(mainAxisSize: MainAxisSize.min, children: [
               Text("Bạn chắc chắn muốn xóa beacon số $beacon_id này chứ"),
             ]),
             actions: <Widget>[
               ElevatedButton(
-                // style: ElevatedButton.styleFrom(
-                //   backgroundColor: Colors.redAccent,
-                // ),
+                  // style: ElevatedButton.styleFrom(
+                  //   backgroundColor: Colors.redAccent,
+                  // ),
                   onPressed: () {
                     deleteBeacon(beacon_id);
                     Navigator.of(context).pop();
@@ -218,7 +259,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         decoration:
-                        InputDecoration(hintText: "Nhập tọa độ X: "),
+                            InputDecoration(hintText: "Nhập tọa độ X: "),
                         onChanged: (String value) {
                           if (value != "") x = int.parse(value);
                         },
@@ -229,14 +270,14 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                           FilteringTextInputFormatter.digitsOnly
                         ],
                         decoration:
-                        InputDecoration(hintText: "Nhập tọa độ Y: "),
+                            InputDecoration(hintText: "Nhập tọa độ Y: "),
                         onChanged: (String value) {
                           if (value != "") y = int.parse(value);
                         },
                       ),
                       TextField(
                         decoration:
-                        InputDecoration(hintText: "Nhập địa chỉ Mac: "),
+                            InputDecoration(hintText: "Nhập địa chỉ Mac: "),
                         onChanged: (String value) {
                           if (value != "") this.mac_address = value;
                         },
@@ -284,7 +325,7 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                     itemCount: snapshots.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot documentSnapshot =
-                      snapshots.data!.docs[index];
+                          snapshots.data!.docs[index];
                       return Dismissible(
                           onDismissed: (direction) {
                             showDeleteDialog(documentSnapshot["beacon_id"]);
@@ -305,25 +346,40 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                                     documentSnapshot["rssi_at_1m"]);
                               },
                               child: ListTile(
-                                leading: CircleAvatar(
-                                    child: Text(
-                                        '#${(documentSnapshot["beacon_id"])}')),
-                                title: Text("X=" +
-                                    documentSnapshot["x"].toString() +
-                                    " Y=" +
-                                    documentSnapshot["y"].toString()),
-                                subtitle: Text(
-                                    'Mac Address: ${documentSnapshot["mac_address"]}\nRSSI 1m: ${documentSnapshot['rssi_at_1m']}'),
-                                trailing: IconButton(
-                                    icon: Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                    ),
-                                    onPressed: () {
-                                      showDeleteDialog(
-                                          documentSnapshot["beacon_id"]);
-                                    }),
-                              ),
+                                  leading: CircleAvatar(
+                                      child: Text(
+                                          '#${(documentSnapshot["beacon_id"])}')),
+                                  title: Text("X=" +
+                                      documentSnapshot["x"].toString() +
+                                      " Y=" +
+                                      documentSnapshot["y"].toString()),
+                                  subtitle: Text(
+                                      'MAC: ${documentSnapshot["mac_address"]}\nRSSI 1m: ${documentSnapshot['rssi_at_1m']}'),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Switch(
+                                        value: documentSnapshot["isActive"],
+                                        onChanged: (bool value) {
+                                          // This is called when the user toggles the switch.
+                                          setState(() {
+                                            updateStatus(
+                                                documentSnapshot["beacon_id"],
+                                                value);
+                                          });
+                                        },
+                                      ),
+                                      IconButton(
+                                          icon: Icon(
+                                            Icons.delete,
+                                            color: Colors.red,
+                                          ),
+                                          onPressed: () {
+                                            showDeleteDialog(
+                                                documentSnapshot["beacon_id"]);
+                                          }),
+                                    ],
+                                  )),
                             ),
                           ));
                     });
