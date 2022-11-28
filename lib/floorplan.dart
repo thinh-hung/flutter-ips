@@ -76,8 +76,6 @@ class _FloorplanState extends State<Floorplan>
   }
 
   void load() {
-    print(dataRoomAndObj);
-
     //-------------Matrix-------------------
     matrix2 = matrix(900, 900);
     // print("data.jsonFloorplan" + data.toString());

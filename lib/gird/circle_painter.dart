@@ -49,65 +49,66 @@ class CirclePainter extends CustomPainter {
       }
 
       for (int i = 0; i < radiusList.length; i++) {
-        // danh dau mau tim 3 diem theo rssi gan nhat
-        if (i < 3) {
-          // canvas.drawCircle(
-          //     Offset(centerXList[i], centerYList[i]),
-          //     radiusList[i] * 20,
-          //     Paint()..color = Color.fromARGB(47, 155, 39, 176));
-        }
-        // radius
-        var radius = radiusList[i];
+        //   // danh dau mau tim 3 diem theo rssi gan nhat
+        //   if (i < 3) {
+        //     // canvas.drawCircle(
+        //     //     Offset(centerXList[i], centerYList[i]),
+        //     //     radiusList[i] * 20,
+        //     //     Paint()..color = Color.fromARGB(47, 155, 39, 176));
+        //   }
+        //   // radius
         anchorList.add(Anchor(
-            centerX: centerXList[i], centerY: centerYList[i], radius: radius));
+            centerX: centerXList[i],
+            centerY: centerYList[i],
+            radius: radiusList[i]));
         bleController.anchorList = anchorList; // update
-        // canvas.drawCircle(
-        //     Offset(centerXList[i], centerYList[i]), radius * 100, anchorePaint);
-        // centerX, centerY
-        canvas.drawCircle(
-            Offset(centerXList[i], centerYList[i]), 2, anchorePaint);
-        // anchor text paint
-        var anchorTextPainter = TextPainter(
-          text: TextSpan(
-            text: 'Anchor$i\n(${centerXList[i]}, ${centerYList[i]})',
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 12,
-            ),
-          ),
-          textDirection: TextDirection.ltr,
-        );
-        anchorTextPainter.layout(
-          minWidth: 0,
-          maxWidth: size.width,
-        );
-        anchorTextPainter.paint(
-            canvas, Offset(centerXList[i] - 27, centerYList[i]));
-        // radius text paint
-        var radiusTextPainter = TextPainter(
-          text: TextSpan(
-            text: '  ${radius.toStringAsFixed(2)}m',
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 10,
-            ),
-          ),
-          textDirection: TextDirection.ltr,
-        );
-        radiusTextPainter.layout(
-          minWidth: 0,
-          maxWidth: size.width,
-        );
-        radiusTextPainter.paint(
-            canvas, Offset(centerXList[i], centerYList[i] - (radius) / 2 - 5));
-        // draw a line
-        //var p1 = Offset(centerXList[i], centerYList[i]);
-        //var p2 = Offset(
-        //    centerXList[i], centerYList[i] - radiusList[i]);
+        //   // canvas.drawCircle(
+        //   //     Offset(centerXList[i], centerYList[i]), radius * 100, anchorePaint);
+        //   // centerX, centerY
+        //   canvas.drawCircle(
+        //       Offset(centerXList[i], centerYList[i]), 2, anchorePaint);
+        //   // anchor text paint
+        //   var anchorTextPainter = TextPainter(
+        //     text: TextSpan(
+        //       text: 'Anchor$i\n(${centerXList[i]}, ${centerYList[i]})',
+        //       style: const TextStyle(
+        //         color: Colors.black,
+        //         fontSize: 12,
+        //       ),
+        //     ),
+        //     textDirection: TextDirection.ltr,
+        //   );
+        //   anchorTextPainter.layout(
+        //     minWidth: 0,
+        //     maxWidth: size.width,
+        //   );
+        //   anchorTextPainter.paint(
+        //       canvas, Offset(centerXList[i] - 27, centerYList[i]));
+        //   // radius text paint
+        //   var radiusTextPainter = TextPainter(
+        //     text: TextSpan(
+        //       text: '  ${radius.toStringAsFixed(2)}m',
+        //       style: const TextStyle(
+        //         color: Colors.black,
+        //         fontSize: 10,
+        //       ),
+        //     ),
+        //     textDirection: TextDirection.ltr,
+        //   );
+        //   radiusTextPainter.layout(
+        //     minWidth: 0,
+        //     maxWidth: size.width,
+        //   );
+        //   radiusTextPainter.paint(
+        //       canvas, Offset(centerXList[i], centerYList[i] - (radius) / 2 - 5));
+        //   // draw a line
+        //   //var p1 = Offset(centerXList[i], centerYList[i]);
+        //   //var p2 = Offset(
+        //   //    centerXList[i], centerYList[i] - radiusList[i]);
 
-        //canvas.drawLine(p1, p2, anchorePaint);
-        drawDashedLine(
-            canvas, anchorePaint, centerXList[i], centerYList[i], radius);
+        //   //canvas.drawLine(p1, p2, anchorePaint);
+        //   drawDashedLine(
+        //       canvas, anchorePaint, centerXList[i], centerYList[i], radius);
       }
       // decision max distance if more or equal 3 beacon
       localization.addAnchorNode(anchorList);

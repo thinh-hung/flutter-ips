@@ -24,7 +24,6 @@ class Localization {
       anchorList.sort(
         (a, b) => a.radius.compareTo(b.radius),
       );
-
       anchor1 = anchorList.elementAt(0);
       anchor2 = anchorList.elementAt(1);
       anchor3 = anchorList.elementAt(2);
