@@ -182,9 +182,6 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
                 TextFormField(
                   initialValue: rssi_at_1m.toString(),
                   keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
                   decoration:
                       InputDecoration(hintText: "Nhập giá trị RSSI tại 1m: "),
                   onChanged: (String value) {
