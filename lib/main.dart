@@ -53,6 +53,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Floorplans Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
@@ -219,7 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Ban Do Tang tren Khoa"),
+        title: Text("Bản đồ tầng  ${_mapIds == 1 ? "trệt" : _mapIds - 1}"),
         backgroundColor: Colors.blueAccent,
         elevation: 0,
         actions: [
