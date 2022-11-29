@@ -163,7 +163,7 @@ class _UserMapScreenState extends State<UserMapScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-              "Floor ${widget.floorNumber == 1 ? "ground" : widget.floorNumber - 1}"),
+              "Tầng ${widget.floorNumber == 1 ? "trệt" : widget.floorNumber - 1}"),
           actions: [
             logoutButton(context),
           ],

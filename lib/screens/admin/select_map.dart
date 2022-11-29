@@ -24,7 +24,7 @@ class _SelectMapScreenState extends State<SelectMapScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: Text("EDIT FLOOR")),
+          title: Center(child: Text("Danh sách tầng")),
           actions: [
             logoutButton(context),
           ],

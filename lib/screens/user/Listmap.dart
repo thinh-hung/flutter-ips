@@ -22,7 +22,7 @@ class _ListMapScreenState extends State<ListMapScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Center(child: Text("LIST FLOOR")),
+          title: Center(child: Text("Danh sách tầng")),
           actions: [
             logoutButton(context),
           ],

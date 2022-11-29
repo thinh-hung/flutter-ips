@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'About.dart';
 
 final List<String> listname = [
-  "Home",
-  "Log out",
+  "Danh sách tầng",
+  "Đăng xuất",
 ];
 final List<IconData> listicon = [
   Icons.gps_fixed,

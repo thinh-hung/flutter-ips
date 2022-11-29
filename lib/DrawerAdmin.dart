@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 int floorNumbernav=1;
 
 final List<String> listname = [
-  "List floorplan",
-  "List location",
-  "List beacon",
-  "List path",
-  "List room",
+  "Danh sách tầng",
+  "Danh sách điểm ảo",
+  "Danh sách beacon",
+  "Danh sách đường đi",
+  "Danh sách phòng",
 ];
 final List<IconData> listicon = [
   Icons.map,
