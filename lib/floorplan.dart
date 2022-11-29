@@ -412,7 +412,8 @@ class _FloorplanState extends State<Floorplan>
             child: Stack(children: [
               RepaintBoundary(
                   child: CustomPaint(
-                painter: LinePainter(listPosition: listPosition, mapid: 1),
+                painter: LinePainter(
+                    listPosition: listPosition, mapid: widget.map_id),
               )),
               RepaintBoundary(
                 child: CustomPaint(

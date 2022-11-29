@@ -63,30 +63,47 @@ class _ListBeaconScreenState extends State<ListBeaconScreen> {
     });
   }
 
+  Future<bool> isMacAlreadyExists(String mac) {
+    return firestoreInstance
+        .collection("Beacon")
+        .where("mac_address", isEqualTo: mac)
+        .limit(1)
+        .get()
+        .then((value) async {
+      return value.docs.length == 1;
+    });
+  }
+
   createBeacon() async {
-    DocumentReference documentReference =
-        firestoreInstance.collection("Beacon").doc();
-    int currentId = await getCurrentMax();
+    bool isAlreadyExists = await isMacAlreadyExists(mac_address);
+    if (!isAlreadyExists) {
+      DocumentReference documentReference =
+          firestoreInstance.collection("Beacon").doc();
+      int currentId = await getCurrentMax();
+      //Map
+      Map<String, dynamic> beacon = {
+        "beacon_id": currentId + 1,
+        "map_id": widget.floorNumber,
+        "x": x,
+        "y": y,
+        "mac_address": mac_address,
+        "rssi_at_1m": rssi_at_1m,
+        "isActive": true,
+      };
 
-    //Map
-    Map<String, dynamic> beacon = {
-      "beacon_id": currentId + 1,
-      "map_id": widget.floorNumber,
-      "x": x,
-      "y": y,
-      "mac_address": mac_address,
-      "rssi_at_1m": rssi_at_1m,
-      "isActive": true,
-    };
-
-    documentReference.set(beacon).whenComplete(() {
+      documentReference.set(beacon).whenComplete(() {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            duration: const Duration(milliseconds: 500),
+            content: Text('Thêm beacon thành công')));
+      }).onError((error, stackTrace) => ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(
+              duration: const Duration(milliseconds: 500),
+              content: Text('Thêm thất bại'))));
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           duration: const Duration(milliseconds: 500),
-          content: Text('Thêm beacon thành công')));
-    }).onError((error, stackTrace) => ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(
-            duration: const Duration(milliseconds: 500),
-            content: Text('Thêm thất bại'))));
+          content: Text('Địa chỉ MAC đã tồn tại')));
+    }
   }
 
   updateBeacon(beacon_id, xnew, ynew, mac_adressnew, rssi_at_1mnew) async {
