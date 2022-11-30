@@ -18,7 +18,7 @@ import 'gird/gird_painter.dart';
 import 'model/LocationModel.dart';
 
 class ShowResultSearch extends StatefulWidget {
-  final int locationResult;
+  final Map<String, dynamic> locationResult;
   const ShowResultSearch({required this.locationResult, Key? key})
       : super(key: key);
 
@@ -32,17 +32,12 @@ class _ShowResultSearchState extends State<ShowResultSearch>
   late TransformationController controllerTF;
   List<List<int>> matrix2 = [];
   List<dynamic> roomsAndObj = [];
-  late Location location = Location(id: 0, map_id: 0, x: 0, y: 0);
-  late Room room = Room(
-      id: 0, x: 0, y: 0, w: 0, h: 0, location_id: 0, map_id: 0, roomName: "");
   late final dataRoomAndObj = [];
   Future<List<dynamic>> getRoomsAndObj() async {
-    getLocationFirebase();
-    getRoomFirebase();
     var documents = [];
     var snapshot2 = (await FirebaseFirestore.instance
         .collection('Object Map')
-        .where('map_id', isEqualTo: location.map_id)
+        .where('map_id', isEqualTo: widget.locationResult["location"].map_id)
         .get());
     snapshot2.docs.forEach((element) {
       var document = element.data();
@@ -50,7 +45,7 @@ class _ShowResultSearchState extends State<ShowResultSearch>
     });
     var snapshot = (await FirebaseFirestore.instance
         .collection('Room')
-        .where('map_id', isEqualTo: location.map_id)
+        .where('map_id', isEqualTo: widget.locationResult["location"].map_id)
         .get());
     snapshot.docs.forEach((element) {
       var document = element.data();
@@ -66,54 +61,23 @@ class _ShowResultSearchState extends State<ShowResultSearch>
     // print("data.jsonFloorplan" + data.toString());
   }
 
-  Future<Room> getRoomAreaByLocation_Id() async {
-    var snapshot = (await FirebaseFirestore.instance
-        .collection('Room')
-        .where('location_id', isEqualTo: widget.locationResult)
-        .get());
-    late final Room room;
-
-    snapshot.docs.forEach((element) {
-      var document = element.data();
-      room = Room.fromMap(document);
-    });
-    return room;
-  }
-
-  Future<Location> getLocation() async {
-    var snapshot = (await FirebaseFirestore.instance
-        .collection('Location')
-        .where('location_id', isEqualTo: widget.locationResult)
-        .get());
-    late final Location location;
-
-    snapshot.docs.forEach((element) {
-      var document = element.data();
-      location = Location.fromJson(document);
-    });
-    return location;
-  }
-
   @override
   void didUpdateWidget(covariant ShowResultSearch oldWidget) {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
   }
 
-  void getLocationFirebase() async {
-    location = await getLocation();
-  }
-
-  void getRoomFirebase() async {
-    room = await getRoomAreaByLocation_Id();
-  }
-
   @override
   void initState() {
-    getLocationFirebase();
-    getRoomFirebase();
     controllerTF = TransformationController();
-
+    final zoomFactor = 1.5;
+    final xTranslate = widget.locationResult["room"].x.toDouble();
+    final yTranslate = widget.locationResult["room"].y.toDouble();
+    controllerTF.value.setEntry(0, 0, zoomFactor);
+    controllerTF.value.setEntry(1, 1, zoomFactor);
+    controllerTF.value.setEntry(2, 2, zoomFactor);
+    controllerTF.value.setEntry(0, 3, -xTranslate);
+    controllerTF.value.setEntry(1, 3, -yTranslate);
     // debugPrint(widget.jsonFloorplan);
     load();
     Future.delayed(Duration(milliseconds: 300)).then((_) {
@@ -316,7 +280,6 @@ class _ShowResultSearchState extends State<ShowResultSearch>
                       case ConnectionState.done:
                         if (snapshot.hasData && !snapshot.hasError) {
                           roomsAndObj = (snapshot.data ?? []) as List<dynamic>;
-
                           final data = {
                             "schema":
                                 "https://evoko.app/schema/floorplan.schema.json",
@@ -350,7 +313,12 @@ class _ShowResultSearchState extends State<ShowResultSearch>
                   },
                 ),
                 foregroundPainter: CirclePainterResult(
-                    location.x, location.y, room.x, room.y, room.w, room.h),
+                    widget.locationResult["location"].x,
+                    widget.locationResult["location"].y,
+                    widget.locationResult["room"].x,
+                    widget.locationResult["room"].y,
+                    widget.locationResult["room"].w,
+                    widget.locationResult["room"].h),
               ),
             ),
           ])),
@@ -385,35 +353,66 @@ class _ShowResultSearchState extends State<ShowResultSearch>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Phòng ${room.roomName}",
+                    "Phòng ${widget.locationResult["room"].roomName}",
                     style: TextStyle(fontSize: 20),
                   ),
                   SizedBox(
                     height: 5,
                   ),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(shape: StadiumBorder()),
-                      onPressed: () {
-                        // Navigator.pushReplacement(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => MyApp(
-                        //           search_location_finish:
-                        //               widget.locationResult),
-                        //     ));
-                        Navigator.pop(context);
-                        Navigator.pop(context, widget.locationResult);
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.directions),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text("Đường đi")
-                        ],
-                      )),
+                  Row(
+                    children: [
+                      ElevatedButton(
+                          style:
+                              ElevatedButton.styleFrom(shape: StadiumBorder()),
+                          onPressed: () {
+                            // Navigator.pushReplacement(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => MyApp(
+                            //           search_location_finish:
+                            //               widget.locationResult),
+                            //     ));
+                            Navigator.pop(context);
+                            Navigator.pop(context, widget.locationResult);
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.directions),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text("Đường đi")
+                            ],
+                          )),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              shape: StadiumBorder(),
+                              backgroundColor:
+                                  ui.Color.fromARGB(255, 226, 209, 209)),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          },
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.close, color: Colors.black),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                "Trở về",
+                                style: TextStyle(color: Colors.black),
+                              )
+                            ],
+                          )),
+                    ],
+                    mainAxisSize: MainAxisSize.min,
+                  )
                 ]),
           );
         });

@@ -1,8 +1,12 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:floorplans/model/LocationModel.dart';
 import 'package:floorplans/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+
+import '../model/RoomModel.dart';
 
 double parseNumber(dynamic number) => (number as num).toDouble();
 
@@ -75,4 +79,34 @@ Widget logoutButton(BuildContext context) {
         );
       },
       icon: Icon(Icons.door_back_door_rounded));
+}
+
+Future<Room> getRoomAreaByLocation_Id(Location location) async {
+  var snapshot = (await FirebaseFirestore.instance
+      .collection('Room')
+      .where('location_id', isEqualTo: location.id)
+      .get());
+  late final Room room;
+  print("snapshot.docs.length ${snapshot.docs.length}");
+  if (snapshot.docs.length == 1) {
+    snapshot.docs.forEach((element) {
+      var document = element.data();
+      room = Room.fromMap(document);
+    });
+  }
+  return room;
+}
+
+Future<Location> getLocation(int locationId) async {
+  var snapshot = (await FirebaseFirestore.instance
+      .collection('Location')
+      .where('location_id', isEqualTo: locationId)
+      .get());
+  late final Location location;
+
+  snapshot.docs.forEach((element) {
+    var document = element.data();
+    location = Location.fromJson(document);
+  });
+  return location;
 }

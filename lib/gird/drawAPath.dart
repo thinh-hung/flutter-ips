@@ -39,7 +39,8 @@ class LinePainter extends CustomPainter {
             15,
             paint1);
       } //màu nút
-      if (i == this.listPosition.length - 2 && this.listPosition[i].id < 35) {
+      if (i == this.listPosition.length - 2 &&
+          this.listPosition[i].map_id == mapid) {
         canvas.drawCircle(
             Offset(listPosition[i + 1].x.toDouble(),
                 listPosition[i + 1].y.toDouble()),

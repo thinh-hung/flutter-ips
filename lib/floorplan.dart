@@ -22,6 +22,8 @@ import 'gird/gird_painter.dart';
 import 'localizations/localizationalgorithms.dart';
 import 'package:flutter/material.dart';
 
+import 'model/RoomModel.dart';
+
 class Floorplan extends StatefulWidget {
   int search_location_finish = 0;
   int map_id = 1;
@@ -181,25 +183,28 @@ class _FloorplanState extends State<Floorplan>
             top: element.y,
             left: element.x,
             child: InkWell(
-              onTap: () {
-                print(element.idLocation.toString());
-                setState(() {
-                  element.fill = element.fill == element.baseFill
-                      ? Colors.brown[300]
-                      : element.baseFill;
-                  element.frame = element.frame == element.baseFrame
-                      ? Colors.white
-                      : element.baseFrame;
-                  idcolor = element.idLocation!;
-                });
-
+              onTap: () async {
+                if (element.idLocation.toString() != null) {
+                  setState(() {
+                    element.fill = element.fill == element.baseFill
+                        ? Colors.brown[300]
+                        : element.baseFill;
+                    element.frame = element.frame == element.baseFrame
+                        ? Colors.white
+                        : element.baseFrame;
+                    idcolor = element.idLocation!;
+                  });
+                }
                 if (idroom != 0) {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            ShowResultSearch(locationResult: idroom),
-                      ));
+                  Location location = await getLocation(idroom);
+                  Room room = await getRoomAreaByLocation_Id(location);
+                  Map<String, dynamic> dataSearch = {
+                    "location": location,
+                    "room": room,
+                  };
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return ShowResultSearch(locationResult: dataSearch);
+                  }));
                 }
               },
               child: Ink(

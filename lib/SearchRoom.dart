@@ -2,9 +2,13 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/element/rectelement.dart';
+import 'package:floorplans/model/LocationModel.dart';
 import 'package:floorplans/showResultSearch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import 'function/utils.dart';
+import 'model/RoomModel.dart';
 
 class SearchRoom extends SearchDelegate {
   static int idLocation = 0;
@@ -97,15 +101,18 @@ class SearchRoom extends SearchDelegate {
       itemBuilder: (context, index) {
         var result = matchQuery[index];
         return InkWell(
-            onTap: () {
+            onTap: () async {
+              Map<String, dynamic> dataSearch =
+                  await getDataResult(result['id']);
               close(context, result['id']);
-              _navigateAndDisplaySelection(context, result['id']);
+              _navigateAndDisplaySelection(context, dataSearch);
               // Navigator.pushReplacement(
               //     context,
               //     MaterialPageRoute(
               //       builder: (context) =>
               //           ShowResultSearch(locationResult: result['id']),
               //     ));
+              // Map<String, dynamic> dataSearch = await getDataResult(id);
             },
             child: ListTile(
               title: Text(
@@ -117,14 +124,25 @@ class SearchRoom extends SearchDelegate {
     );
   }
 
+  Future<Map<String, dynamic>> getDataResult(int id) async {
+    Location location = await getLocation(id);
+    Room room = await getRoomAreaByLocation_Id(location);
+    Map<String, dynamic> dataSearch = {
+      "location": location,
+      "room": room,
+    };
+    return dataSearch;
+  }
+
   Future<void> _navigateAndDisplaySelection(
-      BuildContext context, int id) async {
+      BuildContext context, Map<String, dynamic> dataSearch) async {
+    // print("id $id");
+
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => ShowResultSearch(locationResult: id)),
+          builder: (context) => ShowResultSearch(locationResult: dataSearch)),
     );
-    print("result $result");
     idLocation = result;
   }
 }
