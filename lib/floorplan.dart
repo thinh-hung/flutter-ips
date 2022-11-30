@@ -37,6 +37,7 @@ class Floorplan extends StatefulWidget {
 
 class _FloorplanState extends State<Floorplan>
     with SingleTickerProviderStateMixin {
+  bool isNotComplete = true;
   late RootElement root;
   late TransformationController controllerTF;
   late AnimationController controller;
@@ -46,6 +47,7 @@ class _FloorplanState extends State<Floorplan>
   Dijkstra a = Dijkstra();
   bool openFloor = false;
   bool closeFloor = false;
+  int t = 1;
 
   List<Location> listPosition = [];
   Localization localization = Localization();
@@ -85,9 +87,18 @@ class _FloorplanState extends State<Floorplan>
 
   @override
   void didUpdateWidget(covariant Floorplan oldWidget) {
+    print("widget.search_location");
+    print(widget.search_location_finish);
     // TODO: implement didUpdateWidget
     // print("getLocationId : ${SearchRoom.getLocationId()}");
-    widget.search_location_finish = SearchRoom.getLocationId();
+    widget.search_location_finish = SearchRoom.getLocationId(t);
+
+    print("widget.search_location");
+    print(widget.search_location_finish);
+    // print("isnotcommplete $isNotComplete");
+    // if (isNotComplete == false) {
+    //   widget.search_location_finish = 0;
+    // }
     super.didUpdateWidget(oldWidget);
     centerXList = bleController.selectedCenterXList;
     centerYList = bleController.selectedCenterYList;
@@ -325,18 +336,6 @@ class _FloorplanState extends State<Floorplan>
 
   @override
   Widget build(BuildContext context) {
-    List<int> stairList = [
-      2,
-      6,
-      30,
-      31,
-    ];
-    List<int> endStairList = [
-      35,
-      40,
-      62,
-      70,
-    ];
     localization.addAnchorNode(bleController.anchorList);
 
     if (localization.conditionMet) {
@@ -352,6 +351,20 @@ class _FloorplanState extends State<Floorplan>
           widget
               .search_location_finish); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3
       listPosition = a.getWayPoint();
+      if (listPosition.length > 1 && isNotComplete) {
+        bool b1 = xyMinMax.dx >= listPosition[listPosition.length - 1].x - 10;
+        bool b2 = xyMinMax.dx <= listPosition[listPosition.length - 1].x + 10;
+        bool b3 = xyMinMax.dy >= listPosition[listPosition.length - 1].y - 10;
+        bool b4 = xyMinMax.dy <= listPosition[listPosition.length - 1].y + 10;
+        if (b1 && b2 && b3 && b4) {
+          setState(() {
+            // controller.stop();
+            isNotComplete = false;
+
+            showDialog();
+          });
+        }
+      }
     }
     // for (int i = 0; i < listPosition.length; i++) {
     //   var element = listPosition[i];
@@ -381,10 +394,7 @@ class _FloorplanState extends State<Floorplan>
     //   } else {
     //     closeFloor = false;
     //   }
-    //   // bool b1 = a.x >= listPosition[listPosition.length - 1].x - 10;
-    //   // bool b2 = a.x <= listPosition[listPosition.length - 1].x + 10;
-    //   // bool b3 = a.y >= listPosition[listPosition.length - 1].y - 10;
-    //   // bool b4 = a.y <= listPosition[listPosition.length - 1].y + 10;
+
     //   // if (b1 &&
     //   //     b2 &&
     //   //     b3 &&
@@ -507,7 +517,9 @@ class _FloorplanState extends State<Floorplan>
         title: 'Hoàn tất chỉ đường',
         desc: 'Bạn đã đến được địa điểm cần tìm',
         btnOkOnPress: () {
-          debugPrint('OnClcik');
+          t = 0;
+          isNotComplete = true;
+          listPosition.clear();
         },
         btnOkIcon: Icons.check_circle,
         onDismissCallback: (type) {

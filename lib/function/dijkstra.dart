@@ -21,7 +21,6 @@ class Dijkstra {
   List<String> floorLisst = ['assets/floorplan.json', 'assets/floor2.json'];
   var bleController = Get.put(BLEResult());
   List<List<double>> adj = [];
-  late double x, y;
 
   var listLocationS;
   var pathS;

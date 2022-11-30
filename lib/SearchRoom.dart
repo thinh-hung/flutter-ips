@@ -12,7 +12,10 @@ import 'model/RoomModel.dart';
 
 class SearchRoom extends SearchDelegate {
   static int idLocation = 0;
-  static int getLocationId() {
+  static int getLocationId(int t) {
+    if (t == 0) {
+      return 0;
+    }
     return idLocation;
   }
 
