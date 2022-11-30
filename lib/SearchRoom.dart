@@ -143,6 +143,7 @@ class SearchRoom extends SearchDelegate {
       MaterialPageRoute(
           builder: (context) => ShowResultSearch(locationResult: dataSearch)),
     );
+    print(result);
     idLocation = result;
   }
 }

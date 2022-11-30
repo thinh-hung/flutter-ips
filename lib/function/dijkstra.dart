@@ -189,7 +189,7 @@ class Dijkstra {
       if (positionList[i].id == 0) {
         positionList[i].x = currentX;
         positionList[i].y = currentY;
-        positionList[i].map_id = floorNumber;
+        positionList[i].map_id = floorNumber + 1;
         print("X0: " + positionList[i].x.toString());
         print("Y0: " + positionList[i].y.toString());
       }

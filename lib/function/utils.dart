@@ -87,13 +87,11 @@ Future<Room> getRoomAreaByLocation_Id(Location location) async {
       .where('location_id', isEqualTo: location.id)
       .get());
   late final Room room;
-  print("snapshot.docs.length ${snapshot.docs.length}");
-  if (snapshot.docs.length == 1) {
-    snapshot.docs.forEach((element) {
-      var document = element.data();
-      room = Room.fromMap(document);
-    });
-  }
+  snapshot.docs.forEach((element) {
+    var document = element.data();
+    room = Room.fromMap(document);
+  });
+
   return room;
 }
 

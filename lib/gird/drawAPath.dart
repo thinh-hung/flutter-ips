@@ -47,7 +47,8 @@ class LinePainter extends CustomPainter {
             15,
             paint2);
       } //màu nút
-      if (this.listPosition[i].id < 35) {
+      if (this.listPosition[i].map_id == mapid) {
+        print("listPosition[i] ${listPosition[i].id}");
         canvas.drawLine(
             Offset(listPosition[i].x.toDouble(), listPosition[i].y.toDouble()),
             Offset(listPosition[i + 1].x.toDouble(),

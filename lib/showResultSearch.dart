@@ -347,7 +347,7 @@ class _ShowResultSearchState extends State<ShowResultSearch>
         builder: (builder) {
           return Container(
             padding: const EdgeInsets.all(15),
-            height: 120,
+            height: 129,
             child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -373,7 +373,8 @@ class _ShowResultSearchState extends State<ShowResultSearch>
                             //               widget.locationResult),
                             //     ));
                             Navigator.pop(context);
-                            Navigator.pop(context, widget.locationResult);
+                            Navigator.pop(
+                                context, widget.locationResult["location"].id);
                           },
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
