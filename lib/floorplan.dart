@@ -92,7 +92,7 @@ class _FloorplanState extends State<Floorplan>
     // TODO: implement didUpdateWidget
     // print("getLocationId : ${SearchRoom.getLocationId()}");
     widget.search_location_finish = SearchRoom.getLocationId(t);
-
+    t = 1;
     print("widget.search_location");
     print(widget.search_location_finish);
     // print("isnotcommplete $isNotComplete");
@@ -352,11 +352,12 @@ class _FloorplanState extends State<Floorplan>
               .search_location_finish); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3
       listPosition = a.getWayPoint();
       if (listPosition.length > 1 && isNotComplete) {
-        bool b1 = xyMinMax.dx >= listPosition[listPosition.length - 1].x - 10;
-        bool b2 = xyMinMax.dx <= listPosition[listPosition.length - 1].x + 10;
-        bool b3 = xyMinMax.dy >= listPosition[listPosition.length - 1].y - 10;
-        bool b4 = xyMinMax.dy <= listPosition[listPosition.length - 1].y + 10;
-        if (b1 && b2 && b3 && b4) {
+        bool b1 = xyMinMax.dx >= listPosition[listPosition.length - 1].x - 20;
+        bool b2 = xyMinMax.dx <= listPosition[listPosition.length - 1].x + 20;
+        bool b3 = xyMinMax.dy >= listPosition[listPosition.length - 1].y - 20;
+        bool b4 = xyMinMax.dy <= listPosition[listPosition.length - 1].y + 20;
+        bool b5 = listPosition[listPosition.length - 2].id == 0;
+        if ((b1 || b2 || b3 || b4) && b5) {
           setState(() {
             // controller.stop();
             isNotComplete = false;
