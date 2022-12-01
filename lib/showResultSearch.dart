@@ -352,9 +352,18 @@ class _ShowResultSearchState extends State<ShowResultSearch>
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Phòng ${widget.locationResult["room"].roomName}",
-                    style: TextStyle(fontSize: 20),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        "Phòng ${widget.locationResult["room"].roomName}",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      Text(
+                        " - Tầng ${widget.locationResult["room"].map_id == 1 ? "Trệt" : widget.locationResult["room"].map_id - 1}",
+                        style: TextStyle(fontSize: 15, color: Colors.grey),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 5,
