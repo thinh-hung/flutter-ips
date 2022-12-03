@@ -8,6 +8,7 @@ import 'package:floorplans/model/LocationModel.dart';
 import 'package:floorplans/showResultSearch.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
 import 'element/Matrix.dart';
 import 'element/baseelement.dart';
 import 'element/beaconelement.dart';
@@ -48,10 +49,24 @@ class _FloorplanState extends State<Floorplan>
   bool openFloor = false;
   bool closeFloor = false;
   int t = 1;
-
+  int time = 0;
+  int time1 = 0;
+  List<String> stringTextTS = [];
+  List<int> endStairList = [
+    35,
+    40,
+    62,
+    70,
+  ];
+  List<int> stairList = [
+    2,
+    6,
+    30,
+    31,
+  ];
   List<Location> listPosition = [];
   Localization localization = Localization();
-
+  List<int> mangTrung = [];
   List<num> radiusList = [];
   List<dynamic> roomsAndObj = [];
 
@@ -334,6 +349,22 @@ class _FloorplanState extends State<Floorplan>
     );
   }
 
+  Future<void> textToSpeech(String text, int time) async {
+    final player = AudioPlayer();
+    if (time == 0) {
+      String url = await makePostRequest(text);
+      print(url);
+      if (url != "") {
+        if (player.playing) {
+          player.pause();
+          player.stop();
+        }
+        await player.setUrl(url);
+        player.play();
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     localization.addAnchorNode(bleController.anchorList);
@@ -349,8 +380,30 @@ class _FloorplanState extends State<Floorplan>
           xyMinMax.dy.toInt(),
           widget.map_id - 1,
           widget
-              .search_location_finish); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3
+              .search_location_finish); // so 1 la stt tang vd tang tret thi 0 --> tang dan 1 .2.3 &&  && stairList.contains(listPosition[1].id)
       listPosition = a.getWayPoint();
+      if (listPosition.length > 3) {
+        if (stairList.contains(listPosition[1].id) &&
+            endStairList.contains(listPosition[2].id) &&
+            time >= 0) {
+          textToSpeech("Mời bạn lên cầu thang", time);
+          time++;
+        }
+        if (stairList.contains(listPosition[2].id) &&
+            endStairList.contains(listPosition[1].id) &&
+            time1 >= 0) {
+          textToSpeech("Mời xuống  cầu thang", time1);
+          time1++;
+        }
+        if ((!stairList.contains(listPosition[1].id) &&
+            !endStairList.contains(listPosition[2].id))) {
+          time = 0;
+        }
+        if ((!stairList.contains(listPosition[2].id) &&
+            !endStairList.contains(listPosition[1].id))) {
+          time1 = 0;
+        }
+      }
       if (listPosition.length > 1 && isNotComplete) {
         bool b1 = xyMinMax.dx >= listPosition[listPosition.length - 1].x - 20;
         bool b2 = xyMinMax.dx <= listPosition[listPosition.length - 1].x + 20;
@@ -361,7 +414,9 @@ class _FloorplanState extends State<Floorplan>
           setState(() {
             // controller.stop();
             isNotComplete = false;
-
+            textToSpeech(
+                'Bạn đã đến được địa địa điểm cần tìm, cảm ơn bạn đã sử dụng tính năng',
+                0);
             showDialog();
           });
         }

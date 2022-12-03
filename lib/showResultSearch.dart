@@ -5,6 +5,7 @@ import 'package:floorplans/main.dart';
 import 'package:floorplans/model/RoomModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:just_audio/just_audio.dart';
 
 import 'element/Matrix.dart';
 import 'element/baseelement.dart';
@@ -246,6 +247,22 @@ class _ShowResultSearchState extends State<ShowResultSearch>
     );
   }
 
+  Future<void> textToSpeech(String text, int time) async {
+    final AudioPlayer player = AudioPlayer();
+    if (time == 0) {
+      String url = await makePostRequest(text);
+      print(url);
+      if (url != "") {
+        if (player.playing) {
+          player.pause();
+          player.stop();
+        }
+        await player.setUrl(url);
+        player.play().then((_) => player.dispose().ignore());
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -381,6 +398,20 @@ class _ShowResultSearchState extends State<ShowResultSearch>
                             //           search_location_finish:
                             //               widget.locationResult),
                             //     ));
+
+                            textToSpeech(
+                                "Hệ thống sẽ tính toán đường đi cho bạn, vui lòng chờ trong giây lát.",
+                                0);
+
+                            Future.delayed(
+                              const Duration(seconds: 8),
+                              () {
+                                textToSpeech(
+                                    "Đã tính toán xong, mời bạn đi theo chỉ dẫn",
+                                    0);
+                              },
+                            );
+
                             Navigator.pop(context);
                             Navigator.pop(
                                 context, widget.locationResult["location"].id);

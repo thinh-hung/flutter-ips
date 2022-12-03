@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:math';
 
+import 'package:http/http.dart' as http;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floorplans/model/LocationModel.dart';
 import 'package:floorplans/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:just_audio/just_audio.dart';
 
 import '../model/RoomModel.dart';
 
@@ -107,4 +110,25 @@ Future<Location> getLocation(int locationId) async {
     location = Location.fromJson(document);
   });
   return location;
+}
+
+Future<String> makePostRequest(String text) async {
+  String api = "NQar8hxWTYGXT7mXH7cbjjbneP1XNCjC";
+  String url = 'https://api.fpt.ai/hmi/tts/v5';
+  Map<String, String> headers = {
+    "api_key": api,
+    'Speech': '',
+    'voice': 'banmai'
+  };
+  // tạo POST request
+  http.Response response =
+      await http.post(Uri.parse(url), headers: headers, body: text);
+  int statusCode = response.statusCode;
+  String body = response.body;
+
+  if (statusCode == 200) {
+    String a = jsonDecode(body.toString())["async"];
+    return a;
+  }
+  return "";
 }

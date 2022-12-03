@@ -43,6 +43,8 @@ dependencies:
   awesome_dialog: ^3.0.2
   path_provider: ^2.0.11
   cloud_firestore: ^4.0.3
+  just_audio: ^0.9.30
+  just_audio_background: ^0.0.1-beta.8
 dev_dependencies:
   flutter_test:
     sdk: flutter
