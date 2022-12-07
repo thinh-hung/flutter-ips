@@ -1,7 +1,7 @@
 Đối tác cần triển khai ứng dụng tại một tòa nhà, admin cần cài đặt các tài nguyên để hệ thống hoạt động.
 
 **Bước 1:** Đăng nhập vào hệ thống với tài khoản Admin
-[Imgur](https://imgur.com/Jqx6eyD)
+[Imgur](https://imgur.com/Jqx6eyD.png)
 **Bước 2:** Chọn tầng muốn chỉnh sửa
 [Imgur](https://imgur.com/Rfl6orS)
 **Bước 3: **Hiển thị bản đồ của tầng đã chọn, sau đó chọn thanh bên để hiển thị các chức năng quản lý.
