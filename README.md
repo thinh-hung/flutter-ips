@@ -1,7 +1,8 @@
 # Hệ thống dẫn đường trong nhà dựa trên công nghệ bluetooth năng lượng thấp
 ## Phần video demo sản phẩm cuối cùng
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/aprZS4pVvWE/0.jpg)](https://www.youtube.com/watch?v=aprZS4pVvWE)
-(https://www.youtube.com/watch?v=aprZS4pVvWE)
+
+https://www.youtube.com/watch?v=aprZS4pVvWE
 
 # Phụ lục
 Đối tác cần triển khai ứng dụng tại một tòa nhà, admin cần cài đặt các tài nguyên để hệ thống hoạt động.
