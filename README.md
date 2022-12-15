@@ -1,6 +1,6 @@
 # Hệ thống dẫn đường trong nhà dựa trên công nghệ bluetooth năng lượng thấp
 ## Phần video demo sản phẩm cuối cùng
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/aprZS4pVvWE/0.jpg)](https://www.youtube.com/watch?v=aprZS4pVvWE)
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/lVB7t6Zu1CQ/0.jpg)](https://www.youtube.com/watch?v=lVB7t6Zu1CQ)
 
 https://www.youtube.com/watch?v=aprZS4pVvWE
 
