@@ -58,30 +58,30 @@ class draweruser extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           SizedBox(
-            height: MediaQuery.of(context).size.height / 2.3,
+            height: MediaQuery.of(context).size.height / 2,
             child: DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.white,
               ),
               child: Container(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: Image.asset('assets/images/logo.jpg'),
-                      ),
-                      SizedBox(height: 20),
-                      Text('Hệ thống định vị tòa nhà',
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold)),
-                      SizedBox(height: 20),
-                      Text('Công nghệ Bluetooth năng lượng thấp',
-                          style: TextStyle(color: Colors.black, fontSize: 15)),
-                    ],
-                  )),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    child: Image.asset('assets/images/logo.jpg'),
+                  ),
+                  SizedBox(height: 20),
+                  Text('Hệ thống định vị tòa nhà',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold)),
+                  SizedBox(height: 20),
+                  Text('Công nghệ Bluetooth năng lượng thấp',
+                      style: TextStyle(color: Colors.black, fontSize: 15)),
+                ],
+              )),
             ),
           ),
           for (int i = 0; i < listname.length; i++)
